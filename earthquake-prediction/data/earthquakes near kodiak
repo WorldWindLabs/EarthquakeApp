@@ -1,0 +1,19 @@
+time,latitude,longitude,depth,mag,magType,nst,gap,dmin,rms,net,id,updated,place,type,horizontalError,depthError,magError,magNst,status,locationSource,magSource
+2016-05-31T16:58:33.000Z,57.3634,-153.2564,33.2,2,ml,,,,0.49,ak,ak13631274,2016-06-03T20:37:20.972Z,"47km ESE of Larsen Bay, Alaska",earthquake,2.6,2.7,,,reviewed,ak,ak
+2016-05-31T10:40:10.000Z,58.1245,-154.8279,3,2.2,ml,,,,0.84,ak,ak13616586,2016-06-03T20:35:51.613Z,"82km NW of Larsen Bay, Alaska",earthquake,0.3,0.4,,,reviewed,ak,ak
+2016-05-30T10:09:37.000Z,57.3223,-154.7372,64.8,2,ml,,,,0.89,ak,ak13613897,2016-06-03T22:58:18.584Z,"51km WSW of Larsen Bay, Alaska",earthquake,0.8,2.3,,,reviewed,ak,ak
+2016-05-30T02:51:24.000Z,57.7179,-155.1381,96,2.2,ml,,,,0.59,ak,ak13613059,2016-06-03T22:59:55.360Z,"72km WNW of Larsen Bay, Alaska",earthquake,0.7,0.6,,,reviewed,ak,ak
+2016-05-29T18:06:49.000Z,58.7825,-154.438,107.3,1.8,ml,,,,0.73,ak,ak13612196,2016-06-04T02:35:34.135Z,"111km SSE of Old Iliamna, Alaska",earthquake,0.8,0.9,,,reviewed,ak,ak
+2016-05-29T11:06:25.000Z,58.2706,-155.2748,4.7,1.8,ml,,,,0.73,ak,ak13611661,2016-06-04T02:34:50.594Z,"93km ESE of King Salmon, Alaska",earthquake,0.7,0.7,,,reviewed,ak,ak
+2016-05-29T09:08:51.000Z,58.2537,-155.1431,5,2.2,ml,,,,0.51,ak,ak13611630,2016-06-04T02:34:49.054Z,"100km ESE of King Salmon, Alaska",earthquake,0.5,0.2,,,reviewed,ak,ak
+2016-05-28T19:23:42.000Z,57.0607,-155.537,77.8,1.9,ml,10,140.399988768001,,0.63,ak,ak13636478,2016-06-07T21:56:00.558Z,"108km WSW of Larsen Bay, Alaska",earthquake,1,1.6,,,reviewed,ak,ak
+2016-05-28T15:05:41.000Z,56.536,-154.809,26.8,2.6,ml,,,,0.86,ak,ak13610121,2016-06-07T21:56:19.253Z,"93km NNE of Chirikof Island, Alaska",earthquake,0.6,1.1,,,automatic,ak,ak
+2016-05-28T07:12:00.000Z,58.752,-153.7994,15.9,2.4,ml,,,,0.81,ak,ak13609594,2016-06-07T21:56:46.080Z,"128km SSE of Old Iliamna, Alaska",earthquake,0.3,0.1,,,reviewed,ak,ak
+2016-05-26T21:17:56.000Z,58.0875,-151.452,30.4,1.5,ml,,,,0.52,ak,ak13612187,2016-05-29T18:38:53.330Z,"65km ENE of Kodiak, Alaska",earthquake,5,10.5,,,reviewed,ak,ak
+2016-05-26T10:51:40.000Z,56.8415,-154.8249,54.6,1.7,ml,,,,0.35,ak,ak13612119,2016-05-29T18:19:58.097Z,"93km SSW of Larsen Bay, Alaska",earthquake,0.9,1.8,,,reviewed,ak,ak
+2016-05-26T05:19:41.000Z,57.8645,-155.4488,11.4,1.8,ml,,,,0.62,ak,ak13606690,2016-05-29T18:20:33.800Z,"94km WNW of Larsen Bay, Alaska",earthquake,0.4,0.4,,,reviewed,ak,ak
+2016-05-26T04:12:56.000Z,57.7538,-155.144,63.4,1.9,ml,,,,0.69,ak,ak13612087,2016-05-29T18:19:46.776Z,"73km WNW of Larsen Bay, Alaska",earthquake,0.6,0.6,,,reviewed,ak,ak
+2016-05-25T03:19:30.000Z,58.4664,-153.6674,58.5,2,ml,,,,0.7,ak,ak13619094,2016-06-01T01:28:04.582Z,"100km NW of Kodiak Station, Alaska",earthquake,1,2.3,,,reviewed,ak,ak
+2016-05-24T10:02:40.000Z,57.1274,-155.042,53.8,2.2,ml,,,,0.25,ak,ak13605569,2016-05-30T22:07:25.685Z,"78km SW of Larsen Bay, Alaska",earthquake,0.6,1.3,,,reviewed,ak,ak
+2016-05-24T03:25:50.000Z,58.1367,-154.5279,7.2,1.6,ml,,,,0.68,ak,ak13615019,2016-05-30T22:07:06.191Z,"74km NNW of Larsen Bay, Alaska",earthquake,1,0.8,,,reviewed,ak,ak
+2016-05-23T02:18:29.000Z,58.1514,-151.2825,49.3,3.5,ml,,,,0.78,ak,ak13603498,2016-06-07T03:33:32.720Z,"77km ENE of Kodiak, Alaska",earthquake,0.6,1.6,,,reviewed,ak,ak
