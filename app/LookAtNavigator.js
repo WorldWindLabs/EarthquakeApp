@@ -137,7 +137,7 @@ define([
 		            eyePoint = navigatorState.eyePoint,
 		            eyePos = worldWindow.globe.computePositionFromPoint(eyePoint[0], eyePoint[1], eyePoint[2], scratchPos);
 
-		        console.log(eyePos.altitude);
+		        //console.log(eyePos.altitude);
 
 		        var minMagnitude = $("#magSlider").slider("values",0);
 		        var maxMagnitude = $("#magSlider").slider("values",1);
@@ -146,7 +146,7 @@ define([
 
 		        window.limitQuery = ~~(-0.00003725855*eyePos.altitude + 1000.093025);
 
-		        window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, worldWindow.layers[worldWindow.layers.length-1]);
+		        window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, worldWindow.layers[1]);
 	        };
 
             // Register wheel event listeners on the WorldWindow's canvas.
