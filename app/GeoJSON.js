@@ -7,7 +7,6 @@ var limitQuery = 50;
 
 var redraw = function(minMagnitude, maxMagnitude, minDate, maxDate, limit, layer)
 {
-	console.log("fuck " + limit.toString());
 	var currentTimeUTC = +new Date();
 	var minDateISO = new Date(currentTimeUTC + minDate*24*60*60*1000).toISOString().split(/[-]+/);
 	var maxDateISO = new Date(currentTimeUTC + maxDate*24*60*60*1000).toISOString().split(/[-]+/);
@@ -15,14 +14,14 @@ var redraw = function(minMagnitude, maxMagnitude, minDate, maxDate, limit, layer
 	maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
 
 	layer.removeAllRenderables();
-	console.log("removed renders");
+
 	var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
 	var query = "starttime="+minDateISO.join('-')+"&endtime="+maxDateISO.join('-')+"&minmagnitude=" +
-	            minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString() + "&orderby=magnitude&limit=" + limit.toString();
+	            minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString() + "&orderby=magnitude&limit=" +
+	            limit.toString();
 	var polygonGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "&" + query);
-	console.log("got query");
+
 	polygonGeoJSON.load(shapeConfigurationCallback, layer);
-	console.log("loaded geojson shit");
 };
 
 
@@ -48,7 +47,7 @@ var shapeConfigurationCallback = function (geometry, properties)
 		 configuration.name = properties.place;
 		 }
 		 */
-
+		/*
 		if (properties && properties.time)
 		{
 			var date = (+new Date(properties.time));
@@ -71,12 +70,72 @@ var shapeConfigurationCallback = function (geometry, properties)
 				configuration.attributes.imageColor = WorldWind.Color.RED;
 			}
 		}
-
+		*/
 		if (properties && properties.mag)
 		{
 			var min = $("#magSlider").slider("values",0);
 			var max = $("#magSlider").slider("values",1);
 			configuration.attributes.imageScale = ((properties.mag - min + 1) / (max - min)) * 0.25;
+
+			configuration.attributes.imageColor = WorldWind.Color.TRANSPARENT;
+		}
+
+		if (geometry && geometry['coordinates'])
+		{
+			geometry['coordinates'][2] *= 1000;
+
+
+
+			var boundaries = [];
+			boundaries[0] = []; // outer boundary
+			var altitude = geometry['coordinates'][2]*-4 - 10000;
+			var x = ((properties.mag - min + 1) / (max - min));
+			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]-x, geometry['coordinates'][0]-x, altitude));
+			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]-x, geometry['coordinates'][0]+x, altitude));
+			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]+x, geometry['coordinates'][0]+x, altitude));
+			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]+x, geometry['coordinates'][0]-x, altitude));
+
+			var polygon = new WorldWind.Polygon(boundaries, null);
+			polygon.altitudeMode = WorldWind.ABSOLUTE;
+			polygon.extrude = true;
+			polygon.textureCoordinates = [
+				[new WorldWind.Vec2(0, 0), new WorldWind.Vec2(1, 0), new WorldWind.Vec2(1, 1), new WorldWind.Vec2(0, 1)]
+			];
+
+			var polygonAttributes = new WorldWind.ShapeAttributes(null);
+
+			var date = (+new Date(properties.time));
+			var utcDate  = (+new Date());
+
+			if (utcDate - date > (30*24*60*60*1000))
+			{
+				polygonAttributes.interiorColor = WorldWind.Color.GREEN;
+			}
+			else if (utcDate - date > (8*24*60*60*1000))
+			{
+				polygonAttributes.interiorColor = WorldWind.Color.YELLOW;
+			}
+			else if (utcDate - date > (24*60*60*1000))
+			{
+				polygonAttributes.interiorColor = WorldWind.Color.ORANGE;
+			}
+			else
+			{
+				polygonAttributes.interiorColor = WorldWind.Color.RED;
+			}
+
+			polygonAttributes.drawInterior = true;
+			polygonAttributes.drawOutline = false;
+
+			polygonAttributes.drawVerticals = polygon.extrude;
+			polygonAttributes.applyLighting = true;
+			polygon.attributes = polygonAttributes;
+
+			var highlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
+			highlightAttributes.outlineColor = WorldWind.Color.RED;
+			polygon.highlightAttributes = highlightAttributes;
+
+			window.wwd.layers[1].addRenderable(polygon);
 		}
 	}
 
@@ -84,24 +143,35 @@ var shapeConfigurationCallback = function (geometry, properties)
 	return configuration;
 };
 
+
+
 requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './CoordinateController'],
     function (ww, LayerManager, AnnotationController, CoordinateController)
     {
         "use strict";
 
+	    var wwd = new WorldWind.WorldWindow("canvasOne");
+
+	    window.wwd = wwd;
+
         WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
 
-        var wwd = new WorldWind.WorldWindow("canvasOne");
+
 
 	    var annotationController = new AnnotationController(wwd);
 
         var layers = [
-            {layer: new WorldWind.BMNGLayer(), enabled: true},
+	        {layer: new WorldWind.BMNGLayer(), enabled: true},
+	        {layer: new WorldWind.RenderableLayer("Polygon"), enabled:true},
+
+
             {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
             {layer: new WorldWind.CompassLayer(), enabled: false},
             {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
             {layer: new WorldWind.ViewControlsLayer(wwd), enabled: false}
         ];
+	    layers[1]['layer'].opacity = 1;
+	    layers[0]['layer'].opacity = 0.01;
 
         for (var l = 0; l < layers.length; l++)
         {
@@ -109,8 +179,7 @@ requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './Co
             wwd.addLayer(layers[l].layer);
         }
 
-	    var polygonLayer = new WorldWind.RenderableLayer("Polygon");
-	    wwd.addLayer(polygonLayer);
+	    //wwd.addLayer(layers[1]['layer']);
 
 	    var layerManger = new LayerManager(wwd);
 
@@ -119,7 +188,7 @@ requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './Co
 	    var minDate = $("#dateSlider").slider("values",0);
 	    var maxDate = $("#dateSlider").slider("values",1);
 
-	    window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, polygonLayer);
+	    window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, layers[1]['layer']);
 
 	    wwd.goTo(new WorldWind.Position(31.956578,35.945695,25500*1000))
 
