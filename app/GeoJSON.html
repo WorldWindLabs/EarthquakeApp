@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)http://localhost:63342/WebWorldWind/examples/GeoJSON.html?_ijt=1u6mofujcaa10qqc8bpguiu5su -->
+<html lang="en" style="
+    /* min-height: 1200px; */
+"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <!--NOTE: Most Web World Wind examples use jquery, Bootstrap and requirejs but those technologies are NOT-->
+    <!--required by Web World Wind. See SimplestExample.html for an example of using Web World Wind without them.-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script data-main="GeoJSON" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+<body style="">
+
+<div class="">
+
+
+
+    <div class="row" style="
+            height: 100%;
+            position: fixed;
+            width: 100%;
+    ">
+
+        <div class="col-sm-8" id="globe"><div style="text-align: center;height: 100%;">
+            <canvas id="canvasOne" width="1366" height="623" style="
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;">
+                Your browser does not support HTML5 Canvas.
+            </canvas></div>
+        </div>
+        <div class="col-sm-2" style="
+    position: fixed;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    color: #E2E2E2;
+    width: 10%;
+">
+            <br><br>
+            <h5 style="font-size: 100%;text-align: center;">The MIT License is a free software license originating
+                at the Massachusetts
+                Institute of Technology (MIT). It is a permissive free software license, meaning that it puts only
+                very limited restriction on reuse and has therefore an excellent license compatibility.</h5>
+            <br><br>
+        </div><div class="col-sm-2" style="
+    display: inline;
+    position: fixed;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    color: #FFFFFF;
+    width: 15%;
+">
+        <br><br>
+        <div style="text-align: center;"><img src="./GeoJSON_files/nasaLogo-570x450.png" style="
+    width: 75%;
+    height: 75%;
+"></div>
+        <h3 style="text-align:center;font-size: 100%;">NASA World Wind &amp; USGS Earthquake Application</h3>
+        <h4 style="text-align: center;font-size: 70%;">Created by Khaled Sharif &amp; Farah Salah</h4>
+        <br><br>
+
+        <br>
+        <div class="list-group" id="annotationList" style="width: 100%; text-align: center;">
+            <div class="input-group" id="annotationBox" style="width: 100%;text-align: center;align-content: center;">
+
+                <h4 style="
+    font-size: 100%;
+">Date Range</h4>
+                <div id="dateSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style="width: 80%;align-items: center;">
+                    <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 40%; width: 60%;"></div>
+                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 33.3333%;"></span>
+                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span>
+                <div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 66.6667%; left: 33.3333%;"></div></div>
+
+                <h5><span id="dateSliderValue">-20 to 0 days</span></h5><br>
+
+                <br><br>
+
+                <h4 style="
+    font-size: 100%;
+">Magnitude Range</h4>
+                <div id="magSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style="
+    width: 80%;
+">
+                    <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 61.4286%; width: 38.5714%;">
+
+                    </div>
+                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 75.7143%;">
+
+                    </span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;">
+
+                </span><div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 24.2857%; left: 75.7143%;"></div></div><h5><span id="magSliderValue">5.3 to 7 Richter</span></h5><br>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+</body></html>
