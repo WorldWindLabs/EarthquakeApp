@@ -1,3 +1,39 @@
+# NASA World Wind Earthquake Data Analysis code
+# Frozen code is an spatial analysis package, if you want you can download these packages
+# none of it is currently used in the code, but I have it here incase it comes in handy.
+'''
+import geopandas as gpd
+import os
+import fiona
+import folium
+import numpy as np
+import seaborn as sb
+import shapely 
+from shapely.geometry import Point, LineString
+import pandas as pd
+import matplotlib.pyplot as plt
+import pysal as ps
+from pysal.contrib.viz import mapping as maps
+import matplotlib.cm as cms
+# Enable replication
+import random
+random.seed(123456789)
+np.random.seed(123456789)
+
+# Imported from PySQL -- do not change
+from pysal.esda.mapclassify import Quantiles, Equal_Interval, Fisher_Jenks
+schemes = {'equal_interval': Equal_Interval, \
+           'quantiles': Quantiles, \
+           'fisher_jenks': Fisher_Jenks}
+
+srcdir = os.path.join(os.path.expanduser("~"),"Desktop","NASA Proj")
+shpdir = os.path.join(srcdir,'shapes')
+datdir = os.path.join(srcdir,'data')
+outdir = os.path.join(srcdir,'results')
+
+os.chdir(srcdir)
+'''
+#Gabriel's code
 import csv
 import numpy as np
 import datetime
@@ -86,20 +122,20 @@ def loadmagnetic(file):
 
 def getearthquake(minDate, maxDate, origin):
 	
-	minMagnitude = "2.5"
-	maxMagnitude = "10"
+	minMagnitude = "0"
+	#maxMagnitude = "10"
 
 	maxdist = "900"
 
 	resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=csv"
 	dates = "&starttime="+minDate+"&endtime="+maxDate
-	magnitutes = "&includeallmagnitudes=true" 
+	magnitutes = "&minmagnitude"+minMagnitude
 	local = "&latitude=" + origin['lati'] + "&longitude=" + origin['long'] + "&maxradiuskm=" + maxdist
 
 	opener = urllib.FancyURLopener({})
 	f = opener.open(resourcesUrl + dates + magnitutes + local)
 	data = f.read()
-
+	
 	def parse_csv(data):
 		earthquakes = []
 
@@ -112,7 +148,6 @@ def getearthquake(minDate, maxDate, origin):
 		return earthquakes[1:]
 
 	return parse_csv(data)
-
 
 xyzgroup1 = [0, 1, 2]
 def plot_interval(init, final, origin):
@@ -129,23 +164,35 @@ def plot_interval(init, final, origin):
 
 	#graphcoord_time(magnetic_data['vectors'], 0)
 	
-kodiak3 = {'lati': "57.747225", 'long': "-152.496467"}
-plot_interval('10-04-16', '17-04-16', kodiak3)
+#kodiak3 = {'lati': "57.747225", 'long': "-152.496467"}
+#plot_interval('10-04-16', '17-04-16', kodiak3)
 
 ####################################################################################
-'''
-header = ['DateTime', 'X', 'Y', 'Z']
-df = pd.read_csv(os.path.join(datdir,'Kodiak-3', '10-04-16-to-17-04-16.csv'), names = header)
-dft = pd.to_datetime(df.DateTime)
-df.index = dft
-del df['DateTime']
+#Test code for analysis kodiacIC_Anomaly.csv is Kodiak intelecel data for the dates 27-05-2015 - 30-05-2015
 
-eq = getearthquake('10-04-16', '17-04-16', kodiak3)
+kodiakIC = {'lati': '57.79348', 'long': '-152.3932'}
+
+header = ['DateTime', 'X', 'Y', 'Z']
+colnames = ['Date', 'X', 'Y', 'Z']
+df = pd.read_csv(os.path.join(datdir,'kodiakIC_Anomaly.csv'))
+del df['Unnamed: 4']
+df.columns = colnames
+df.interpolate()
+dft = pd.to_datetime(df.Date)
+df.index = dft
+del df['Date']
+
+#f = plt.figure()
+#f = df['X'].plot()
+#plt.show()
+
+#DATE FORMAT FOR 'getearthquake()' IS AMERICAN, YEAR FIRST
+eq = getearthquake('2015-05-27', '2015-05-30', kodiakIC)
+
 header1 = ['DateTime', 'Latitude', 'Longitude', 'EQ_Magnitude']
 eqdf = pd.DataFrame(eq, columns = header1)
-
 eqt = pd.to_datetime(eqdf.DateTime)
 eqdf.index = eqt
 
 del eqdf['DateTime']
-'''
+
