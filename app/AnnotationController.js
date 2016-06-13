@@ -14,7 +14,7 @@ define(function () {
 
 	    this.magSlider.slider({
 		                          range:   true,
-		                          values:  [5.0, 7.0],
+		                          values:  [0.0, 7.0],
 		                          min:     0.0,
 		                          max:     7.0,
 		                          step:    0.1,
@@ -30,7 +30,7 @@ define(function () {
 			                                   var minDate = $("#dateSlider").slider("values",0);
 			                                   var maxDate = $("#dateSlider").slider("values",1);
 			                                   window.redraw(ui.values[0], ui.values[1], minDate, maxDate, window.limitQuery,
-			                                                 worldWindow.layers[worldWindow.layers.length-1]);
+			                                                 worldWindow.layers[1]);
 		                                   }
 
 
@@ -38,7 +38,7 @@ define(function () {
 
 	    this.dateSlider.slider({
 		                           range:   true,
-		                           values:  [-15, -7],
+		                           values:  [-30, -0],
 		                           min:     -30,
 		                           max:     0,
 		                           step:    1,
@@ -53,7 +53,7 @@ define(function () {
 			                                    var minMagnitude = $("#magSlider").slider("values",0);
 			                                    var maxMagnitude = $("#magSlider").slider("values",1);
 			                                    window.redraw(minMagnitude, maxMagnitude, ui.values[0], ui.values[1],  window.limitQuery,
-			                                                  worldWindow.layers[worldWindow.layers.length-1]);
+			                                                  worldWindow.layers[1]);
 
 		                                    }
 	                           });
