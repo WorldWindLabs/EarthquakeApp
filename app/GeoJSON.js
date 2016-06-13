@@ -41,36 +41,6 @@ var shapeConfigurationCallback = function (geometry, properties)
 	{
 		configuration.attributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
 
-		/*
-		 if (properties && properties.place)
-		 {
-		 configuration.name = properties.place;
-		 }
-		 */
-		/*
-		if (properties && properties.time)
-		{
-			var date = (+new Date(properties.time));
-			var utcDate  = (+new Date());
-
-			if (utcDate - date > (30*24*60*60*1000))
-			{
-				configuration.attributes.imageColor = WorldWind.Color.GREEN;
-			}
-			else if (utcDate - date > (8*24*60*60*1000))
-			{
-				configuration.attributes.imageColor = WorldWind.Color.YELLOW;
-			}
-			else if (utcDate - date > (24*60*60*1000))
-			{
-				configuration.attributes.imageColor = WorldWind.Color.ORANGE;
-			}
-			else
-			{
-				configuration.attributes.imageColor = WorldWind.Color.RED;
-			}
-		}
-		*/
 		if (properties && properties.mag)
 		{
 			var min = $("#magSlider").slider("values",0);
@@ -84,11 +54,9 @@ var shapeConfigurationCallback = function (geometry, properties)
 		{
 			geometry['coordinates'][2] *= 1000;
 
-
-
 			var boundaries = [];
-			boundaries[0] = []; // outer boundary
-			var altitude = geometry['coordinates'][2]*-4 - 10000;
+			boundaries[0] = [];
+			var altitude = geometry['coordinates'][2]*4 + 10000;
 			var x = ((properties.mag - min + 1) / (max - min));
 			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]-x, geometry['coordinates'][0]-x, altitude));
 			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]-x, geometry['coordinates'][0]+x, altitude));
@@ -151,35 +119,30 @@ requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './Co
         "use strict";
 
 	    var wwd = new WorldWind.WorldWindow("canvasOne");
-
 	    window.wwd = wwd;
 
         WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
-
-
 
 	    var annotationController = new AnnotationController(wwd);
 
         var layers = [
 	        {layer: new WorldWind.BMNGLayer(), enabled: true},
 	        {layer: new WorldWind.RenderableLayer("Polygon"), enabled:true},
-
-
+	        
             {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
             {layer: new WorldWind.CompassLayer(), enabled: false},
             {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
             {layer: new WorldWind.ViewControlsLayer(wwd), enabled: false}
         ];
+
+	    layers[0]['layer'].opacity = 1;
 	    layers[1]['layer'].opacity = 1;
-	    layers[0]['layer'].opacity = 0.01;
 
         for (var l = 0; l < layers.length; l++)
         {
             layers[l].layer.enabled = layers[l].enabled;
             wwd.addLayer(layers[l].layer);
         }
-
-	    //wwd.addLayer(layers[1]['layer']);
 
 	    var layerManger = new LayerManager(wwd);
 
