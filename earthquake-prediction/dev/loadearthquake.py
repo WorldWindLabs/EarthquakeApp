@@ -29,4 +29,6 @@ def load(minDate, maxDate, origin, minMagnitude = "0", maxdist = "900"):
 
 		return earthquakes[1:]
 
-	return parse_csv(data)
+	eq = parse_csv(data)
+	header = ['DateTime', 'Latitude', 'Longitude', 'EQ_Magnitude']
+	return pd.DataFrame(eq, columns = header)

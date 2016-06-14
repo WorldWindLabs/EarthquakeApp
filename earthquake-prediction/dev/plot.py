@@ -58,7 +58,7 @@ def graphcoord_time(vector, axis):
 	# plt.close()
 
 # TODO: graph the derivate
-def graphderivate(vector):
+#def graphderivate(vector):
 	# diff = []
 
 	# for i, v in enumerate(vector):
