@@ -13,6 +13,9 @@ import loadmagnetic as mag
 import stationsdata as station
 import plot as pt
 
+#srcdir = os.path.join(os.path.expanduser("~"),"EarthquakeApp","earthquake-prediction", 'dev')
+#os.chdir(srcdir)
+
 #plot_interval('10-04-16', '17-04-16', kodiak3)
 
 ####################################################################################

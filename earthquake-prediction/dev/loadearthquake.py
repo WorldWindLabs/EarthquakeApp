@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import urllib
 import matplotlib.dates as mdates
 
-def load(minDate, maxDate, origin, minMagnitude = "0", maxdist = "900"):
+def eqload(minDate, maxDate, origin, minMagnitude = "0", maxdist = "900"):
 	resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=csv"
 	dates = "&starttime="+minDate+"&endtime="+maxDate
 	magnitutes = "&minmagnitude"+minMagnitude

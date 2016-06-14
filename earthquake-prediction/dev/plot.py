@@ -8,6 +8,8 @@ import datetime
 import matplotlib.pyplot as plt
 import urllib
 import matplotlib.dates as mdatess
+import loadmagnetic as lmag
+import loadearthquake as leq
 
 def graphXYZ(data):
 
@@ -77,13 +79,13 @@ def graphcoord_time(vector, axis):
 	# plt.close()
 
 def plot_interval(init, final, origin):
-	magnetic_data = loadmagnetic(init + "-to-" + final + ".csv")
+	magnetic_data = lmag.magload(init + "-to-" + final + ".csv")
 
-	earthquakes = getearthquake(init, final, origin)
+	earthquakes = leq.eqload(init, final, origin)
 
 	graphXYZ(magnetic_data['vectors'])
 
-	graphdiff(magnetic_data['vectors'])
+	#graphdiff(magnetic_data['vectors'])
         
 	for d in range(3):
 		graphcoord(magnetic_data['vectors'], d)

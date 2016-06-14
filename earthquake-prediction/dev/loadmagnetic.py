@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import urllib
 import matplotlib.dates as mdates
 
-def load(station, begin, end):
+def magload(station, begin, end):
 	path = '../data/' + station + '/' + begin + '-to-' + end + '.csv'
 
 	colnames = ['Date', 'X', 'Y', 'Z']
