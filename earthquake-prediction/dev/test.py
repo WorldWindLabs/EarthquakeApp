@@ -1,5 +1,4 @@
 # NASA World Wind Earthquake Data Analysis code
-import pysal as ps
 import pyculiarity as pyc
 import csv
 import numpy as np
@@ -22,31 +21,57 @@ import plot as pt
 ####################################################################################
 #Test code for analysis kodiacIC_Anomaly.csv is Kodiak intelecel data for the dates 27-05-2015 - 30-05-2015
 
-name = 'InteleCell-Kodiak'
+# name = 'InteleCell-Kodiak'
+name = 'ESP-Kodiak-3'
 # YYYY-MM-DD
-begin, end = '2014-10-22', '2014-12-22'
+begin, end = '2016-04-10', '2016-04-13'
+# begin, end = '2014-10-22', '2014-12-22'
 
 stationcoord = station.get(name)
 magnetic = mag.magload(name, begin, end)
 earthquake = eaq.eqload(begin, end, stationcoord)
 
-# Plot examples
-# pt.graphXYZ(magnetic)
-# pt.graphcoord(magnetic, 'Z')
-
-#magnetic = magnetic.reset_index()
 magnetic['Date'] = magnetic.index
-tdf = pd.DataFrame()
-tdf['timestamp'] = magnetic.Date
-tdf['magx'] = magnetic.X
 
-eq_anom = pyc.detect_ts(tdf, max_anoms = 0.1, direction = 'both', alpha = 0.05)
+tdfX = pd.DataFrame()
+tdfX['timestamp'] = magnetic.Date
+tdfX['magx'] = magnetic.X
+eq_anom = pyc.detect_ts(tdfX, max_anoms = 0.1, direction = 'both', alpha = 0.05)
+
+#This creates a dataframe from the anomaly results. I am not to sure why passing eq_anom['anoms'] creates a dataframe
+eqX = eq_anom['anoms']
+
+tdfY = pd.DataFrame()
+tdfY['timestamp'] = magnetic.Date
+tdfY['magx'] = magnetic.Y
+eq_anom = pyc.detect_ts(tdfY, max_anoms = 0.1, direction = 'both', alpha = 0.05)
+
+#This creates a dataframe from the anomaly results. I am not to sure why passing eq_anom['anoms'] creates a dataframe
+eqY = eq_anom['anoms']
+
+tdfZ = pd.DataFrame()
+tdfZ['timestamp'] = magnetic.Date
+tdfZ['magx'] = magnetic.Z
+eq_anom = pyc.detect_ts(tdfZ, max_anoms = 0.1, direction = 'both', alpha = 0.05)
 #print eq_anom
 
 #This creates a dataframe from the anomaly results. I am not to sure why passing eq_anom['anoms'] creates a dataframe
-eqa = eq_anom['anoms']
+eqZ = eq_anom['anoms']
 
 f, ax1 = plt.subplots(1)
-tdf.plot(ax = ax1) 
-ax1.scatter(eqa.index, eqa.anoms, color = 'r')
+tdfX.plot(ax = ax1) 
+tdfY.plot(ax = ax1) 
+tdfZ.plot(ax = ax1) 
+
+
+for index, row in earthquake.iterrows():
+	if row['EQ_Magnitude'] > 3:
+		ax1.axvline(index, color = 'brown', linewidth = 0.75)
+	else:
+		pass
+
+
+ax1.scatter(eqX.index, eqX.anoms, color = 'r')
+ax1.scatter(eqY.index, eqY.anoms, color = 'r')
+ax1.scatter(eqZ.index, eqZ.anoms, color = 'r')
 plt.show()

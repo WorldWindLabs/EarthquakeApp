@@ -4,11 +4,9 @@ import csv
 import numpy as np
 import pandas as pd
 import datetime
-import matplotlib.pyplot as plt
 import urllib
-import matplotlib.dates as mdates
 
-def eqload(minDate, maxDate, origin, minMagnitude = "0", maxdist = "900"):
+def eqload(minDate, maxDate, origin, minMagnitude = "0", maxdist = "400"):
 	resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=csv"
 	dates = "&starttime="+minDate+"&endtime="+maxDate
 	magnitutes = "&minmagnitude"+minMagnitude
@@ -31,4 +29,9 @@ def eqload(minDate, maxDate, origin, minMagnitude = "0", maxdist = "900"):
 
 	eq = parse_csv(data)
 	header = ['DateTime', 'Latitude', 'Longitude', 'EQ_Magnitude']
-	return pd.DataFrame(eq, columns = header)
+	eqdf = pd.DataFrame(eq, columns = header)
+	eqt = pd.to_datetime(eqdf['DateTime'])
+	eqdf.index = eqt
+	eqdf.EQ_Magnitude = eqdf.EQ_Magnitude.astype('float')
+	del eqdf['DateTime']
+	return eqdf

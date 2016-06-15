@@ -3,9 +3,7 @@ import csv
 import numpy as np
 import pandas as pd
 import datetime
-import matplotlib.pyplot as plt
 import urllib
-import matplotlib.dates as mdates
 
 
 # TODO: update other coordinates
@@ -14,7 +12,7 @@ data = [[0 for x in range(w)] for y in range(h)]
 
 data[0] = ['ESP-Kenny-Lake-1'		, '0', '0']
 data[1] = ['ESP-Kodiak-2'			, '0', '0']
-data[2] = ['ESP-Kodiak-3'			, '0', '0']
+data[2] = ['ESP-Kodiak-3'			, '57.747225', '-152.496467']
 data[3] = ['InteleCell-Kodiak'      , '57.79348', '-152.3932']
 data[4] = ['InteleCell-Old-Harbor'  , '0', '0']
 data[5] = ['InteleCell-Copper-River', '0', '0']
