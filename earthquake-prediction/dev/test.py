@@ -24,14 +24,15 @@ import plot as pt
 # name = 'InteleCell-Kodiak'
 name = 'ESP-Kodiak-3'
 # YYYY-MM-DD
-begin, end = '2016-04-10', '2016-04-13'
 # begin, end = '2014-10-22', '2014-12-22'
+begin, end = '2016-04-10', '2016-04-13'
 
 stationcoord = station.get(name)
 magnetic = mag.magload(name, begin, end)
-earthquake = eaq.eqload(begin, end, stationcoord)
 
-magnetic['Date'] = magnetic.index
+print magnetic.head()
+
+earthquake = eaq.eqload(begin, end, stationcoord)
 
 tdfX = pd.DataFrame()
 tdfX['timestamp'] = magnetic.Date
