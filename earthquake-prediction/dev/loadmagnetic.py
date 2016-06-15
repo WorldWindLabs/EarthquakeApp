@@ -26,14 +26,18 @@ def magload(station, begin, end):
 	elif station[:3] == 'ESP':
 		colnames = ['Date', 'X', 'Y', 'Z']
 		df = pd.read_csv(path, names = colnames)
-		df.interpolate()
-		dft = pd.to_datetime(df.Date)
-		df.index = dft
-		# del df['Date']
-		# df['Date'] = df.index
 
+		temp = []
+		for d in df['Date']:
+			temp.append(d.split('.')[0])
+		df['Date'] = temp
+		dft = pd.to_datetime(df.Date)
+		df.interpolate()
+		df.index = dft
 		return df
 
 	else:
-		print "ERROR"
+		print "ERROR - No station recognized"
+
+
 # print load('InteleCell-Kodiak', '2014-10-22', '2014-12-22')
