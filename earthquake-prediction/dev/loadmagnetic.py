@@ -26,14 +26,17 @@ def magload(station, begin, end):
 	elif station[:3] == 'ESP':
 		colnames = ['Date', 'X', 'Y', 'Z']
 		df = pd.read_csv(path, names = colnames)
-
-		temp = []
-		for d in df['Date']:
-			temp.append(d.split('.')[0])
-		df['Date'] = temp
+		# temp = []
+		# for d in df['Date']:
+		# 	temp.append(d.split('.')[0])
+		# df['Date'] = temp
 		dft = pd.to_datetime(df.Date)
-		df.interpolate()
+		df.Date = df.Date.astype('object')
 		df.index = dft
+		df = df.resample('1T').mean()
+		df['Date'] = df.index
+		df = df.interpolate()
+		print df.head()
 		return df
 
 	else:

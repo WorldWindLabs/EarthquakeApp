@@ -92,3 +92,25 @@ def plot_interval(init, final, origin):
 
 	plt.show()
 	#graphcoord_time(magnetic_data['vectors'], 0)
+
+def plot_earthquake_anomalies_magnetic(axis, earthquake):
+	fX, fY, fZ = axis
+	(eqX, tdfX) = fX
+	(eqY, tdfY) = fY
+	(eqZ, tdfZ) = fZ
+
+	f, ax1 = plt.subplots(1)
+	tdfX.plot(ax = ax1) 
+	tdfY.plot(ax = ax1) 
+	tdfZ.plot(ax = ax1) 
+
+
+	for index, row in earthquake.iterrows():
+		if row['EQ_Magnitude'] > 3:
+			ax1.axvline(index, color = 'brown', linewidth = 0.75)
+
+	ax1.scatter(eqX.index, eqX.anoms, color = 'r')
+	ax1.scatter(eqY.index, eqY.anoms, color = 'r')
+	ax1.scatter(eqZ.index, eqZ.anoms, color = 'r')
+	plt.show()
+
