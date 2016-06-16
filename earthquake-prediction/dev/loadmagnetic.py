@@ -10,6 +10,7 @@ import urllib
 import matplotlib.dates as mdates
 
 def magload(station, begin, end):
+	print "Loading magnetic data"
 	path = '../data/' + station + '/' + begin + '-to-' + end + '.csv'
 
 	if station[:10] == "InteleCell":
@@ -36,7 +37,6 @@ def magload(station, begin, end):
 		df = df.resample('1T').mean()
 		df['Date'] = df.index
 		df = df.interpolate()
-		print df.head()
 		return df
 
 	else:

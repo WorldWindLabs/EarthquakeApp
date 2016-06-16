@@ -6,7 +6,8 @@ import pandas as pd
 import datetime
 import urllib
 
-def eqload(minDate, maxDate, origin, minMagnitude = "0", maxdist = "400"):
+def eqload(minDate, maxDate, origin, minMagnitude = "4", maxdist = "300"):
+	print "Loading earthquake data"
 	resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=csv"
 	dates = "&starttime="+minDate+"&endtime="+maxDate
 	magnitutes = "&minmagnitude"+minMagnitude

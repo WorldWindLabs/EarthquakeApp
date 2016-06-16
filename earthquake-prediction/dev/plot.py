@@ -10,6 +10,7 @@ import urllib
 import matplotlib.dates as mdatess
 import loadmagnetic as lmag
 import loadearthquake as leq
+# import cairo
 
 def graphXYZ(data):
 
