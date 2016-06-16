@@ -100,18 +100,35 @@ def plot_earthquake_anomalies_magnetic(axis, earthquake):
 	(eqY, tdfY) = fY
 	(eqZ, tdfZ) = fZ
 
-	f, ax1 = plt.subplots(1)
-	tdfX.plot(ax = ax1) 
-	tdfY.plot(ax = ax1) 
-	tdfZ.plot(ax = ax1) 
+        #f, ax1 = plt.subplots(1)
+        #tdfX.plot(subplots=True, ax = ax1)
+        #f, ax1 = plt.subplots(1)
+        #tdfX.plot(ax = ax1)
+        #tdfY.plot(ax = ax1)
+        #tdfZ.plot(ax = ax1)
+        f = plt.figure()
+        f1 = f.add_subplot(311)
+        f1.plot(tdfX.timestamp, tdfX.value, color = 'b')
+        f2 = f.add_subplot(312)
+        f2.plot(tdfY.timestamp, tdfY.value, color = 'g')
+        f3 = f.add_subplot(313)
+        f3.plot(tdfZ.timestamp, tdfZ.value, color = 'orange')
+        #tdfX.plot(ax = ax1)
+        plt.show()
 
 
 	for index, row in earthquake.iterrows():
-		if row['EQ_Magnitude'] > 3:
-			ax1.axvline(index, color = 'brown', linewidth = 0.75)
+		if 4 > row['EQ_Magnitude'] > 3:
+		    f1.axvline(index, color = 'grey', linewidth = 0.75)
+		    f2.axvline(index, color = 'grey', linewidth = 0.75)
+		    f3.axvline(index, color = 'grey', linewidth = 0.75)
+		elif row['EQ_Magnitude'] > 4:
+		    f1.axvline(index, color = 'r', linewidth = 1)
+		    f2.axvline(index, color = 'r', linewidth = 1)
+		    f3.axvline(index, color = 'r', linewidth = 1)
 
-	ax1.scatter(eqX.index, eqX.anoms, color = 'r')
-	ax1.scatter(eqY.index, eqY.anoms, color = 'r')
-	ax1.scatter(eqZ.index, eqZ.anoms, color = 'r')
+	f1.scatter(eqX.index, eqX.anoms, color = 'r')
+	f2.scatter(eqY.index, eqY.anoms, color = 'r')
+	f3.scatter(eqZ.index, eqZ.anoms, color = 'r')
 	plt.show()
 
