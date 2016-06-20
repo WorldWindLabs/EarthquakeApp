@@ -50,31 +50,33 @@ df = df.interpolate().dropna(how='any', axis=0)  # interpolate any missing data 
 
 # Loading in the earthquake data that is near the magnetometer station
 station_coordinates = station.get(name)
-earthquake = eaq.load_earthquake_data(begin, end, station_coordinates, min_magnitude="3", max_distance="500")
+earthquake = eaq.load_earthquake_data(begin, end, station_coordinates, min_magnitude="2", max_distance="300")
 
 t = df.index  # this is our x-axis for the three plots, the time in UTC
 dataX, dataY, dataZ = df['X'].values, df['Y'].values, df['Z'].values
 
+lower_frequency, higher_frequency, order = 0.0005, 0.00075, 5
+
 # Filter the data by passing it through a high-pass filter then through a low pass filter
-x = np.abs(butter_lowpass_filter(butter_highpass_filter(dataX, 0.001, 1, 5), 0.0025, 1, 5))
-y = np.abs(butter_lowpass_filter(butter_highpass_filter(dataY, 0.001, 1, 5), 0.0025, 1, 5))
-z = np.abs(butter_lowpass_filter(butter_highpass_filter(dataZ, 0.001, 1, 5), 0.0025, 1, 5))
+x = np.abs(butter_lowpass_filter(butter_highpass_filter(dataX, lower_frequency, 1, order), higher_frequency, 1, order))
+y = np.abs(butter_lowpass_filter(butter_highpass_filter(dataY, lower_frequency, 1, order), higher_frequency, 1, order))
+z = np.abs(butter_lowpass_filter(butter_highpass_filter(dataZ, lower_frequency, 1, order), higher_frequency, 1, order))
 
 f = plt.figure()
 
 f1 = f.add_subplot(311)
 f1.plot(t, x, color='g', linewidth='1')
-f1.set_ylim([0, 30])  # set the y-axis of the first plot between 0 and 30
+f1.set_ylim([0, 60])  # set the y-axis of the first plot between 0 and 30
 f2 = f.add_subplot(312)
 f2.plot(t, y, color='g', linewidth='1')
-f2.set_ylim([0, 15])  # set the y-axis of the second plot between 0 and 15
+f2.set_ylim([0, 50])  # set the y-axis of the second plot between 0 and 15
 f3 = f.add_subplot(313)
 f3.plot(t, z, color='g', linewidth='1')
-f3.set_ylim([0, 20])  # set the z-axis of the third plot between 0 and 20
+f3.set_ylim([0, 60])  # set the z-axis of the third plot between 0 and 20
 
 for index, row in earthquake.iterrows():
     # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
-    if row['EQ_Magnitude'] > 3:
+    if row['EQ_Magnitude'] > 2:
         f1.axvline(index, color='r', linewidth=1)
         f2.axvline(index, color='r', linewidth=1)
         f3.axvline(index, color='r', linewidth=1)
