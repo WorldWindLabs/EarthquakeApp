@@ -8,6 +8,8 @@ import plot as pt
 import pyculiarity.detect_ts as pyc
 import stationsdata as station
 import pandas as pd
+import statsmodels.api as sm
+import seaborn as sb
 
 # Date format: YYYY-MM-DD
 
@@ -47,14 +49,14 @@ x_anom, _ = fX
 y_anom, _ = fY
 z_anom, _ = fZ
 
-major_eq = earthquake.ix[earthquake.EQ_Magnitude > 3]
+major_eq = earthquake.ix[earthquake.EQ_Magnitude > 2.5]
 
 X_anoms = []
 Y_anoms = []
 Z_anoms = []
 for index, row in major_eq.iterrows():
     end = index
-    start = end - datetime.timedelta(hours= 24)
+    start = end - datetime.timedelta(hours= 10)
     tempX = x_anom[start:end]
     tempY = y_anom[start:end]
     tempZ = z_anom[start:end]
@@ -69,9 +71,18 @@ major_eq['X_anomalies'] = x_anomalies.values
 major_eq['Y_anomalies'] = y_anomalies.values
 major_eq['Z_anomalies'] = z_anomalies.values
 
-print(major_eq.head())
+eq_mag_model = sm.OLS.from_formula('EQ_Magnitude ~ X_anomalies + Y_anomalies +\
+                                      Z_anomalies', data = major_eq)
+eq_mag_model_fitted = eq_mag_model.fit()
+print(eq_mag_model_fitted.summary())
 
-# pt.plot_earthquake_anomalies_magnetic((fX, fY, fZ), earthquake)
-# plt.show()
+sb.regplot('EQ_Magnitude', 'X_anomalies', data= major_eq)
+plt.show()
+
+#mod_diagnostics(eq_mag_model, merge_df)
+
 
 pt.plot_earthquake_anomalies_magnetic((fX, fY, fZ), earthquake)
+plt.show()
+pt.plot_earthquake_anomalies_magnetic((fX, fY, fZ), earthquake)
+
