@@ -92,3 +92,32 @@ def plot_earthquake_anomalies_magnetic(axis, earthquake):
     f2.scatter(eqY.index, eqY.anoms, color='r')
     f3.scatter(eqZ.index, eqZ.anoms, color='r')
     plt.show()
+
+
+def plot_earthquake_magnetic(axis, earthquake):
+    t, x, y, z = axis
+    f = plt.figure()
+
+    f1 = f.add_subplot(311)
+    f1.plot(t, x, color='g', linewidth='1')
+    f1.set_ylim([0, 60])  # set the y-axis of the first plot between 0 and 30
+    f2 = f.add_subplot(312)
+    f2.plot(t, y, color='g', linewidth='1')
+    f2.set_ylim([0, 50])  # set the y-axis of the second plot between 0 and 15
+    f3 = f.add_subplot(313)
+    f3.plot(t, z, color='g', linewidth='1')
+    f3.set_ylim([0, 60])  # set the z-axis of the third plot between 0 and 20
+
+    for index, row in earthquake.iterrows():
+        # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
+        if (row['eq_influence'] > 2): 
+            f1.axvline(index, color='r', linewidth=1)
+            f2.axvline(index, color='r', linewidth=1)
+            f3.axvline(index, color='r', linewidth=1)
+
+    plt.show()
+
+
+def plot_AxB(a, b):
+    plt.plot(a, b, 'ro')
+    plt.show()
