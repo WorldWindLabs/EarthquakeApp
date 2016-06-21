@@ -3,9 +3,9 @@
 from datetime import timedelta
 from time import process_time
 import pandas as pd
+import bandfilter as bf
 
-
-def load_magnetic_data(station, begin, end):
+def load_magnetic_data(station, begin, end, filter_data = False):
     print("Loading magnetic data", end='')
 
     start = process_time()
@@ -33,11 +33,14 @@ def load_magnetic_data(station, begin, end):
         # assuming that the Alaska TZ is UTC - 9 hours
         df.index = pd.to_datetime(df['Date'], utc=True) + timedelta(hours=9)
 
-        df = df.resample('1T').mean()
-        df = df.interpolate().dropna(how='any', axis=0)
+        if filter_data:
+            df = bf.filter(df)
+
+        else:     
+            df = df.resample('1T').mean() 
+            df = df.interpolate().dropna(how='any', axis=0)
 
         print(" --- took", round(process_time() - start, 2), " s")
-
         return df
 
     else:

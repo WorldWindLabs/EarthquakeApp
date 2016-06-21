@@ -4,9 +4,6 @@ import datetime
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
-import loadearthquake as leq
-import loadmagnetic as lmag
-
 
 def graph_xyz(data):
     plt.subplots(1, figsize=(10, 6))
@@ -51,17 +48,17 @@ def graph_coordinates_time(vector, axis):
 
 
 # TODO: fix this function
-def plot_interval(init, final, origin):
-    magnetic_data = lmag.load_magnetic_data(init + "-to-" + final + ".csv")
+# def plot_interval(init, final, origin):
+#     magnetic_data = lmag.load_magnetic_data(init + "-to-" + final + ".csv")
 
-    earthquakes = leq.load_earthquake_data(init, final, origin)
+#     earthquakes = leq.load_earthquake_data(init, final, origin)
 
-    graph_xyz(magnetic_data['vectors'])
+#     graph_xyz(magnetic_data['vectors'])
 
-    for d in range(3):
-        graph_coordinates(magnetic_data['vectors'], d)
+#     for d in range(3):
+#         graph_coordinates(magnetic_data['vectors'], d)
 
-    plt.show()
+#     plt.show()
 
 
 def plot_earthquake_anomalies_magnetic(axis, earthquake):
@@ -72,11 +69,14 @@ def plot_earthquake_anomalies_magnetic(axis, earthquake):
 
     f = plt.figure()
     f1 = f.add_subplot(311)
-    f1.plot(tdfX.timestamp, tdfX.value, color='b')
+    f1.plot(tdfX.timestamp, tdfX.value, color='b', linewidth='1')
+    f1.set_ylim([0, 60])
     f2 = f.add_subplot(312)
-    f2.plot(tdfY.timestamp, tdfY.value, color='g')
+    f2.plot(tdfY.timestamp, tdfY.value, color='g', linewidth='1')
+    f2.set_ylim([0, 60])
     f3 = f.add_subplot(313)
-    f3.plot(tdfZ.timestamp, tdfZ.value, color='orange')
+    f3.plot(tdfZ.timestamp, tdfZ.value, color='orange', linewidth='1')
+    f3.set_ylim([0, 60])
 
     for index, row in earthquake.iterrows():
         if 4 > row['EQ_Magnitude'] > 3:
@@ -94,8 +94,8 @@ def plot_earthquake_anomalies_magnetic(axis, earthquake):
     plt.show()
 
 
-def plot_earthquake_magnetic(axis, earthquake):
-    t, x, y, z = axis
+def plot_earthquake_magnetic(df, earthquake):
+    t, x, y, z = df.index, df.X, df.Y, df.Z
     f = plt.figure()
 
     f1 = f.add_subplot(311)
