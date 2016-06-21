@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import stationsdata as station
 import loadearthquake as eaq
-
+import seaborn as sb
 
 def butter_highpass(cutoff, fs, order=5):
     nyq = 0.5 * fs
@@ -52,6 +52,9 @@ df = df.interpolate().dropna(how='any', axis=0)  # interpolate any missing data 
 station_coordinates = station.get(name)
 earthquake = eaq.load_earthquake_data(begin, end, station_coordinates, min_magnitude="2", max_distance="300")
 
+# created this metric based on magnitude and distance, is in shaking amplitude, not energy released, log transformed
+earthquake['eq_influence'] = np.log((10 ** earthquake['EQ_Magnitude']) / earthquake['distance'])
+
 t = df.index  # this is our x-axis for the three plots, the time in UTC
 dataX, dataY, dataZ = df['X'].values, df['Y'].values, df['Z'].values
 
@@ -76,9 +79,14 @@ f3.set_ylim([0, 60])  # set the z-axis of the third plot between 0 and 20
 
 for index, row in earthquake.iterrows():
     # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
-    if row['EQ_Magnitude'] > 2:
+    # if 4 > row['EQ_Magnitude'] > 2:
+    #     f1.axvline(index, color='grey', linewidth=0.75)
+    #     f2.axvline(index, color='grey', linewidth=0.75)
+    #     f3.axvline(index, color='grey', linewidth=0.75)
+    if row['eq_influence'] > 2:
         f1.axvline(index, color='r', linewidth=1)
         f2.axvline(index, color='r', linewidth=1)
         f3.axvline(index, color='r', linewidth=1)
 
 plt.show()
+
