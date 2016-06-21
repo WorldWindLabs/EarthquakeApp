@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import stationsdata as station
 import loadearthquake as eaq
-
+from math import radians, cos, sin, asin, sqrt
 
 def butter_highpass(cutoff, fs, order=5):
     nyq = 0.5 * fs
@@ -32,9 +32,24 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
     y = lfilter(b, a, data)
     return y
 
+def haversine(lon1, lat1, lon2, lat2):
+    """
+    Calculate the great circle distance between two points 
+    on the earth (specified in decimal degrees)
+    """
+    # convert decimal degrees to radians 
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    # haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a)) 
+    km = 6367 * c
+    return km
 
 # Station information
-name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+name, begin, end = 'ESP-Kodiak-3', '2016-05-01', '2016-05-31'
+# name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 path = '../data/' + name + '/' + begin + '-to-' + end + '.csv'
 
 # Loading in the magnetometer data
@@ -74,11 +89,24 @@ f3 = f.add_subplot(313)
 f3.plot(t, z, color='g', linewidth='1')
 f3.set_ylim([0, 60])  # set the z-axis of the third plot between 0 and 20
 
+d = []
+m = []
+
 for index, row in earthquake.iterrows():
     # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
-    if row['EQ_Magnitude'] > 2:
+    mag = row['EQ_Magnitude']
+    dist = haversine(float(row['Longitude']), float(row['Latitude']), float(station_coordinates['long']), float(station_coordinates['lati']))
+    d.append(dist)
+    m.append(mag)
+    if (mag <= 3 and mag >= 2 and dist <= 60) or \
+        (mag <= 4 and mag >= 3 and dist <= 200) or \
+        (mag >= 4 and dist <= 300): 
+        print(dist, mag)
         f1.axvline(index, color='r', linewidth=1)
         f2.axvline(index, color='r', linewidth=1)
         f3.axvline(index, color='r', linewidth=1)
 
+plt.show()
+
+plt.plot(m, d, 'ro')
 plt.show()
