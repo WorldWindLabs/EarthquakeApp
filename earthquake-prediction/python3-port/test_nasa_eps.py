@@ -19,7 +19,7 @@ name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-07', '2016-05-31'
 
 stationcoord = station.get(name)
-magnetic = mag.load_magnetic_data(name, begin, end, filter_data = True).reset_index()
+magnetic = mag.load_magnetic_data(name, begin, end, filter_data=True).reset_index()
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2)
 
 # upsampling to one minute
@@ -27,6 +27,7 @@ magnetic.index = magnetic.Date
 magnetic = magnetic.resample('1T').mean()
 magnetic = magnetic.interpolate().dropna(how='any', axis=0)
 magnetic['Date'] = magnetic.index
+
 
 def get_data_frame(column):
     print("Detecting anomalies for", column, "axis", end='')
@@ -43,7 +44,7 @@ def get_data_frame(column):
     print(" --- took", round(process_time() - start, 2), " s")
     return eq_anom['anoms'], df
 
-fX, fY, fZ = get_data_frame('X'),get_data_frame('Y'),get_data_frame('Z')
+fX, fY, fZ = get_data_frame('X'), get_data_frame('Y'), get_data_frame('Z')
 
 x_anom, _ = fX
 y_anom, _ = fY
@@ -55,11 +56,11 @@ X_anoms = []
 Y_anoms = []
 Z_anoms = []
 for index, row in major_eq.iterrows():
-    end = index
-    start = end - datetime.timedelta(hours= 24)
-    tempX = x_anom[start:end]
-    tempY = y_anom[start:end]
-    tempZ = z_anom[start:end]
+    end_date = index
+    start_date = end_date - datetime.timedelta(hours=24)
+    tempX = x_anom[start_date:end_date]
+    tempY = y_anom[start_date:end_date]
+    tempZ = z_anom[start_date:end_date]
     X_anoms.append(len(tempX.index))
     Y_anoms.append(len(tempY.index))
     Z_anoms.append(len(tempZ.index))
@@ -78,15 +79,15 @@ for index, row in major_eq.iterrows():
 t_anoms = pd.Series(total_anoms)
 major_eq['total'] = t_anoms.values
 
-print(major_eq.ix[:,'total':])
+print(major_eq.ix[:, 'total':])
 
-d=[]
+d = []
 f = plt.figure()
 for data in major_eq['total']:
     if data > 0:
         d.append(data)
 anom_dat = pd.Series(d)
-sb.distplot(anom_dat, bins=30)
+sb.distplot(anom_dat)
 plt.show()
 
 # eq_mag_model = sm.OLS.from_formula('EQ_Magnitude ~ X_anomalies + Y_anomalies +\
@@ -97,10 +98,8 @@ plt.show()
 # sb.regplot('EQ_Magnitude', 'X_anomalies', data= major_eq)
 # plt.show()
 
-#mod_diagnostics(eq_mag_model, merge_df)
+# mod_diagnostics(eq_mag_model, merge_df)
 
 
 pt.plot_earthquake_anomalies_magnetic((fX, fY, fZ), earthquake)
 plt.show()
-pt.plot_earthquake_anomalies_magnetic((fX, fY, fZ), earthquake)
-
