@@ -56,7 +56,7 @@ Y_anoms = []
 Z_anoms = []
 for index, row in major_eq.iterrows():
     end = index
-    start = end - datetime.timedelta(hours= 10)
+    start = end - datetime.timedelta(hours= 24)
     tempX = x_anom[start:end]
     tempY = y_anom[start:end]
     tempZ = z_anom[start:end]
@@ -71,13 +71,30 @@ major_eq['X_anomalies'] = x_anomalies.values
 major_eq['Y_anomalies'] = y_anomalies.values
 major_eq['Z_anomalies'] = z_anomalies.values
 
-eq_mag_model = sm.OLS.from_formula('EQ_Magnitude ~ X_anomalies + Y_anomalies +\
-                                      Z_anomalies', data = major_eq)
-eq_mag_model_fitted = eq_mag_model.fit()
-print(eq_mag_model_fitted.summary())
+total_anoms = []
+for index, row in major_eq.iterrows():
+    total_anoms.append(row.X_anomalies + row.Y_anomalies + row.Z_anomalies)
+t_anoms = pd.Series(total_anoms)
+major_eq['total'] = t_anoms.values
 
-sb.regplot('EQ_Magnitude', 'X_anomalies', data= major_eq)
+print(major_eq.ix[:,'total':])
+
+d=[]
+f = plt.figure()
+for data in major_eq['total']:
+    if data > 0:
+        d.append(data)
+anom_dat = pd.Series(d)
+sb.distplot(anom_dat, bins=30)
 plt.show()
+
+# eq_mag_model = sm.OLS.from_formula('EQ_Magnitude ~ X_anomalies + Y_anomalies +\
+#                                       Z_anomalies', data = major_eq)
+# eq_mag_model_fitted = eq_mag_model.fit()
+# print(eq_mag_model_fitted.summary())
+
+# sb.regplot('EQ_Magnitude', 'X_anomalies', data= major_eq)
+# plt.show()
 
 #mod_diagnostics(eq_mag_model, merge_df)
 
