@@ -71,6 +71,7 @@ major_eq['X_anomalies'] = x_anomalies.values
 major_eq['Y_anomalies'] = y_anomalies.values
 major_eq['Z_anomalies'] = z_anomalies.values
 
+# Anomaly Distribution Plot
 total_anoms = []
 for index, row in major_eq.iterrows():
     total_anoms.append(row.X_anomalies + row.Y_anomalies + row.Z_anomalies)
