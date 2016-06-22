@@ -60,7 +60,7 @@ def test():
     # Loading in the magnetometer data
     column_names = ['Date', 'X', 'Y', 'Z']
     df = pd.read_csv(path, names=column_names)
-    df.index = pd.to_datetime(df['Date'], utc=True) + timedelta(hours=9)  # this line changes Alaska time to UTC time
+    df.index = pd.to_datetime(df['Date'], utc=True)
     df.drop('Date', inplace=True, axis=1)
 
     # Re-sampling to a 1 Second interval
