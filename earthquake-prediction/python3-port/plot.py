@@ -4,6 +4,7 @@ import datetime
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sb
 
 def graph_xyz(data):
     plt.subplots(1, figsize=(10, 6))
@@ -61,21 +62,18 @@ def graph_coordinates_time(vector, axis):
 #     plt.show()
 
 
-def plot_earthquake_anomalies_magnetic(axis, earthquake):
-    fX, fY, fZ = axis
-    (eqX, tdfX) = fX
-    (eqY, tdfY) = fY
-    (eqZ, tdfZ) = fZ
+def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic):
+    anomX, anomY, anomZ = anomalies
 
     f = plt.figure()
     f1 = f.add_subplot(311)
-    f1.plot(tdfX.timestamp, tdfX.value, color='b', linewidth='1')
+    f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1')
     f1.set_ylim([0, 60])
     f2 = f.add_subplot(312)
-    f2.plot(tdfY.timestamp, tdfY.value, color='g', linewidth='1')
+    f2.plot(magnetic.index, magnetic.Y, color='g', linewidth='1')
     f2.set_ylim([0, 60])
     f3 = f.add_subplot(313)
-    f3.plot(tdfZ.timestamp, tdfZ.value, color='orange', linewidth='1')
+    f3.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1')
     f3.set_ylim([0, 60])
 
     for index, row in earthquake.iterrows():
@@ -88,9 +86,9 @@ def plot_earthquake_anomalies_magnetic(axis, earthquake):
             f2.axvline(index, color='r', linewidth=1)
             f3.axvline(index, color='r', linewidth=1)
 
-    f1.scatter(eqX.index, eqX.anoms, color='r')
-    f2.scatter(eqY.index, eqY.anoms, color='r')
-    f3.scatter(eqZ.index, eqZ.anoms, color='r')
+    f1.scatter(anomX.index, anomX.anoms, color='r')
+    f2.scatter(anomY.index, anomY.anoms, color='r')
+    f3.scatter(anomZ.index, anomZ.anoms, color='r')
     plt.show()
 
 
@@ -120,4 +118,8 @@ def plot_earthquake_magnetic(df, earthquake):
 
 def plot_AxB(a, b):
     plt.plot(a, b, 'ro')
+    plt.show()
+
+def plot_histogram(data, bins=30):
+    sb.distplot(anom_dat, bins)
     plt.show()
