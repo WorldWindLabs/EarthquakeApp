@@ -33,6 +33,5 @@ anoms_per_eq  = anom.compute_anomalies_for_earthquake(earthquake, anomalies)
 earthquake = pd.concat([earthquake, anoms_per_eq], axis=1, join_axes=[earthquake.index])
 earthquake['total_anoms'] = earthquake['X_anoms'] + earthquake['Y_anoms'] + earthquake['Z_anoms']
 
-pt.plot_histogram(earthquake['total_anoms']#[earthquake['total_anoms'] > 0])
+pt.plot_histogram(earthquake['total_anoms'])#[earthquake['total_anoms'] > 0])
 pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic)
-

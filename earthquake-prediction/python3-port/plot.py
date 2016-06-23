@@ -121,5 +121,5 @@ def plot_AxB(a, b):
     plt.show()
 
 def plot_histogram(data, bins=30):
-    sb.distplot(anom_dat, bins)
+    sb.distplot(data, bins)
     plt.show()
