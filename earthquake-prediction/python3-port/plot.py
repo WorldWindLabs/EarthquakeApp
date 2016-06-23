@@ -123,3 +123,17 @@ def plot_AxB(a, b):
 def plot_histogram(data, bins=30):
     sb.distplot(data, bins)
     plt.show()
+
+def plot_magnetic(t, x, y, z):
+    f = plt.figure()
+
+    f1 = f.add_subplot(311)
+    f1.plot(t, x, color='b', linewidth='1')
+
+    f2 = f.add_subplot(312)
+    f2.plot(t, y, color='g', linewidth='1')
+
+    f3 = f.add_subplot(313)
+    f3.plot(t, z, color='orange', linewidth='1')
+
+    plt.show()
