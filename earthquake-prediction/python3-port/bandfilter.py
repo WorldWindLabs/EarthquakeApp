@@ -1,3 +1,4 @@
+from time import process_time
 from datetime import timedelta
 import numpy as np
 from scipy.signal import butter, lfilter
@@ -33,12 +34,15 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
     return y
 
 def filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
+    print("Filtering magnetic data", end='')
+    start = process_time()
+
     # Re-sampling to a 1 Second interval
     df.drop('Date', inplace=True, axis=1)
 
-    sampling_rate = 1  # Hz
-    df = df.resample('1S').mean()  # re-sample at 1 Second intervals
-    df = df.interpolate().dropna(how='any', axis=0)  # interpolate any missing data and delete bad rows
+    # sampling_rate = 1  # Hz
+    # df = df.resample('1S').mean()  # re-sample at 1 Second intervals
+    # df = df.interpolate().dropna(how='any', axis=0)  # interpolate any missing data and delete bad rows
 
     dataX, dataY, dataZ = df['X'].values, df['Y'].values, df['Z'].values
 
@@ -48,6 +52,8 @@ def filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
     z = np.abs(butter_lowpass_filter(butter_highpass_filter(dataZ, lower_frequency, 1, order), higher_frequency, 1, order))
 
     df['X'], df['Y'], df['Z'] = x, y, z 
+
+    print(" --- took", round(process_time() - start, 2), " s")
 
     return df
 

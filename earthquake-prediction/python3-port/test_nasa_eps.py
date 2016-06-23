@@ -14,11 +14,15 @@ import detectanomalies as anom
 
 # name, begin, end = 'InteleCell-Kodiak', '2014-10-22', '2014-12-22'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-04-13'
-name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+# name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+name, begin, end = 'ESP-Kodiak-3', '2016-05-19', '2016-05-22'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-07', '2016-05-31'
 
 stationcoord = station.get(name)
 magnetic = mag.load_magnetic_data(name, begin, end, filter_data = True).reset_index()
+
+magnetic = magnetic[magnetic.X < 100]
+
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
 # upsampling to one minute

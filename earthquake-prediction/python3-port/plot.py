@@ -108,7 +108,7 @@ def plot_earthquake_magnetic(df, earthquake):
 
     for index, row in earthquake.iterrows():
         # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
-        if (row['eq_influence'] > 2): 
+        if (row.EQ_Magnitude > 3): 
             f1.axvline(index, color='r', linewidth=1)
             f2.axvline(index, color='r', linewidth=1)
             f3.axvline(index, color='r', linewidth=1)
