@@ -4,7 +4,10 @@ from urllib.parse import urlencode
 import pandas as pd
 from math import radians, cos, sin, asin, sqrt
 import numpy as np
+import stationsdata as station
 import plot as pt
+import loadearthquake as eaq
+
 
 
 def load_earthquake_data(min_date, max_date, origin, min_magnitude="4", max_distance="300"):
@@ -56,3 +59,11 @@ def load_earthquake_data(min_date, max_date, origin, min_magnitude="4", max_dist
     # pt.plot_AxB(data_frame['EQ_Magnitude'], data_frame['distance'])
 
     return data_frame
+
+
+def get_relevant_earthquake():
+    name = 'ESP-Kodiak-3'
+    stationcoord = station.get(name)
+
+    earthquake = eaq.load_earthquake_data('2016-04-19', '2016-06-22', stationcoord, min_magnitude=2.5)
+    return earthquake.sort_values(by = 'eq_influence', ascending = False).head()
