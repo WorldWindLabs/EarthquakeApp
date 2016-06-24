@@ -48,6 +48,8 @@ def moving_average(a, n=3) :
 
 # Station information
 name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+# name, begin, end = 'ESP-Kodiak-3', '2016-04-28', '2016-05-02'
+
 path = '../data/' + name + '/' + begin + '-to-' + end + '.csv'
 
 # Loading in the magnetometer data
