@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sb
 import pandas as pd
+from scipy import signal
 
 def graph_xyz(data):
     plt.subplots(1, figsize=(10, 6))
@@ -85,7 +86,7 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic):
     mw3 = pd.rolling_mean(magnetic.Z, window = my_win, center = True)
     f3.plot(magnetic.index, mw3, color = 'r', linewidth = '1')
 
-   for index, row in earthquake.iterrows():
+    for index, row in earthquake.iterrows():
         if 4 > row['EQ_Magnitude'] > 3:
             f1.axvline(index, color='grey', linewidth=0.75)
             f2.axvline(index, color='grey', linewidth=0.75)

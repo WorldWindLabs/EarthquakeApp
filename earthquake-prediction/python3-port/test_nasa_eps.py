@@ -21,7 +21,7 @@ name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 
 stationcoord = station.get(name)
 magnetic = mag.load_magnetic_data(name, begin, end)
-mag_filtrd = bf.filter(magnetic)
+mag_filtrd = bf.cheby_filter(magnetic)
 # magnetic = magnetic[magnetic.X < 5]
 
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)

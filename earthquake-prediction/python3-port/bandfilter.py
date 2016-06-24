@@ -1,7 +1,7 @@
 from time import process_time
 from datetime import timedelta
 import numpy as np
-from scipy.signal import butter, lfilter
+from scipy.signal import butter, cheby1, cheby2, lfilter
 import matplotlib.pyplot as plt
 import pandas as pd
 import stationsdata as station
@@ -33,7 +33,7 @@ def butter_lowpass_filter(data, cutoff, fs, order=5):
     y = lfilter(b, a, data)
     return y
 
-def filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
+def butter_filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
     print("Filtering magnetic data", end='')
     start = process_time()
 
@@ -51,7 +51,45 @@ def filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
     y = np.abs(butter_lowpass_filter(butter_highpass_filter(dataY, lower_frequency, 1, order), higher_frequency, 1, order))
     z = np.abs(butter_lowpass_filter(butter_highpass_filter(dataZ, lower_frequency, 1, order), higher_frequency, 1, order))
 
-    df['X'], df['Y'], df['Z'] = x, y, z 
+    df['X'], df['Y'], df['Z'] = x, y, z
+
+    print(" --- took", round(process_time() - start, 2), " s")
+
+    return df
+
+def cheby_design(cutoff, fs, type, order):
+    return cheby1(N=order, rp=2.5, Wn=cutoff / (0.5 * fs), btype=type, analog=False)
+
+def cheby_highpass_filter(data, cutoff, fs, order):
+    b, a = cheby_design(cutoff, fs, type="high", order=order)
+    y = lfilter(b, a, data)
+    return y
+
+
+def cheby_lowpass_filter(data, cutoff, fs, order=5):
+    b, a = cheby_design(cutoff, fs, type="low", order=order)
+    y = lfilter(b, a, data)
+    return y
+
+def cheby_filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
+    print("Filtering magnetic data", end='')
+    start = process_time()
+
+    # Re-sampling to a 1 Second interval
+    df.drop('Date', inplace=True, axis=1)
+
+    # sampling_rate = 1  # Hz
+    # df = df.resample('1S').mean()  # re-sample at 1 Second intervals
+    # df = df.interpolate().dropna(how='any', axis=0)  # interpolate any missing data and delete bad rows
+
+    dataX, dataY, dataZ = df['X'].values, df['Y'].values, df['Z'].values
+
+    # Filter the data by passing it through a high-pass filter then through a low pass filter
+    x = np.abs(cheby_lowpass_filter(cheby_highpass_filter(dataX, lower_frequency, 1, order), higher_frequency, 1, order))
+    y = np.abs(cheby_lowpass_filter(cheby_highpass_filter(dataY, lower_frequency, 1, order), higher_frequency, 1, order))
+    z = np.abs(cheby_lowpass_filter(cheby_highpass_filter(dataZ, lower_frequency, 1, order), higher_frequency, 1, order))
+
+    df['X'], df['Y'], df['Z'] = x, y, z
 
     print(" --- took", round(process_time() - start, 2), " s")
 
