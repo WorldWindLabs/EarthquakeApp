@@ -6,7 +6,7 @@ import pandas as pd
 import bandfilter as bf
 import urllib
 
-def load_magnetic_data(station, min_date, max_date, filter_data = False, download = False):
+def load_magnetic_data(station, min_date, max_date, download = False):
     start = process_time()
     path = '../data/' + station + '/' + min_date + '-to-' + max_date + '.csv'
     
@@ -19,12 +19,12 @@ def load_magnetic_data(station, min_date, max_date, filter_data = False, downloa
             print("Getting magnetic data", end='')
             df = get_magnetic_data_esp(station, min_date, max_date)
 
-        if filter_data:
-            df = bf.filter(df)
+        # if filter_data:
+        #     df = bf.filter(df)
 
-        else:     
-            df = df.resample('1T').mean() 
-            df = df.interpolate().dropna(how='any', axis=0)
+        # else:     
+        #     df = df.resample('1T').mean() 
+        #     df = df.interpolate().dropna(how='any', axis=0)
 
         print(" --- took", round(process_time() - start, 2), " s")
         return df
@@ -90,3 +90,10 @@ def get_magnetic_data_esp(esp_station, min_date, max_date, intranet = False):
     df.index = pd.to_datetime(df.Date, utc=True)
 
     return df
+
+def upsample_to_min(magnetic):
+    magnetic = magnetic.resample('1T').mean()
+    magnetic = magnetic.interpolate().dropna(how='any', axis=0)
+    magnetic['Date'] = magnetic.index
+
+    return magnetic

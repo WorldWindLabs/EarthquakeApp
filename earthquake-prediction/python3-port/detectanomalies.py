@@ -14,7 +14,7 @@ def get_anom(magnetic, column):
     df = magnetic[['Date', column]]
     df.columns = ["timestamp", "value"]
 
-    df = df[df.value < 100]
+    # df = df[df.value < 5]
 
     # TODO: mess around with maximum_anomalies and alpha to improve resulting plots
     eq_anom = pyc.detect_ts(df, maximum_anomalies=0.025, direction='pos', alpha=0.15)

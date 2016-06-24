@@ -67,3 +67,9 @@ def get_relevant_earthquake():
 
     earthquake = eaq.load_earthquake_data('2016-04-19', '2016-06-22', stationcoord, min_magnitude=2.5)
     return earthquake.sort_values(by = 'eq_influence', ascending = False).head()
+
+
+def add_anomalies(eq, anom):
+    earthquake = pd.concat([eq, anom], axis=1, join_axes=[eq.index])
+    earthquake['total_anoms'] = earthquake.X_anoms + earthquake.Y_anoms + earthquake.Z_anoms
+    return earthquake
