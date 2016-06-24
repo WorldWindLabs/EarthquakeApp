@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="934dacfe-b50b-421b-bd6b-e3abc2b1083b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_fft.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_fft.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
     </list>
     <ignored path="EarthquakeApp.iws" />
@@ -35,8 +35,8 @@
       <file leaf-file-name="test_nasa_eps.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+            <state relative-caret-position="294">
+              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
               <folding>
                 <element signature="e#48#63#0" expanded="true" />
               </folding>
@@ -47,8 +47,8 @@
       <file leaf-file-name="plot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1241">
-              <caret line="92" column="33" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
+            <state relative-caret-position="761">
+              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding>
                 <element signature="e#49#64#0" expanded="true" />
               </folding>
@@ -69,8 +69,8 @@
       <file leaf-file-name="bandfilter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="73" column="7" selection-start-line="73" selection-start-column="7" selection-end-line="73" selection-end-column="7" />
+            <state relative-caret-position="476">
+              <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -104,9 +104,9 @@
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/OLS Model Diagnostics.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/ols_mod_diagnostics.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
+        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
       </list>
     </option>
   </component>
@@ -655,7 +655,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="764" y="392" width="513" height="350" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.2852761" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="764" y="23" width="516" height="721" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.2852761" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="764" y="23" width="516" height="721" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1017,16 +1017,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="92" column="33" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
-          <folding>
-            <element signature="e#49#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_vertical_lines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -1037,18 +1027,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="73" column="7" selection-start-line="73" selection-start-column="7" selection-end-line="73" selection-end-column="7" />
+        <state relative-caret-position="476">
+          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="761">
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+        <state relative-caret-position="294">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
           <folding>
             <element signature="e#48#63#0" expanded="true" />
           </folding>
