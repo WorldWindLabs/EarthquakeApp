@@ -1,8 +1,17 @@
 import datetime
-import pandas as pd
-import pyculiarity.detect_ts as pyc
 from time import process_time
-import scipy 
+import matplotlib.pyplot as plt
+import loadearthquake as eaq
+import loadmagnetic as mag
+import plot as pt
+import pyculiarity.detect_ts as pyc
+import stationsdata as station
+import pandas as pd
+import bandfilter as bf
+import statsmodels.api as sm
+import detectanomalies as anom
+import seaborn as sb
+import numpy as np
 
 
 def compute_anomalies(mag):
@@ -45,6 +54,31 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
         X_anoms.append(len(tempX.index))
 
     return X_anoms
+
+
+def compute_cluster(magnetic, anomalies, num_h = 2):
+    mag_interval = magnetic.resample('10T').mean()
+
+    res = []
+    for axis in anomalies:
+        anom_rate = []
+        for index, row in mag_interval.iterrows():
+            end = index
+            start = end - datetime.timedelta(hours=num_h)
+            temp = axis.anoms[start:end]
+            anom_rate.append(len(temp.index)/num_h)
+
+        anom_r = pd.DataFrame()
+        anom_r['anom_r'] = pd.Series(anom_rate)
+        anom_r['log_anom_r'] = np.log(anom_r['anom_r'])
+        anom_r.index = mag_interval.index
+        anom_r = anom_r[anom_r.log_anom_r >= 0]
+        anom_r['log_z_score'] = ((anom_r['log_anom_r']-anom_r['log_anom_r'].mean())/anom_r['log_anom_r'].std())
+        sb.distplot(anom_r['log_anom_r'])
+        plt.show()
+        res.append(anom_r)
+
+    return res
 
 
 def cluster(anomalies_clusters): 

@@ -41,26 +41,6 @@ earthquake = eaq.add_anomalies(earthquake, anoms_per_eq)
 # pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd)
 # pt.plot_earthquake_magnetic(earthquake, magnetic)
 
-mag_interval = magnetic.resample('10T').mean()
-# print(mag_interval)
 
-X = anomalies[0]
-Y = anomalies[1]
-Z = anomalies[2]
+anorm_rates = anom.compute_cluster(magnetic, anomalies)
 
-anom_rate = []
-for index, row in mag_interval.iterrows():
-    end = index
-    start = end - datetime.timedelta(hours=2)
-    temp = X.anoms[start:end]
-    anom_rate.append(len(temp.index)/2)
-
-X_anom_r = pd.DataFrame()
-X_anom_r['anom_r'] = pd.Series(anom_rate)
-X_anom_r['log_anom_r'] = np.log(X_anom_r['anom_r'])
-X_anom_r.index = mag_interval.index
-X_anom_r = X_anom_r[X_anom_r.log_anom_r >= 0]
-X_anom_r['log_z_score'] = ((X_anom_r['log_anom_r']-X_anom_r['log_anom_r'].mean())/X_anom_r['log_anom_r'].std())
-print(X_anom_r.head(20))
-sb.distplot(X_anom_r['log_anom_r'])
-plt.show()
