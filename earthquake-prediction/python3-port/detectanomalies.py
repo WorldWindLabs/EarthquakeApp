@@ -56,7 +56,7 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
     return X_anoms
 
 
-def compute_cluster(magnetic, anomalies, num_h = 2):
+def compute_cluster(magnetic, anomalies, num_h = 4):
     mag_interval = magnetic.resample('10T').mean()
 
     res = []
@@ -74,8 +74,10 @@ def compute_cluster(magnetic, anomalies, num_h = 2):
         anom_r.index = mag_interval.index
         anom_r = anom_r[anom_r.log_anom_r >= 0]
         anom_r['log_z_score'] = ((anom_r['log_anom_r']-anom_r['log_anom_r'].mean())/anom_r['log_anom_r'].std())
-        sb.distplot(anom_r['log_anom_r'])
-        plt.show()
+        anom_r['log_z_score_zero_trans'] = anom_r.log_z_score + abs(anom_r['log_z_score'].min())
+        # sb.distplot(anom_r['log_anom_r'])
+        # plt.show()
+        anom_r['Date'] = anom_r.index
         res.append(anom_r)
 
     return res
