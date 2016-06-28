@@ -4,8 +4,9 @@ import pyculiarity.detect_ts as pyc
 from time import process_time
 import scipy 
 
+
 def compute_anomalies(mag):
-	return get_anom(mag, 'X'), get_anom(mag, 'Y'), get_anom(mag, 'Z')
+    return get_anom(mag, 'X'), get_anom(mag, 'Y'), get_anom(mag, 'Z')
 
 
 def get_anom(magnetic, column):
@@ -23,20 +24,22 @@ def get_anom(magnetic, column):
     print(" --- took", round(process_time() - start, 2), " s")
     return eq_anom['anoms']
 
-def compute_anomalies_for_earthquake(eq, anomalies, time = 24):
-	x, y, z = anomalies
-	anoms = comp_anom_for_eq(eq, x, time), comp_anom_for_eq(eq, y, time), comp_anom_for_eq(eq, z, time)
-	return pd.DataFrame({'X_anoms': anoms[0],
-						 'Y_anoms': anoms[1],
-						 'Z_anoms': anoms[2]},
-						 index = eq.index)
+
+def compute_anomalies_for_earthquake(eq, anomalies, time=24):
+    x, y, z = anomalies
+    anoms = comp_anom_for_eq(eq, x, time), comp_anom_for_eq(eq, y, time), comp_anom_for_eq(eq, z, time)
+    return pd.DataFrame({'X_anoms': anoms[0],
+                         'Y_anoms': anoms[1],
+                         'Z_anoms': anoms[2]},
+                        index=eq.index)
+
 
 def comp_anom_for_eq(earthquake, anomaly, interval):
     X_anoms = []
-    
+
     for index, row in earthquake.iterrows():
         end = index
-        start = end - datetime.timedelta(hours= interval)
+        start = end - datetime.timedelta(hours=interval)
         tempX = anomaly[start:end]
 
         X_anoms.append(len(tempX.index))

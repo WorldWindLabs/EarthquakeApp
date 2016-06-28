@@ -11,6 +11,9 @@ import pandas as pd
 import bandfilter as bf
 import statsmodels.api as sm
 import detectanomalies as anom
+import seaborn as sb
+import numpy as np
+
 # Date format: YYYY-MM-DD
 
 # name, begin, end = 'InteleCell-Kodiak', '2014-10-22', '2014-12-22'
@@ -31,9 +34,33 @@ mag_filtrd = bf.cheby_filter(magnetic.copy())
 # mag_filtrd = bf.butter_filter(magnetic.copy())
 anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))
 
-anoms_per_eq  = anom.compute_anomalies_for_earthquake(earthquake, anomalies)
+anoms_per_eq = anom.compute_anomalies_for_earthquake(earthquake, anomalies)
 earthquake = eaq.add_anomalies(earthquake, anoms_per_eq)
 
-# pt.plot_histogram(earthquake.total_anoms)#[earthquake['total_anoms'] > 0])
-pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd)
+# pt.plot_histogram(earthquake.total_anoms)  # [earthquake['total_anoms'] > 0])
+# pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd)
 # pt.plot_earthquake_magnetic(earthquake, magnetic)
+
+mag_interval = magnetic.resample('10T').mean()
+# print(mag_interval)
+
+X = anomalies[0]
+Y = anomalies[1]
+Z = anomalies[2]
+
+anom_rate = []
+for index, row in mag_interval.iterrows():
+    end = index
+    start = end - datetime.timedelta(hours=2)
+    temp = X.anoms[start:end]
+    anom_rate.append(len(temp.index)/2)
+
+X_anom_r = pd.DataFrame()
+X_anom_r['anom_r'] = pd.Series(anom_rate)
+X_anom_r['log_anom_r'] = np.log(X_anom_r['anom_r'])
+X_anom_r.index = mag_interval.index
+X_anom_r = X_anom_r[X_anom_r.log_anom_r >= 0]
+X_anom_r['log_z_score'] = ((X_anom_r['log_anom_r']-X_anom_r['log_anom_r'].mean())/X_anom_r['log_anom_r'].std())
+print(X_anom_r.head(20))
+sb.distplot(X_anom_r['log_anom_r'])
+plt.show()
