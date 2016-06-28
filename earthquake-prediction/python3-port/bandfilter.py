@@ -7,6 +7,7 @@ import pandas as pd
 import stationsdata as station
 import loadearthquake as eaq
 import plot as pt
+import sys,os
 
 def butter_highpass(cutoff, fs, order=5):
     nyq = 0.5 * fs
@@ -59,9 +60,10 @@ def filter(df, lower_frequency = 0.0005, higher_frequency = 0.00075, order = 5):
 
 def test():
     # Station information
-    name, begin, end = 'ESP-Kodiak-3', '2016-05-01', '2016-05-31'
-    # name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
-    path = '../data/' + name + '/' + begin + '-to-' + end + '.csv'
+
+    #name, begin, end = 'ESP-Kodiak-3', '2016-05-01', '2016-05-31'
+    name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+    path = '/Users/GEFS/PycharmProjects/EarthquakeApp/earthquake-prediction/python3-port/data/' + name + '/' + begin + '-to-' + end + '.csv'
 
     # Loading in the magnetometer data
     column_names = ['Date', 'X', 'Y', 'Z']
@@ -90,4 +92,7 @@ def test():
 
     df['X'], df['Y'], df['Z'] = x, y, z 
 
+    print("TEST")
     pt.plot_earthquake_magnetic(df, earthquake)
+
+test()
