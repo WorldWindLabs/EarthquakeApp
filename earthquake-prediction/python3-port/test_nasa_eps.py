@@ -63,16 +63,3 @@ X_anom_r['log_z_score'] = ((X_anom_r['log_anom_r']-X_anom_r['log_anom_r'].mean()
 print(X_anom_r.head(20))
 sb.distplot(X_anom_r['log_anom_r'])
 plt.show()
-
-# print(X_anom_r.head())
-
-
-# f1 = f.add_subplot(311)
-# f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
-# f1.set_ylim([0, 60])
-# f2 = f.add_subplot(312)
-# f2.plot(magnetic.index, magnetic.Y, color='g', linewidth='1', zorder=1)
-# f2.set_ylim([0, 60])
-# f3 = f.add_subplot(313)
-# f3.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1')
-# f3.set_ylim([0, 60])

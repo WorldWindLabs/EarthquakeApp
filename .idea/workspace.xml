@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="934dacfe-b50b-421b-bd6b-e3abc2b1083b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
     </list>
     <ignored path="EarthquakeApp.iws" />
@@ -35,7 +33,7 @@
       <file leaf-file-name="test_nasa_eps.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
+            <state relative-caret-position="521">
               <caret line="64" column="10" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
               <folding>
                 <element signature="e#48#63#0" expanded="true" />
@@ -987,7 +985,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="521">
           <caret line="64" column="10" selection-start-line="64" selection-start-column="10" selection-end-line="64" selection-end-column="10" />
           <folding>
             <element signature="e#48#63#0" expanded="true" />
