@@ -10,16 +10,16 @@ import stationsdata as station
 import pandas as pd
 import bandfilter as bf
 import statsmodels.api as sm
-import detectanomalie	s as anom
+import detectanomalies as anom
 # Date format: YYYY-MM-DD
 
 # name, begin, end = 'InteleCell-Kodiak', '2014-10-22', '2014-12-22'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-04-13'
 # name, begin, end = 'ESP-Kodiak-3', '2016-05-19', '2016-05-22'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-07', '2016-05-31'
-# name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-28', '2016-05-02'
-name, begin, end = 'ESP-Kodiak-2', '2016-06-05', '2016-06-21'
+# name, begin, end = 'ESP-Kodiak-2', '2016-06-05', '2016-06-21'
 
 stationcoord = station.get(name)
 magnetic = mag.load_magnetic_data(name, begin, end)
@@ -30,9 +30,10 @@ earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.
 mag_filtrd = bf.cheby_filter(magnetic.copy())
 # mag_filtrd = bf.butter_filter(magnetic.copy())
 anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))
+
 anoms_per_eq  = anom.compute_anomalies_for_earthquake(earthquake, anomalies)
 earthquake = eaq.add_anomalies(earthquake, anoms_per_eq)
 
-pt.plot_histogram(earthquake.total_anoms)#[earthquake['total_anoms'] > 0])
+# pt.plot_histogram(earthquake.total_anoms)#[earthquake['total_anoms'] > 0])
 pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd)
-pt.plot_earthquake_magnetic(earthquake, magnetic)
+# pt.plot_earthquake_magnetic(earthquake, magnetic)

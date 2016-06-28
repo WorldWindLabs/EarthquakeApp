@@ -2,6 +2,7 @@ import datetime
 import pandas as pd
 import pyculiarity.detect_ts as pyc
 from time import process_time
+import scipy 
 
 def compute_anomalies(mag):
 	return get_anom(mag, 'X'), get_anom(mag, 'Y'), get_anom(mag, 'Z')
@@ -41,3 +42,21 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
         X_anoms.append(len(tempX.index))
 
     return X_anoms
+
+
+def cluster(anomalies_clusters): 
+    features = []
+    for axis in anomalies_clusters:
+        feat_axis = []
+        for cluster in axis:
+            feat_axis.append([len(cluster), #size
+                 cluster.time[-1] -  cluster.time[0], # time interval
+                 np.mean(cluster.time) -  cluster.time[0], # time diameter
+                 np.std(cluster.time), # time standard deviation
+                 cluster.value[-1] -  cluster.value[0], # value interval
+                 np.mean(cluster.value) -  cluster.value[0], # value diameter
+                 np.std(cluster.value), # value standard deviation
+                 max(cluster.value) # max value
+                ])
+        features.append(feat_axis)
+    return features
