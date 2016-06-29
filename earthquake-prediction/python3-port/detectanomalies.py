@@ -56,71 +56,24 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
     return X_anoms
 
 
-def compute_cluster(magnetic, anomalies, num_h = 4):
+def anomaly_rate(magnetic, anomalies, num_h = 4):
     mag_interval = magnetic.resample('10T').mean()
 
-    res = []
-    for axis in anomalies:
-        anom_rate = []
-        for index, row in mag_interval.iterrows():
-            end = index
-            start = end - datetime.timedelta(hours=num_h)
-            temp = axis.anoms[start:end]
-            anom_rate.append(len(temp.index)/num_h)
+    anom_rate = []
+    for index, row in mag_interval.iterrows():
+        end = index
+        start = end - datetime.timedelta(hours=num_h)
+        temp = anomalies.anoms[start:end]
+        anom_rate.append(len(temp.index)/num_h)
 
-        anom_r = pd.DataFrame()
-        anom_r['anom_r'] = pd.Series(anom_rate)
-        anom_r['log_anom_r'] = np.log(anom_r['anom_r'])
-        anom_r.index = mag_interval.index
-        anom_r = anom_r[anom_r.log_anom_r >= 0]
-        anom_r['log_z_score'] = ((anom_r['log_anom_r']-anom_r['log_anom_r'].mean())/anom_r['log_anom_r'].std())
-        anom_r['log_z_score_zero_trans'] = anom_r.log_z_score + abs(anom_r['log_z_score'].min())
-        # sb.distplot(anom_r['log_anom_r'])
-        # plt.show()
-        anom_r['Date'] = anom_r.index
-        res.append(anom_r)
+    anom_r = pd.DataFrame()
+    anom_r['anom_r'] = pd.Series(anom_rate)
+    anom_r['log_anom_r'] = np.log(anom_r['anom_r'])
+    anom_r.index = mag_interval.index
+    anom_r = anom_r[anom_r.log_anom_r >= 0]
+    anom_r['log_z_score'] = ((anom_r['log_anom_r']-anom_r['log_anom_r'].mean())/anom_r['log_anom_r'].std())
+    anom_r['log_z_score_zero_trans'] = anom_r.log_z_score + abs(anom_r['log_z_score'].min())
+    anom_r['Date'] = anom_r.index
+   
+    return anom_r
 
-    return res
-
-def get_mean(df_c):
-    df = pd.DataFrame()
-    df['unix_time'] = df_c.index.astype(np.int64)
-    df_mean = df.unix_time.mean()
-    df_dt = pd.to_datetime(df_mean)
-    # print(df_mean)
-    # print(df_dt)
-    return df_dt
-
-def get_std(df_c):
-    df = pd.DataFrame()
-    df['unix_time'] = df_c.index.astype(np.int64)
-    df_std = df.unix_time.std()
-    df_dt = pd.to_timedelta(df_std)
-    # print(df_std)
-    # print(df_dt)
-    return df_dt
-
-def cluster(anomalies_clusters): 
-    features = []
-    means = []
-    for axis in anomalies_clusters:
-        feat_axis = []
-        mean_axis = []
-        for cluster in axis:
-            mean = get_mean(cluster)
-            feat_axis.append([len(cluster), #size
-                 (cluster.timestamp[-1]-cluster.timestamp[0])/len(cluster), # time density
-                 (mean -  cluster.timestamp[0])/len(cluster), # time diameter
-                 (get_std(cluster)), # time standard deviation
-                 (max(cluster.anoms) -  min(cluster.anoms))/len(cluster), # value interval
-                 (cluster.anoms.mean() -  cluster.anoms[0])/len(cluster), # value diameter
-                 cluster.anoms.std(), # value standard deviation
-                 max(cluster.anoms) # max value
-                 # TODO: confidence interval radius 
-                ])
-            mean_axis.append(mean)
-
-        means.append(mean_axis)
-        features.append(feat_axis)
-        
-    return features, means

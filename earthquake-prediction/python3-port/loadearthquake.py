@@ -1,4 +1,6 @@
 # NASA World Wind Earthquake load data code
+import datetime as dt
+from datetime import datetime 
 from time import process_time
 from urllib.parse import urlencode
 import pandas as pd
@@ -74,3 +76,22 @@ def add_anomalies(eq, anom):
     earthquake = pd.concat([eq, anom], axis=1, join_axes=[eq.index])
     earthquake['total_anoms'] = earthquake.X_anoms + earthquake.Y_anoms + earthquake.Z_anoms
     return earthquake
+
+
+def look_relevant_earthquake(name, times, radius = 400, h = 10, min_mag = 3):
+    ans = []
+    stationcoord = station.get(name)
+
+    for begin, end in times:
+        earthquake = eaq.load_earthquake_data(datetime.isoformat(begin),
+             datetime.isoformat(end+dt.timedelta(hours=h)), 
+             stationcoord, 
+             max_distance = radius, 
+             min_magnitude = min_mag)
+
+        if len(earthquake.index) >= 1:
+            ans.append(True)
+        else:
+            ans.append(False)
+
+    return ans
