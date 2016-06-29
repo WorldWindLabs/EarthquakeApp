@@ -166,3 +166,64 @@ def plot_fft(input_signal):
     plt.plot(f, Pxx)
     plt.xlim([0,1])
     plt.show()
+
+# temporary visualization of anom rate against the earthquake/mag data
+def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z):
+    anomX, anomY, anomZ = anomalies
+
+    f = plt.figure()
+
+    f1 = f.add_subplot(611)
+    f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
+    f1.set_ylim([0, 60])
+    f1.set_xlim([begin, end])
+
+    f2 = f.add_subplot(612)
+    f2.plot(X.index, X.log_z_score_zero_trans, color='b', linewidth='1', zorder=1)
+    f2.set_xlim([begin, end])
+
+    f3 = f.add_subplot(613)
+    f3.plot(magnetic.index, magnetic.Y, color='g', linewidth='1', zorder=1)
+    f3.set_ylim([0, 60])
+    f3.set_xlim([begin, end])
+
+    f4 = f.add_subplot(614)
+    f4.plot(Y.index, Y.log_z_score_zero_trans, color='g', linewidth='1', zorder=1)
+    f4.set_xlim([begin, end])
+
+    f5 = f.add_subplot(615)
+    f5.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1', zorder=1)
+    f5.set_ylim([0, 60])
+    f5.set_xlim([begin, end])
+
+    f6 = f.add_subplot(616)
+    f6.plot(Z.index, Z.log_z_score_zero_trans, color='orange', linewidth='1', zorder=1)
+    f6.set_xlim([begin, end])
+
+    # my_win = 20
+    # mw1 = pd.rolling_mean(magnetic.X, window = my_win, center = True)
+    # f1.plot(magnetic.index, mw1, color = 'r', linewidth = '1')
+    # mw2 = pd.rolling_mean(magnetic.Y, window = my_win, center = True)
+    # f2.plot(magnetic.index, mw2, color = 'r', linewidth = '1')
+    # mw3 = pd.rolling_mean(magnetic.Z, window = my_win, center = True)
+    # f3.plot(magnetic.index, mw3, color = 'r', linewidth = '1')
+
+    for index, row in earthquake.iterrows():
+        if 4 > row['EQ_Magnitude'] > 3:
+            f1.axvline(index, color='grey', linewidth=0.75)
+            f3.axvline(index, color='grey', linewidth=0.75)
+            f5.axvline(index, color='grey', linewidth=0.75)
+        elif row['EQ_Magnitude'] > 4:
+            f1.axvline(index, color='r', linewidth=1)
+            f3.axvline(index, color='r', linewidth=1)
+            f5.axvline(index, color='r', linewidth=1)
+
+    f1.scatter(anomX.index, anomX.anoms, color='r', zorder=2)
+    f3.scatter(anomY.index, anomY.anoms, color='r', zorder=2)
+    f5.scatter(anomZ.index, anomZ.anoms, color='r', zorder=2)
+
+    # TODO add shading showing where significant clusters are
+    # plots = [f1, f2, f3, f4, f5, f6]
+    # for d in X.
+
+    plt.show()
