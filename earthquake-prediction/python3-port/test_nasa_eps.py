@@ -45,10 +45,6 @@ earthquake = eaq.add_anomalies(earthquake, anoms_per_eq)
 anorm_rates = anom.compute_cluster(magnetic, anomalies)
 # print(anorm_rates)
 
-X = anorm_rates[0]
-Y = anorm_rates[1]
-Z = anorm_rates[2]
-
 # temporary visualization of anom rate against the earthquake/mag data
 def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, X, Y, Z):
     anomX, anomY, anomZ = anomalies
@@ -113,15 +109,48 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, X, Y, Z)
 # plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, X, Y, Z)
 
 # extracts the clusters in dates, albeit sloppily
-anom_rate_df = [X, Y, Z]
-clusters = []
-for data in anom_rate_df:
-    temp = []
+cluster_pts = []
+
+for i, data in enumerate(anorm_rates):
+    temp_index = []
+    # temp_anoms = []
     for index, row in data.iterrows():
-        if row['log_z_score_zero_trans'] > 1.96:
-            temp.append(index)
-        else:
-            pass
-    clusters.append(temp)
+        if row['log_z_score_zero_trans'] > 1.96:# and index in anomalies[i].index:
+            temp_index.append(index)
+            # temp_anoms.append(anomalies[i].loc[index].anoms)
+
+    # temp = pd.DataFrame()
+    # temp['Date'] = temp_index
+    # temp['anoms'] = temp_anoms
+    # temp.index = temp['Date']
+    cluster_pts.append(temp_index)
+
+clusters_intervals = []
+
+for data in cluster_pts:
+	tmp = []
+	first_on_cluster = True
+	last_time = data[0]
+	for i, time in enumerate(data):
+		if first_on_cluster:
+			ini_time = time
+			first_on_cluster = False
+
+		elif time - data[i-1] > datetime.timedelta(hours=1):
+			tmp.append((ini_time, data[i-1]))
+			first_on_cluster = True
+		
+	if not first_on_cluster:
+		tmp.append((ini_time, data[-1]))
+	clusters_intervals.append(tmp)
+
+print(clusters_intervals[1])
+
+clusters = []
+for i, axis in enumerate(clusters_intervals):
+	tmp = []
+	for inter in axis:
+		tmp.append(anomalies[i][inter[0]:inter[1]])
+	clusters.append(tmp)
 
 print(clusters[0])

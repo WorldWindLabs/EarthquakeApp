@@ -28,7 +28,7 @@ for i in range(2, num_parts):
 	new_begin = magnetic.index[0].strftime("%Y-%m-%d")
 	new_end = magnetic.index[-1].strftime("%Y-%m-%d")
 
-	magnetic = magnetic[column_names]
+	magnetic = magnetic[column_names]	
 	path = '../data/test2/' + name + '/' + new_begin + '-to-' + new_end
 	magnetic.to_csv(path + '.csv', colums = column_names, header = False)
 	print("done writing")
