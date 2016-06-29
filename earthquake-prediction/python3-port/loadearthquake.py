@@ -12,6 +12,7 @@ import loadearthquake as eaq
 
 def load_earthquake_data(min_date, max_date, origin, min_magnitude="4", max_distance="300"):
     print("Loading earthquake data", end='')
+
     start = process_time()
     resources_url = "http://earthquake.usgs.gov/fdsnws/event/1/query"
 

@@ -1,5 +1,6 @@
 # NASA World Wind Earthquake Data Analysis code
-import datetime
+import datetime as dt
+from datetime import datetime 
 from time import process_time
 import matplotlib.pyplot as plt
 import loadearthquake as eaq
@@ -23,6 +24,36 @@ import numpy as np
 name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-28', '2016-05-02'
 # name, begin, end = 'ESP-Kodiak-2', '2016-06-05', '2016-06-21'
+
+# stations = [['ESP-Kenny-Lake-1', '2016-01-01', '2016-03-01'],
+#             ['ESP-Kenny-Lake-1', '2016-01-06', '2016-02-06'],
+#             ['ESP-Kenny-Lake-1', '2016-04-01', '2016-04-19'],
+#             ['ESP-Kenny-Lake-1', '2016-04-01', '2016-06-21'],
+#             ['ESP-Kenny-Lake-1', '2016-04-19', '2016-05-05'],
+#             ['ESP-Kenny-Lake-1', '2016-04-28', '2016-05-02'],
+#             ['ESP-Kenny-Lake-1', '2016-05-05', '2016-05-24'],
+#             ['ESP-Kenny-Lake-1', '2016-05-19', '2016-05-22'],
+#             ['ESP-Kenny-Lake-1', '2016-05-24', '2016-06-16'],
+#             ['ESP-Kenny-Lake-1', '2016-06-16', '2016-06-21'],
+#             ['ESP-Kodiak-2', '2016-06-05', '2016-06-21'],
+#             ['ESP-Kodiak-3', '2016-04-07', '2016-04-30'],
+#             ['ESP-Kodiak-3', '2016-04-10', '2016-04-13'],
+#             ['ESP-Kodiak-3', '2016-04-10', '2016-04-17'],
+#             ['ESP-Kodiak-3', '2016-04-10', '2016-05-10'],
+#             ['ESP-Kodiak-3', '2016-04-28', '2016-05-02'],
+#             ['ESP-Kodiak-3', '2016-05-19', '2016-05-22'],
+#             ['ESP-Kodiak-3', '2016-06-03', '2016-06-10'],
+#             ['ESP-Kodiak-4', '2016-06-04', '2016-06-21']]
+# dates_w_morethan_3_eqs = []
+# for item in stations:
+#     name, begin, end = item
+#     stationcoord = station.get(name)
+#     earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=4)
+
+#     if len(earthquake.index) >= 1:
+#         dates_w_morethan_3_eqs.append(item)
+
+# print(dates_w_morethan_3_eqs)
 
 stationcoord = station.get(name)
 magnetic = mag.load_magnetic_data(name, begin, end)
@@ -136,7 +167,7 @@ for data in cluster_pts:
 			ini_time = time
 			first_on_cluster = False
 
-		elif time - data[i-1] > datetime.timedelta(hours=1):
+		elif time - data[i-1] > dt.timedelta(hours=4):
 			tmp.append((ini_time, data[i-1]))
 			first_on_cluster = True
 		
@@ -144,13 +175,36 @@ for data in cluster_pts:
 		tmp.append((ini_time, data[-1]))
 	clusters_intervals.append(tmp)
 
-print(clusters_intervals[1])
-
 clusters = []
 for i, axis in enumerate(clusters_intervals):
 	tmp = []
 	for inter in axis:
-		tmp.append(anomalies[i][inter[0]:inter[1]])
+		cut = anomalies[i][inter[0]:inter[1]]
+		if len(cut):
+			tmp.append(cut)
 	clusters.append(tmp)
 
-print(clusters[0])
+feat, means = anom.cluster(clusters)
+
+x = feat[0]
+
+def look_earthquake(radius, h, times):
+	y = []
+	for cluster_t in times:
+		earthquake = eaq.load_earthquake_data(datetime.isoformat(cluster_t),
+			 datetime.isoformat(cluster_t+dt.timedelta(hours=h)), 
+			 stationcoord, 
+			 max_distance = radius, 
+			 min_magnitude = 3)
+
+		if len(earthquake.index) >= 1:
+			y.append(True)
+		else:
+			y.append(False)
+	return y
+
+y = []
+for i in range(3):
+	y.append(look_earthquake("400", 10, means[i]))
+
+print(y)

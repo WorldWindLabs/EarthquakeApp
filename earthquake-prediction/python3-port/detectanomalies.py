@@ -82,20 +82,45 @@ def compute_cluster(magnetic, anomalies, num_h = 4):
 
     return res
 
+def get_mean(df_c):
+    df = pd.DataFrame()
+    df['unix_time'] = df_c.index.astype(np.int64)
+    df_mean = df.unix_time.mean()
+    df_dt = pd.to_datetime(df_mean)
+    # print(df_mean)
+    # print(df_dt)
+    return df_dt
+
+def get_std(df_c):
+    df = pd.DataFrame()
+    df['unix_time'] = df_c.index.astype(np.int64)
+    df_std = df.unix_time.std()
+    df_dt = pd.to_timedelta(df_std)
+    # print(df_std)
+    # print(df_dt)
+    return df_dt
 
 def cluster(anomalies_clusters): 
     features = []
+    means = []
     for axis in anomalies_clusters:
         feat_axis = []
+        mean_axis = []
         for cluster in axis:
+            mean = get_mean(cluster)
             feat_axis.append([len(cluster), #size
-                 cluster.time[-1] -  cluster.time[0], # time interval
-                 np.mean(cluster.time) -  cluster.time[0], # time diameter
-                 np.std(cluster.time), # time standard deviation
-                 cluster.value[-1] -  cluster.value[0], # value interval
-                 np.mean(cluster.value) -  cluster.value[0], # value diameter
-                 np.std(cluster.value), # value standard deviation
-                 max(cluster.value) # max value
+                 (cluster.timestamp[-1]-cluster.timestamp[0])/len(cluster), # time density
+                 (mean -  cluster.timestamp[0])/len(cluster), # time diameter
+                 (get_std(cluster)), # time standard deviation
+                 (max(cluster.anoms) -  min(cluster.anoms))/len(cluster), # value interval
+                 (cluster.anoms.mean() -  cluster.anoms[0])/len(cluster), # value diameter
+                 cluster.anoms.std(), # value standard deviation
+                 max(cluster.anoms) # max value
+                 # TODO: confidence interval radius 
                 ])
+            mean_axis.append(mean)
+
+        means.append(mean_axis)
         features.append(feat_axis)
-    return features
+        
+    return features, means
