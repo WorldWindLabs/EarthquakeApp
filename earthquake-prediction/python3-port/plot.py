@@ -64,10 +64,10 @@ def graph_coordinates_time(vector, axis):
 #     plt.show()
 
 
-def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic):
+def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic,savefigure = False, savename = 'test_eq_anom_plt.png', figtitle = None):
     anomX, anomY, anomZ = anomalies
 
-    f = plt.figure()
+    f = plt.figure(figsize =(10, 5))
     f1 = f.add_subplot(311)
     f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
     f1.set_ylim([0, 60])
@@ -75,7 +75,7 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic):
     f2.plot(magnetic.index, magnetic.Y, color='g', linewidth='1', zorder=1)
     f2.set_ylim([0, 60])
     f3 = f.add_subplot(313)
-    f3.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1')
+    f3.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1', zorder=1)
     f3.set_ylim([0, 60])
 
     # my_win = 20
@@ -88,9 +88,9 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic):
 
     for index, row in earthquake.iterrows():
         if 4 > row['EQ_Magnitude'] > 3:
-            f1.axvline(index, color='grey', linewidth=0.75, zorder=0)
-            f2.axvline(index, color='grey', linewidth=0.75, zorder=0)
-            f3.axvline(index, color='grey', linewidth=0.75, zorder=0)
+            f1.axvline(index, color='grey', linewidth=0.75, zorder=1)
+            f2.axvline(index, color='grey', linewidth=0.75, zorder=1)
+            f3.axvline(index, color='grey', linewidth=0.75, zorder=1)
         elif row['EQ_Magnitude'] > 4:
             f1.axvline(index, color='r', linewidth=1)
             f2.axvline(index, color='r', linewidth=1)
@@ -99,12 +99,17 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic):
     f1.scatter(anomX.index, anomX.anoms, color='r', zorder = 2)
     f2.scatter(anomY.index, anomY.anoms, color='r', zorder = 2)
     f3.scatter(anomZ.index, anomZ.anoms, color='r', zorder = 2)
-    plt.show()
+    
+    f.suptitle(figtitle)
+    if savefigure == True:
+        f = plt.savefig(savename, bbox_inches = 'tight')
+    else:
+        plt.show()
 
 
-def plot_earthquake_magnetic(earthquake, mag):
+def plot_earthquake_magnetic(earthquake, mag, savefigure = False, savename = 'test_eq_plt.png', figtitle = None):
     t, x, y, z = mag.index, mag.X, mag.Y, mag.Z
-    f = plt.figure()
+    f = plt.figure(figsize = (10, 5))
 
     f1 = f.add_subplot(311)
     f1.plot(t, x, color='g', linewidth='1')
@@ -126,8 +131,11 @@ def plot_earthquake_magnetic(earthquake, mag):
             f1.axvline(index, color='r', linewidth=1)
             f2.axvline(index, color='r', linewidth=1)
             f3.axvline(index, color='r', linewidth=1)
-
-    plt.show()
+    f.suptitle(figtitle)
+    if savefigure == True:
+        f = plt.savefig(savename, bbox_inches = 'tight')
+    else:
+        plt.show()
 
 
 def plot_AxB(a, b):
