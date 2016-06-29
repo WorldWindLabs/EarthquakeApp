@@ -17,12 +17,12 @@ import numpy as np
 import clusters
 
 def preprocess(name, magnetic, anomalies):
-	anom_rate = anom.anomaly_rate(magnetic, anomalies)
-	cluster_list = clusters.get(anom_rate, anomalies)
-	features, interval = clusters.comp_features(cluster_list)
-
 	y = []
 	for i in range(3):
-		y.append(eaq.look_relevant_earthquake(name, interval[i]))
+		anom_rate = anom.anomaly_rate(magnetic, anomalies[i])
+		cluster_list = clusters.get(anom_rate, anomalies[i])
+		features, interval = clusters.comp_features(cluster_list)
+
+		y.append(eaq.look_relevant_earthquake(name, interval))
 
 	return features, y

@@ -59,24 +59,21 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
 def anomaly_rate(magnetic, anomalies, num_h = 4):
     mag_interval = magnetic.resample('10T').mean()
 
-    res = []
-    for axis in anomalies:
-        anom_rate = []
-        for index, row in mag_interval.iterrows():
-            end = index
-            start = end - datetime.timedelta(hours=num_h)
-            temp = axis.anoms[start:end]
-            anom_rate.append(len(temp.index)/num_h)
+    anom_rate = []
+    for index, row in mag_interval.iterrows():
+        end = index
+        start = end - datetime.timedelta(hours=num_h)
+        temp = anomalies.anoms[start:end]
+        anom_rate.append(len(temp.index)/num_h)
 
-        anom_r = pd.DataFrame()
-        anom_r['anom_r'] = pd.Series(anom_rate)
-        anom_r['log_anom_r'] = np.log(anom_r['anom_r'])
-        anom_r.index = mag_interval.index
-        anom_r = anom_r[anom_r.log_anom_r >= 0]
-        anom_r['log_z_score'] = ((anom_r['log_anom_r']-anom_r['log_anom_r'].mean())/anom_r['log_anom_r'].std())
-        anom_r['log_z_score_zero_trans'] = anom_r.log_z_score + abs(anom_r['log_z_score'].min())
-        anom_r['Date'] = anom_r.index
-        res.append(anom_r)
-
-    return res
+    anom_r = pd.DataFrame()
+    anom_r['anom_r'] = pd.Series(anom_rate)
+    anom_r['log_anom_r'] = np.log(anom_r['anom_r'])
+    anom_r.index = mag_interval.index
+    anom_r = anom_r[anom_r.log_anom_r >= 0]
+    anom_r['log_z_score'] = ((anom_r['log_anom_r']-anom_r['log_anom_r'].mean())/anom_r['log_anom_r'].std())
+    anom_r['log_z_score_zero_trans'] = anom_r.log_z_score + abs(anom_r['log_z_score'].min())
+    anom_r['Date'] = anom_r.index
+   
+    return anom_r
 

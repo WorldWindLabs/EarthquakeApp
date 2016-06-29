@@ -47,5 +47,3 @@ earthquake = eaq.add_anomalies(earthquake, anoms_per_eq)
 # pt.plot_earthquake_magnetic(earthquake, magnetic)
 
 x, y = ml.preprocess(name, magnetic, anomalies)
-
-print(y)
