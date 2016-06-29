@@ -1,6 +1,6 @@
 # NASA World Wind Earthquake Data Analysis code
 import datetime as dt
-from datetime import datetime 
+from datetime import datetime
 from time import process_time
 import matplotlib.pyplot as plt
 import loadearthquake as eaq
@@ -16,13 +16,14 @@ import seaborn as sb
 import numpy as np
 import clusters
 
+
 def preprocess(name, magnetic, anomalies):
-	y = []
-	for i in range(3):
-		anom_rate = anom.anomaly_rate(magnetic, anomalies[i])
-		cluster_list = clusters.get(anom_rate, anomalies[i])
-		features, interval = clusters.comp_features(cluster_list)
+    y = []
+    for i in range(3):
+        anom_rate = anom.anomaly_rate(magnetic, anomalies[i])
+        cluster_list = clusters.get(anom_rate, anomalies[i])
+        features, interval = clusters.comp_features(cluster_list)
 
-		y.append(eaq.look_relevant_earthquake(name, interval))
+        y.append(eaq.look_relevant_earthquake(name, interval))
 
-	return features, y
+    return features, y

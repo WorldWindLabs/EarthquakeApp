@@ -176,7 +176,7 @@ def plot_fft(input_signal):
     plt.show()
 
 # temporary visualization of anom rate against the earthquake/mag data
-def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z):
+def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, savefigure = False, savename = 'test_anom_rate_plt.png', figtitle = None):
     anomX, anomY, anomZ = anomalies
 
     f = plt.figure()
@@ -233,5 +233,8 @@ def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z
     # TODO add shading showing where significant clusters are
     # plots = [f1, f2, f3, f4, f5, f6]
     # for d in X.
-
-    plt.show()
+    f.suptitle(figtitle)
+    if savefigure == True:
+        f = plt.savefig(savename, bbox_inches='tight')
+    else:
+        plt.show()
