@@ -21,6 +21,9 @@ for station in data:
 def get(name):
     return stations_data[name]
 
+def get_esp_name(name):
+	return "esp_" + name[-1:]
+
 def get_relevant_dates(min_mag = 4):
 
 	stations = [['ESP-Kenny-Lake-1', '2016-01-01', '2016-03-01'],

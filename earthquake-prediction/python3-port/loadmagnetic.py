@@ -4,7 +4,11 @@ from datetime import timedelta
 from time import process_time
 import pandas as pd
 import bandfilter as bf
-import urllib
+from urllib.parse import urlencode
+import json 
+import urllib.request
+import stationsdata as st
+from pandas.io.json import json_normalize
 
 def load_magnetic_data(station, min_date, max_date, download = False):
     start = process_time()
@@ -97,3 +101,33 @@ def upsample_to_min(magnetic):
     magnetic['Date'] = magnetic.index
 
     return magnetic
+
+def load_db(station, min_date, max_date, sample_size = 10):
+    print("Loading magnetic data", end='')
+
+    column_names = ['Date', 'X', 'Y', 'Z']
+    start = process_time()
+    resources_url = "http://143.232.136.208:8086/query"
+
+    url = resources_url + "?" + "q=select+*+from+"
+    url += st.get_esp_name(station)
+    url += "+where+time+>+'" + min_date + "'"
+    url += "+and+time+<+'" + max_date + "'"
+    url += "+limit+" + str(sample_size) 
+    url += "&db=test_hmr"
+
+    res = urllib.request.urlopen(url)
+    str_data = res.read().decode('ascii')
+    dict_data = json.loads(str_data)
+    path = dict_data['results'][0]['series'][0]
+    df_data = pd.DataFrame(path['values'], columns = column_names)
+    df_data.set_index('Date', inplace=True)
+       
+    print(" --- took", round(process_time() - start, 2), " s")
+
+    return df_data
+
+
+name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-10'
+
+print(load_db(name, begin, end))
