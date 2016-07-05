@@ -8,6 +8,7 @@ import seaborn as sb
 import pandas as pd
 from scipy import signal
 
+
 def graph_xyz(data):
     plt.subplots(1, figsize=(10, 6))
     plt.plot(data['X'], 'b-')
@@ -43,7 +44,7 @@ def graph_coordinates_time(vector, axis):
     plt.plot_date(time, vector[axis] / 50000, 'b-')
     plt.ylabel(axis)
 
-    plt.axvline(datetime.datetime(2014, 10, 23, 8, 30, 24))      # 2014-10-23T08:30:24Z
+    plt.axvline(datetime.datetime(2014, 10, 23, 8, 30, 24))  # 2014-10-23T08:30:24Z
 
     f.autofmt_xdate()
 
@@ -64,10 +65,11 @@ def graph_coordinates_time(vector, axis):
 #     plt.show()
 
 
-def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic,savefigure = False, savename = 'test_eq_anom_plt.png', figtitle = None):
+def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigure=False,
+                                       savename='test_eq_anom_plt.png', figtitle=None):
     anomX, anomY, anomZ = anomalies
 
-    f = plt.figure(figsize =(10, 5))
+    f = plt.figure(figsize=(10, 5))
     f1 = f.add_subplot(311)
     f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
     f1.set_ylim([0, 60])
@@ -96,20 +98,20 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic,savefigur
             f2.axvline(index, color='r', linewidth=1)
             f3.axvline(index, color='r', linewidth=1)
 
-    f1.scatter(anomX.index, anomX.anoms, color='r', zorder = 2)
-    f2.scatter(anomY.index, anomY.anoms, color='r', zorder = 2)
-    f3.scatter(anomZ.index, anomZ.anoms, color='r', zorder = 2)
-    
+    f1.scatter(anomX.index, anomX.anoms, color='r', zorder=2)
+    f2.scatter(anomY.index, anomY.anoms, color='r', zorder=2)
+    f3.scatter(anomZ.index, anomZ.anoms, color='r', zorder=2)
+
     f.suptitle(figtitle)
     if savefigure == True:
-        f = plt.savefig(savename, bbox_inches = 'tight')
+        f = plt.savefig(savename, bbox_inches='tight')
     else:
         plt.show()
 
 
-def plot_earthquake_magnetic(earthquake, mag, savefigure = False, savename = 'test_eq_plt.png', figtitle = None):
+def plot_earthquake_magnetic(earthquake, mag, savefigure=False, savename='test_eq_plt.png', figtitle=None):
     t, x, y, z = mag.index, mag.X, mag.Y, mag.Z
-    f = plt.figure(figsize = (10, 5))
+    f = plt.figure(figsize=(10, 5))
 
     f1 = f.add_subplot(311)
     f1.plot(t, x, color='g', linewidth='1')
@@ -133,7 +135,7 @@ def plot_earthquake_magnetic(earthquake, mag, savefigure = False, savename = 'te
             f3.axvline(index, color='r', linewidth=1)
     f.suptitle(figtitle)
     if savefigure == True:
-        f = plt.savefig(savename, bbox_inches = 'tight')
+        f = plt.savefig(savename, bbox_inches='tight')
     else:
         plt.show()
 
@@ -142,9 +144,11 @@ def plot_AxB(a, b):
     plt.plot(a, b, 'ro')
     plt.show()
 
+
 def plot_histogram(data, bins=30):
     sb.distplot(data, bins)
     plt.show()
+
 
 def plot_magnetic(t, x, y, z):
     f = plt.figure()
@@ -160,23 +164,26 @@ def plot_magnetic(t, x, y, z):
     f3.set_ylim([0, 10])  # set the y-axis of the first plot between 0 and 30
     plt.show()
 
+
 def plot_Y(y):
     plt.plot(y)
     plt.show()
 
-def plot_fft(input_signal):
 
-    fs = 1/123
-    f, Pxx = signal.welch(input_signal, fs, nperseg= 1024)
+def plot_fft(input_signal):
+    fs = 1 / 123
+    f, Pxx = signal.welch(input_signal, fs, nperseg=1024)
     plt.subplot(211)
     plt.plot(input_signal)
     plt.subplot(212)
     plt.plot(f, Pxx)
-    plt.xlim([0,1])
+    plt.xlim([0, 1])
     plt.show()
 
+
 # temporary visualization of anom rate against the earthquake/mag data
-def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, savefigure = False, savename = 'test_anom_rate_plt.png', figtitle = None):
+def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, savefigure=False,
+                                        savename='test_anom_rate_plt.png', figtitle=None):
     anomX, anomY, anomZ = anomalies
 
     f = plt.figure()
@@ -233,6 +240,58 @@ def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z
     # TODO add shading showing where significant clusters are
     # plots = [f1, f2, f3, f4, f5, f6]
     # for d in X.
+    f.suptitle(figtitle)
+    if savefigure == True:
+        f = plt.savefig(savename, bbox_inches='tight')
+    else:
+        plt.show()
+
+def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.png', figtitle=None):
+    t1, x1, y1, z1 = mag1.index, mag1.X, mag1.Y, mag1.Z
+    t2, x2, y2, z2 = mag2.index, mag2.X, mag2.Y, mag2.Z
+
+    f = plt.figure(figsize=(10, 5))
+
+    f1 = f.add_subplot(611)
+    f1.plot(t1, x1, color='b', linewidth='1', zorder=1)
+    f1.set_ylim([0, 60])
+
+    f2 = f.add_subplot(612)
+    f2.plot(t2, x2, color='b', linewidth='1', zorder=1)
+    f2.set_ylim([0, 60])
+
+    f3 = f.add_subplot(613)
+    f3.plot(t1, y1, color='g', linewidth='1', zorder=1)
+    f3.set_ylim([0, 60])
+
+    f4 = f.add_subplot(614)
+    f4.plot(t2, y2, color='g', linewidth='1', zorder=1)
+    f4.set_ylim([0, 60])
+
+    f5 = f.add_subplot(615)
+    f5.plot(t1, z1, color='orange', linewidth='1', zorder=1)
+    f5.set_ylim([0, 60])
+
+    f6 = f.add_subplot(616)
+    f6.plot(t2, z2, color='orange', linewidth='1', zorder=1)
+    f6.set_ylim([0, 60])
+
+    for index, row in eq.iterrows():
+        # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
+        if 4 > row['EQ_Magnitude'] > 3:
+            f1.axvline(index, color='grey', linewidth=0.75)
+            f2.axvline(index, color='grey', linewidth=0.75)
+            f3.axvline(index, color='grey', linewidth=0.75)
+            f4.axvline(index, color='grey', linewidth=0.75)
+            f5.axvline(index, color='grey', linewidth=0.75)
+            f6.axvline(index, color='grey', linewidth=0.75)
+        elif row['EQ_Magnitude'] > 4:
+            f1.axvline(index, color='r', linewidth=1)
+            f2.axvline(index, color='r', linewidth=1)
+            f3.axvline(index, color='r', linewidth=1)
+            f4.axvline(index, color='r', linewidth=1)
+            f5.axvline(index, color='r', linewidth=1)
+            f6.axvline(index, color='r', linewidth=1)
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')
