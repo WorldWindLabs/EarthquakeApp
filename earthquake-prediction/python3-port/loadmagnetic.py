@@ -64,7 +64,7 @@ def load_magnetic_data_intele(path):
     df.drop('Unnamed: 4', axis=1, inplace=True)
     df.columns = column_names
     df.index = pd.to_datetime(df.Date, utc=True)
-    df.interpolate().dropna(how='any', axis=0)
+    df.dropna(how='any', axis=0)
 
     return df
 
@@ -113,7 +113,7 @@ def load_db(station, min_date, max_date, sample_size = 10):
     url += st.get_esp_name(station)
     url += "+where+time+>+'" + min_date + "'"
     url += "+and+time+<+'" + max_date + "'"
-    url += "+limit+" + str(sample_size) 
+    # url += "+limit+" + str(sample_size) 
     url += "&db=test_hmr"
 
     res = urllib.request.urlopen(url)
@@ -121,13 +121,13 @@ def load_db(station, min_date, max_date, sample_size = 10):
     dict_data = json.loads(str_data)
     path = dict_data['results'][0]['series'][0]
     df_data = pd.DataFrame(path['values'], columns = column_names)
-    df_data.set_index('Date', inplace=True)
+    df_data.index = pd.to_datetime(df_data['Date'], utc=True)
+    df_data.dropna(how='any', axis=0)
        
     print(" --- took", round(process_time() - start, 2), " s")
-
+    # print(df_data)
     return df_data
 
+name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-04'
 
-name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-10'
-
-print(load_db(name, begin, end))
+# print(load_db(name, begin, end))

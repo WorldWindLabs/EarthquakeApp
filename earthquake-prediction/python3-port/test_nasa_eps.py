@@ -25,16 +25,19 @@ import learning as ml
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-07', '2016-05-31'
 
 name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
-name2, begin2, end2 = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+name2, begin2, end2 = 'ESP-Kodiak-2', '2016-04-10', '2016-05-10'
 
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-28', '2016-05-02'
-name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-10'
+# name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-10'
 # name, begin, end = 'ESP-Kodiak-2', '2016-06-05', '2016-06-21'
 
 
+name, begin, end = 'ESP-Kodiak-3', '2016-06-06', '2016-06-07'
+name2, begin2, end2 = 'ESP-Kodiak-2', '2016-06-06', '2016-06-07'
+
 stationcoord = station.get(name)
-magnetic1 = mag.load_magnetic_data(name, begin, end)
-magnetic2 = mag.load_magnetic_data(name2, begin2, end2)
+magnetic1 = mag.load_db(name, begin, end)
+magnetic2 = mag.load_db(name2, begin2, end2)
 
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
@@ -48,10 +51,10 @@ mag_filtrd2 = bf.cheby_filter(magnetic2.copy())
 'anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))'
 
 # pt.plot_histogram(earthquake.total_anoms)  # [earthquake['total_anoms'] > 0])
-pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, savefigure = True, 
-	savename = '-'.join((name,begin,end,'anom_filtered_plt.png')), figtitle = '-'.join((name,begin,end)))
-pt.plot_earthquake_magnetic(earthquake, magnetic, savefigure = True,
-	savename = '-'.join((name,begin,end,'raw_plt.png')), figtitle = '-'.join((name,begin,end)))
+# pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, savefigure = True, 
+# 	savename = '-'.join((name,begin,end,'anom_filtered_plt.png')), figtitle = '-'.join((name,begin,end)))
+# pt.plot_earthquake_magnetic(earthquake, magnetic, savefigure = True,
+# 	savename = '-'.join((name,begin,end,'raw_plt.png')), figtitle = '-'.join((name,begin,end)))
 
 
 # x, y = ml.preprocess(name, magnetic, anomalies)
