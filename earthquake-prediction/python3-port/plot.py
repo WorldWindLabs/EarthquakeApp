@@ -69,6 +69,12 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigu
                                        savename='test_eq_anom_plt.png', figtitle=None):
     anomX, anomY, anomZ = anomalies
 
+    anomX = anomX[100000:]
+    anomY = anomY[100000:]
+    anomZ = anomZ[100000:]
+    magnetic = magnetic[100000:]
+
+
     f = plt.figure(figsize=(10, 5))
     f1 = f.add_subplot(311)
     f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
@@ -105,6 +111,7 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigu
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')
+        plt.close()
     else:
         plt.show()
 
@@ -136,6 +143,7 @@ def plot_earthquake_magnetic(earthquake, mag, savefigure=False, savename='test_e
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')
+        plt.close()
     else:
         plt.show()
 
@@ -243,6 +251,7 @@ def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')
+        plt.close()
     else:
         plt.show()
 
@@ -250,31 +259,34 @@ def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.
     t1, x1, y1, z1 = mag1.index, mag1.X, mag1.Y, mag1.Z
     t2, x2, y2, z2 = mag2.index, mag2.X, mag2.Y, mag2.Z
 
+    mag1 = mag1[100000:]
+    mag2 = mag2[100000:]
+
     f = plt.figure(figsize=(10, 5))
 
     f1 = f.add_subplot(611)
     f1.plot(t1, x1, color='b', linewidth='1', zorder=1)
-    f1.set_ylim([0, 60])
+    f1.set_ylim([0, 20])
 
     f2 = f.add_subplot(612)
     f2.plot(t2, x2, color='b', linewidth='1', zorder=1)
-    f2.set_ylim([0, 60])
+    f2.set_ylim([0, 20])
 
     f3 = f.add_subplot(613)
     f3.plot(t1, y1, color='g', linewidth='1', zorder=1)
-    f3.set_ylim([0, 60])
+    f3.set_ylim([0, 20])
 
     f4 = f.add_subplot(614)
     f4.plot(t2, y2, color='g', linewidth='1', zorder=1)
-    f4.set_ylim([0, 60])
+    f4.set_ylim([0, 20])
 
     f5 = f.add_subplot(615)
     f5.plot(t1, z1, color='orange', linewidth='1', zorder=1)
-    f5.set_ylim([0, 60])
+    f5.set_ylim([0, 20])
 
     f6 = f.add_subplot(616)
     f6.plot(t2, z2, color='orange', linewidth='1', zorder=1)
-    f6.set_ylim([0, 60])
+    f6.set_ylim([0, 20])
 
     for index, row in eq.iterrows():
         # this will draw a vertical red line on each of the three plots if the magnitude is greater than 3
@@ -295,5 +307,6 @@ def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')
+        plt.close()
     else:
         plt.show()
