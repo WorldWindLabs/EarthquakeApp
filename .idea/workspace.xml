@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="934dacfe-b50b-421b-bd6b-e3abc2b1083b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_vertical_lines.py" afterPath="$PROJECT_DIR$/earthquake-prediction/python3-port/test_vertical_lines.py" />
     </list>
     <ignored path="EarthquakeApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -19,11 +17,12 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/EarthquakeApp$test_nasa_eps.coverage" NAME="test_nasa_eps Coverage Results" MODIFIED="1467758233343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
+    <SUITE FILE_PATH="coverage/EarthquakeApp$test_nasa_eps.coverage" NAME="test_nasa_eps Coverage Results" MODIFIED="1467836071291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
     <SUITE FILE_PATH="coverage/EarthquakeApp$test_lowpassfilter.coverage" NAME="test_lowpassfilter Coverage Results" MODIFIED="1466530636360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
     <SUITE FILE_PATH="coverage/EarthquakeApp$test_fft.coverage" NAME="test_fft Coverage Results" MODIFIED="1466442208441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
     <SUITE FILE_PATH="coverage/EarthquakeApp$.coverage" NAME=" Coverage Results" MODIFIED="1467136953572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/EarthquakeApp$plot.coverage" NAME="plot Coverage Results" MODIFIED="1467758208151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
+    <SUITE FILE_PATH="coverage/EarthquakeApp$loadmagnetic.coverage" NAME="loadmagnetic Coverage Results" MODIFIED="1467835263878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
     <SUITE FILE_PATH="coverage/EarthquakeApp$test_vertical_lines.coverage" NAME="test_vertical_lines Coverage Results" MODIFIED="1467757857300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -35,13 +34,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="test_nasa_eps.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="test_nasa_eps.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="27" column="63" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
+            <state relative-caret-position="330">
+              <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
               <folding>
-                <marker date="1467832980000" expanded="true" signature="2478:2538" ph="..." />
+                <marker date="1467834365000" expanded="true" signature="2554:2614" ph="..." />
               </folding>
             </state>
           </provider>
@@ -50,18 +49,28 @@
       <file leaf-file-name="detectanomalies.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
+            <state relative-caret-position="855">
               <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loadmagnetic.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="loadmagnetic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-900">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="224">
+              <caret line="109" column="17" selection-start-line="109" selection-start-column="17" selection-end-line="109" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clusters.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/clusters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="626">
+              <caret line="83" column="73" selection-start-line="83" selection-start-column="73" selection-end-line="83" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -70,7 +79,7 @@
       <file leaf-file-name="plot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
+            <state relative-caret-position="566">
               <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
               <folding>
                 <element signature="e#49#64#0" expanded="true" />
@@ -104,7 +113,6 @@
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_lowpassfilter.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/OLS Model Diagnostics.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/ols_mod_diagnostics.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/clusters.py" />
@@ -112,6 +120,7 @@
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_vertical_lines.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
+        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
       </list>
     </option>
   </component>
@@ -311,9 +320,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="GeoJSON.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63343/EarthquakeApp/app/GeoJSON.html">
-      <method />
-    </configuration>
     <configuration default="false" name="test_fft" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -364,6 +370,24 @@
       <module name="EarthquakeApp" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="loadmagnetic" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="EarthquakeApp" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -597,18 +621,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.test_lowpassfilter" />
       <item index="1" class="java.lang.String" itemvalue="Python.test_nasa_eps" />
-      <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.GeoJSON.html" />
-      <item index="3" class="java.lang.String" itemvalue="Python.test_fft" />
-      <item index="4" class="java.lang.String" itemvalue="Python.test_vertical_lines" />
-      <item index="5" class="java.lang.String" itemvalue="Python.plot" />
+      <item index="2" class="java.lang.String" itemvalue="Python.test_fft" />
+      <item index="3" class="java.lang.String" itemvalue="Python.test_vertical_lines" />
+      <item index="4" class="java.lang.String" itemvalue="Python.plot" />
+      <item index="5" class="java.lang.String" itemvalue="Python.loadmagnetic" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.test_nasa_eps" />
-        <item index="1" class="java.lang.String" itemvalue="Python.plot" />
-        <item index="2" class="java.lang.String" itemvalue="Python.test_vertical_lines" />
-        <item index="3" class="java.lang.String" itemvalue="Python.test_fft" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.GeoJSON.html" />
+        <item index="1" class="java.lang.String" itemvalue="Python.loadmagnetic" />
+        <item index="2" class="java.lang.String" itemvalue="Python.plot" />
+        <item index="3" class="java.lang.String" itemvalue="Python.test_vertical_lines" />
+        <item index="4" class="java.lang.String" itemvalue="Python.test_fft" />
       </list>
     </recent_temporary>
   </component>
@@ -644,7 +668,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="764" height="721" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2473822" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -652,18 +676,18 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="764" y="392" width="513" height="350" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.2852761" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="764" y="23" width="516" height="721" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39570552" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.2852761" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="764" y="23" width="516" height="721" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39570552" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -699,7 +723,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1467832980000" expanded="true" signature="2478:2538" ph="..." />
+            <marker date="1467834365000" expanded="true" signature="2554:2614" ph="..." />
           </folding>
         </state>
       </provider>
@@ -716,7 +740,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1467832980000" expanded="true" signature="2478:2538" ph="..." />
+            <marker date="1467834365000" expanded="true" signature="2554:2614" ph="..." />
           </folding>
         </state>
       </provider>
@@ -748,7 +772,7 @@
         <state relative-caret-position="450">
           <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
           <folding>
-            <marker date="1467832980000" expanded="true" signature="2478:2538" ph="..." />
+            <marker date="1467834365000" expanded="true" signature="2554:2614" ph="..." />
           </folding>
         </state>
       </provider>
@@ -783,7 +807,7 @@
         <state relative-caret-position="450">
           <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
           <folding>
-            <marker date="1467832980000" expanded="true" signature="2478:2538" ph="..." />
+            <marker date="1467834365000" expanded="true" signature="2554:2614" ph="..." />
           </folding>
         </state>
       </provider>
@@ -962,14 +986,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/clusters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="83" column="73" selection-start-line="83" selection-start-column="73" selection-end-line="83" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/learning.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -994,16 +1010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding>
-            <element signature="e#49#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-274">
@@ -1020,29 +1026,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py">
+    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+        <state relative-caret-position="566">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding>
+            <element signature="e#49#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/clusters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="83" column="73" selection-start-line="83" selection-start-column="73" selection-end-line="83" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py">
+    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-900">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        <state relative-caret-position="855">
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="27" column="63" selection-start-line="27" selection-start-column="63" selection-end-line="27" selection-end-column="63" />
+        <state relative-caret-position="330">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
           <folding>
-            <marker date="1467832980000" expanded="true" signature="2478:2538" ph="..." />
+            <marker date="1467834365000" expanded="true" signature="2554:2614" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="109" column="17" selection-start-line="109" selection-start-column="17" selection-end-line="109" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

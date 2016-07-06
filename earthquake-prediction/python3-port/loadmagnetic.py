@@ -9,6 +9,7 @@ import json
 import urllib.request
 import stationsdata as st
 from pandas.io.json import json_normalize
+import itertools
 
 def load_magnetic_data(station, min_date, max_date, download = False):
     start = process_time()
@@ -101,6 +102,18 @@ def upsample_to_min(magnetic):
     magnetic['Date'] = magnetic.index
 
     return magnetic
+
+def jury_rig_dates(magnetic):
+    # c = magnetic.index[0] + timedelta(1)
+    c = 1
+    for index, row in magnetic.iterrows():
+        b = 1 * c
+        (index + timedelta(0, b)) - timedelta(0, 0.00813)
+        c += 1
+    magnetic = magnetic.interpolate().dropna(how='any', axis=0)
+
+    return magnetic
+
 
 def load_db(station, min_date, max_date, sample_size = 10):
     print("Loading magnetic data", end='')

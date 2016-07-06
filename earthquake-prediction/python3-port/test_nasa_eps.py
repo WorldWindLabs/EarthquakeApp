@@ -37,18 +37,20 @@ stationcoord = station.get(name)
 magnetic = mag.load_magnetic_data(name, begin, end)
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
+print(magnetic.head())
+print(mag.jury_rig_dates(magnetic).head())
 # Filtering Data
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
 # Computing Anomalies
-anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))
+# anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))
 
 # Plotting
-pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
-pt.plot_earthquake_magnetic(earthquake, magnetic, savefigure=True,
-                            savename='-'.join((name, begin, end, 'raw_plt.png')), figtitle='-'.join((name, begin, end)))
+# pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
+# pt.plot_earthquake_magnetic(earthquake, magnetic, savefigure=True,
+#                             savename='-'.join((name, begin, end, 'raw_plt.png')), figtitle='-'.join((name, begin, end)))
 # Machine Learning Pre-processing
-x, y = ml.preprocess(name, magnetic, anomalies)
+# x, y = ml.preprocess(name, magnetic, anomalies)
 
 ##################################################################
 # Comparing Two Stations
