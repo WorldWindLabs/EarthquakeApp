@@ -158,18 +158,19 @@ def plot_histogram(data, bins=30):
     plt.show()
 
 
-def plot_magnetic(t, x, y, z):
+def plot_magnetic(mag):
+    t, x, y, z = mag.index, mag.X, mag.Y, mag.Z
     f = plt.figure()
 
     f1 = f.add_subplot(311)
     f1.plot(t, x, color='b', linewidth='1')
-    f1.set_ylim([0, 20])  # set the y-axis of the first plot between 0 and 30
+    # f1.set_ylim([0, 20])  # set the y-axis of the first plot between 0 and 30
     f2 = f.add_subplot(312)
     f2.plot(t, y, color='g', linewidth='1')
-    f2.set_ylim([0, 10])  # set the y-axis of the first plot between 0 and 30
+    # f2.set_ylim([0, 10])  # set the y-axis of the first plot between 0 and 30
     f3 = f.add_subplot(313)
     f3.plot(t, z, color='orange', linewidth='1')
-    f3.set_ylim([0, 10])  # set the y-axis of the first plot between 0 and 30
+    # f3.set_ylim([0, 10])  # set the y-axis of the first plot between 0 and 30
     plt.show()
 
 
