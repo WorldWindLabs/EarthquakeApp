@@ -245,9 +245,6 @@ def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z
     f3.scatter(anomY.index, anomY.anoms, color='r', zorder=2)
     f5.scatter(anomZ.index, anomZ.anoms, color='r', zorder=2)
 
-    # TODO add shading showing where significant clusters are
-    # plots = [f1, f2, f3, f4, f5, f6]
-    # for d in X.
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')
@@ -255,7 +252,7 @@ def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z
     else:
         plt.show()
 
-def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.png', figtitle=None):
+def plot_eq_mag_compare(eq, mag1, mag2,savefigure=False, savename='test_eq_mag.png', figtitle=None):
     t1, x1, y1, z1 = mag1.index, mag1.X, mag1.Y, mag1.Z
     t2, x2, y2, z2 = mag2.index, mag2.X, mag2.Y, mag2.Z
 
@@ -263,6 +260,7 @@ def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.
     mag2 = mag2[100000:]
 
     f = plt.figure(figsize=(10, 5))
+
 
     f1 = f.add_subplot(611)
     f1.plot(t1, x1, color='b', linewidth='1', zorder=1)
@@ -297,6 +295,7 @@ def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.
             f4.axvline(index, color='grey', linewidth=0.75)
             f5.axvline(index, color='grey', linewidth=0.75)
             f6.axvline(index, color='grey', linewidth=0.75)
+
         elif row['EQ_Magnitude'] > 4:
             f1.axvline(index, color='r', linewidth=1)
             f2.axvline(index, color='r', linewidth=1)
@@ -304,6 +303,7 @@ def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.
             f4.axvline(index, color='r', linewidth=1)
             f5.axvline(index, color='r', linewidth=1)
             f6.axvline(index, color='r', linewidth=1)
+
     f.suptitle(figtitle)
     if savefigure == True:
         f = plt.savefig(savename, bbox_inches='tight')

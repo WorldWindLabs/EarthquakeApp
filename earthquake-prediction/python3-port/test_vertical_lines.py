@@ -92,7 +92,7 @@ z = z[1e5:]
 # Create an exponential moving average for each of the sensor readings
 x_avg = pd.ewma(x, com=500)
 y_avg = pd.ewma(y, com=500)
-z_avg = pd.ewma(y, com=500)
+z_avg = pd.ewma(z, com=500)
 
 f = plt.figure()
 
@@ -122,10 +122,10 @@ for i in range(1,len(t)):
         plt.axvline(t[i], color='k', linewidth=0.5)
 
 # Also plot the earthquakes according to their influence
-for index, row in earthquake.iterrows():
-    if t[-1] > index > t[0]:
-        if row['eq_influence'] > 0.75:
-            plt.axvline(index, color='r', linewidth=3)
+# for index, row in earthquake.iterrows():
+#     if t[-1] > index > t[0]:
+#         if row['eq_influence'] > 0.75:
+#             plt.axvline(index, color='r', linewidth=3)
 
 
 plt.show()
