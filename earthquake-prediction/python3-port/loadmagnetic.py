@@ -120,7 +120,7 @@ def jury_rig_dates(magnetic):
     # print(magnetic.head())
     magnetic['Date'] = magnetic.index
     magnetic.index = magnetic['Date']
-    magnetic = magnetic[10000:]
+    # magnetic = magnetic[10000:]
 
     return magnetic
 

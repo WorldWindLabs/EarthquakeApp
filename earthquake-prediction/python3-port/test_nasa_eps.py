@@ -37,25 +37,20 @@ stationcoord = station.get(name)
 magnetic = mag.load_magnetic_data(name, begin, end)
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
-# print(magnetic.head())
-# print(mag.upsample_to_min(magnetic).head())
-# print(mag.jury_rig_dates(magnetic).head())
-
 # Filtering Data
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
-resampled_df = mag.upsample_to_min(mag_filtrd)
-jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
-
-# print(resampled_df.head())
-# print(jury_rigged_df.head())
+# resampled_df = mag.upsample_to_min(mag_filtrd)
+# jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
 # # Computing Anomalies
-# anomalies = anom.compute_anomalies(jury_rigged_df)
+# anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))
 
-pt.plot_magnetic(jury_rigged_df)
+# pt.plot_magnetic(jury_rigged_df)
 # # Plotting
 # pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
+
+
 # pt.plot_earthquake_magnetic(earthquake, magnetic, figtitle='-'.join((name, begin, end)))
 # Machine Learning Pre-processing
 # x, y = ml.preprocess(name, magnetic, anomalies)
@@ -78,3 +73,27 @@ pt.plot_magnetic(jury_rigged_df)
 
 # Plotting
 # pt.plot_eq_mag_compare(earthquake, mag_filtrd1, mag_filtrd2)
+##################################################################
+def movingaverage(interval, window_size):
+    window = np.ones(int(window_size)) / float(window_size)
+    return np.convolve(interval, window, 'same')
+
+
+MOV = movingaverage(mag_filtrd.X, 1000).tolist()
+# print(MOV)
+mag_filtrd = mag_filtrd[10000:]
+MOV = MOV[10000:]
+f = plt.figure(figsize=(10,6))
+f1 = f.add_subplot(111)
+f1.plot(mag_filtrd.index, mag_filtrd.X, color='g', zorder=1)
+f1.plot(mag_filtrd.index, MOV, color='r', zorder=2)
+# f1.set_ylim([0,125])
+plt.show()
+
+# STD = np.std(MOV)
+# events = []
+# ind = []
+# for ii in range(len(mag_filtrd.X)):
+#     if mag_filtrd.X[ii] > MOV[ii] + STD:
+#         events.append((mag_filtrd.X[ii]))
+# print(events)

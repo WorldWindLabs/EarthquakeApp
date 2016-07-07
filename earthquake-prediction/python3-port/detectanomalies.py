@@ -28,7 +28,7 @@ def get_anom(magnetic, column):
     # df = df[df.value < 5]
 
     # TODO: mess around with maximum_anomalies and alpha to improve resulting plots
-    eq_anom = pyc.detect_ts(df, maximum_anomalies=0.025, direction='pos', alpha=0.15)
+    eq_anom = pyc.detect_ts(df, maximum_anomalies=0.025, direction='pos', alpha=0.05)
 
     print(" --- took", round(process_time() - start, 2), " s")
     return eq_anom['anoms']
@@ -56,7 +56,7 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
     return X_anoms
 
 
-def anomaly_rate(magnetic, anomalies, num_h = 4):
+def anomaly_rate(magnetic, anomalies, num_h=4):
     mag_interval = magnetic.resample('10T').mean()
 
     anom_rate = []
@@ -76,4 +76,3 @@ def anomaly_rate(magnetic, anomalies, num_h = 4):
     anom_r['Date'] = anom_r.index
    
     return anom_r
-

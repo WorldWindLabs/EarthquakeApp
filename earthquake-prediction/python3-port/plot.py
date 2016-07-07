@@ -69,10 +69,10 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigu
                                        savename='test_eq_anom_plt.png', figtitle=None):
     anomX, anomY, anomZ = anomalies
 
-    anomX = anomX[100000:]
-    anomY = anomY[100000:]
-    anomZ = anomZ[100000:]
-    magnetic = magnetic[100000:]
+    # anomX = anomX[100000:]
+    # anomY = anomY[100000:]
+    # anomZ = anomZ[100000:]
+    # magnetic = magnetic[100000:]
 
 
     f = plt.figure(figsize=(10, 5))
