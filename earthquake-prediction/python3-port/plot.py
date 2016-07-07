@@ -191,7 +191,7 @@ def plot_fft(input_signal):
 
 
 # temporary visualization of anom rate against the earthquake/mag data
-def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, savefigure=False,
+def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, begin, end, savefigure=False,
                                         savename='test_anom_rate_plt.png', figtitle=None):
     anomX, anomY, anomZ = anomalies
 

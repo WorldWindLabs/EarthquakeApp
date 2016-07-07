@@ -41,24 +41,28 @@ magnetic = mag.slice_data(name, begin, end)
 # magnetic = mag.load_magnetic_data(name, begin, end)
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
-# print(magnetic.head())
-# print(mag.upsample_to_min(magnetic).head())
-# print(mag.jury_rig_dates(magnetic).head())
-
 # Filtering Data
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
 resampled_df = mag.upsample_to_min(mag_filtrd)
 # jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
-# print(resampled_df.head())
-# print(jury_rigged_df.head())
+# resampled_df = mag.upsample_to_min(mag_filtrd)
+# jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
 # # Computing Anomalies
 anomalies = anom.compute_anomalies(resampled_df)
 # pt.plot_magnetic(jury_rigged_df)
 # # Plotting
 pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figtitle='-'.join((name, begin, end)))
+
+# anomalies = anom.compute_anomalies(mag.upsample_to_min(mag_filtrd))
+
+# pt.plot_magnetic(jury_rigged_df)
+# # Plotting
+# pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
+
+
 # pt.plot_earthquake_magnetic(earthquake, magnetic, figtitle='-'.join((name, begin, end)))
 # Machine Learning Pre-processing
 # x, y = ml.preprocess(name, magnetic, anomalies)
@@ -81,3 +85,38 @@ pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figti
 
 # Plotting
 # pt.plot_eq_mag_compare(earthquake, mag_filtrd1, mag_filtrd2)
+
+##################################################################
+# New Anomaly Detection Function Build
+
+def movingaverage(interval, window_size):
+    window = np.ones(int(window_size)) / float(window_size)
+    return np.convolve(interval, window, 'same')
+
+
+MOV = movingaverage(mag_filtrd.X, 1000).tolist()
+# print(MOV)
+mag_filtrd = mag_filtrd[10000:]
+MOV = MOV[10000:]
+
+STD = np.std(MOV)
+events = []
+ind = []
+for d in range(len(mag_filtrd.X)):
+    if mag_filtrd.X[d] > MOV[d] + 2*STD:
+        events.append([mag_filtrd.index[d], mag_filtrd.X[d]])
+events_df = pd.DataFrame(events, columns=['timestamp',
+                                          'anom_events'])
+events_df.index = events_df['timestamp']
+# del events_df.timestamp
+print(events_df.head())
+
+f = plt.figure(figsize=(15,5))
+f1 = f.add_subplot(111)
+f1.plot(mag_filtrd.index, mag_filtrd.X, color='skyblue', zorder=1)
+f1.plot(mag_filtrd.index, MOV, color='r',linewidth=0.5, zorder=2)
+f1.scatter(events_df.index, events_df.anom_events, facecolors='none',
+           edgecolors='r',linewidths=0.75, zorder=3)
+f1.set_ylim([0,160])
+f1.set_xlim([mag_filtrd.index[0],end])
+plt.show()
