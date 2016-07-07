@@ -23,7 +23,10 @@ import learning as ml
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-04-13'
 # name, begin, end = 'ESP-Kodiak-3', '2016-05-19', '2016-05-22'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-07', '2016-05-31'
-name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+# name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+name, begin, end = 'ESP-Kodiak-3', '2016-06-04', '2016-06-07'
+name, begin, end = 'ESP-Kodiak-2', '2016-06-15', '2016-06-16'
+
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-28', '2016-05-02'
 # name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-10'
 # name, begin, end = 'ESP-Kodiak-2', '2016-06-05', '2016-06-21'
@@ -34,7 +37,8 @@ name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 # Data Load
 stationcoord = station.get(name)
 # magnetic = mag.load_db(name, begin, end)
-magnetic = mag.load_magnetic_data(name, begin, end)
+magnetic = mag.slice_data(name, begin, end)
+# magnetic = mag.load_magnetic_data(name, begin, end)
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
 # print(magnetic.head())
@@ -45,17 +49,16 @@ earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
 resampled_df = mag.upsample_to_min(mag_filtrd)
-jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
+# jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
 # print(resampled_df.head())
 # print(jury_rigged_df.head())
 
 # # Computing Anomalies
-# anomalies = anom.compute_anomalies(jury_rigged_df)
-
-pt.plot_magnetic(jury_rigged_df)
+anomalies = anom.compute_anomalies(resampled_df)
+# pt.plot_magnetic(jury_rigged_df)
 # # Plotting
-# pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
+pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figtitle='-'.join((name, begin, end)))
 # pt.plot_earthquake_magnetic(earthquake, magnetic, figtitle='-'.join((name, begin, end)))
 # Machine Learning Pre-processing
 # x, y = ml.preprocess(name, magnetic, anomalies)
