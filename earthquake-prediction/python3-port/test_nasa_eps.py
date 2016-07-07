@@ -40,6 +40,7 @@ earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.
 # Filtering Data
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
+
 # resampled_df = mag.upsample_to_min(mag_filtrd)
 # jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
@@ -73,7 +74,10 @@ mag_filtrd = bf.butter_filter(magnetic.copy())
 
 # Plotting
 # pt.plot_eq_mag_compare(earthquake, mag_filtrd1, mag_filtrd2)
+
 ##################################################################
+# New Anomaly Detection Function Build
+
 def movingaverage(interval, window_size):
     window = np.ones(int(window_size)) / float(window_size)
     return np.convolve(interval, window, 'same')
@@ -83,17 +87,25 @@ MOV = movingaverage(mag_filtrd.X, 1000).tolist()
 # print(MOV)
 mag_filtrd = mag_filtrd[10000:]
 MOV = MOV[10000:]
-f = plt.figure(figsize=(10,6))
-f1 = f.add_subplot(111)
-f1.plot(mag_filtrd.index, mag_filtrd.X, color='g', zorder=1)
-f1.plot(mag_filtrd.index, MOV, color='r', zorder=2)
-# f1.set_ylim([0,125])
-plt.show()
 
-# STD = np.std(MOV)
-# events = []
-# ind = []
-# for ii in range(len(mag_filtrd.X)):
-#     if mag_filtrd.X[ii] > MOV[ii] + STD:
-#         events.append((mag_filtrd.X[ii]))
-# print(events)
+STD = np.std(MOV)
+events = []
+ind = []
+for d in range(len(mag_filtrd.X)):
+    if mag_filtrd.X[d] > MOV[d] + 2*STD:
+        events.append([mag_filtrd.index[d], mag_filtrd.X[d]])
+events_df = pd.DataFrame(events, columns=['timestamp',
+                                          'anom_events'])
+events_df.index = events_df['timestamp']
+# del events_df.timestamp
+print(events_df.head())
+
+f = plt.figure(figsize=(15,5))
+f1 = f.add_subplot(111)
+f1.plot(mag_filtrd.index, mag_filtrd.X, color='skyblue', zorder=1)
+f1.plot(mag_filtrd.index, MOV, color='r',linewidth=0.5, zorder=2)
+f1.scatter(events_df.index, events_df.anom_events, facecolors='none',
+           edgecolors='r',linewidths=0.75, zorder=3)
+f1.set_ylim([0,160])
+f1.set_xlim([mag_filtrd.index[0],end])
+plt.show()
