@@ -16,6 +16,7 @@ import seaborn as sb
 import numpy as np
 import clusters as cl
 import learning as ml
+import scipy.stats as stat
 
 # Date format: YYYY-MM-DD
 
@@ -83,29 +84,80 @@ def movingaverage(interval, window_size):
     return np.convolve(interval, window, 'same')
 
 
-MOV = movingaverage(mag_filtrd.X, 1000).tolist()
+def normality_test(dataframe):
+    def describe(data):
+        ls = data.columns.tolist()
+        desc = []
+        for i in ls:
+            desc.append(stat.describe(data[i]))
+        skew = ([item[4] for item in desc])
+        kurtosis = ([item[5] for item in desc])
+        normal_test = pd.DataFrame({'skew': skew,
+                                    'kurtosis': kurtosis}, index=data.columns.tolist())
+        return normal_test
+
+    normal_test = describe(dataframe)
+    for index, row in normal_test.iterrows():
+        transformed = False
+        if -1 < row['skew'] < 1 or transformed == True:
+            print('Data', index, 'is normal.')
+            pass
+        elif row['skew'] < -1 or row['skew'] > 1:
+            print('Data', index, 'is not normal.')
+            while transformed == False:
+                if transformed == True:
+                    print('Data', index, 'is normal.')
+                    pass
+                elif row['skew'] > 1:
+                    print('Data', index, 'is positively skewed. Attempting log(10) data transformation for normality.')
+                    dataframe['log_' + index] = np.log(dataframe[index])
+                    transformed = True
+                elif row['skew'] < -1:
+                    # TODO: ADAPT FUNCTION FOR THIS CIRCUMSTANCE
+                    print('Data', index, 'is negatively skewed TODO: ADAPT FUNCTION FOR THIS CIRCUMSTANCE')
+            if transformed == True:
+                print('Data', index, 'has been transformed, is now normal.')
+                pass
+    if transformed == True:
+        log_ls = ['log_X', 'log_Y', 'log_Z']
+        for d in log_ls:
+            dataframe['z_' + d] = (dataframe[d] - dataframe[d].mean()) / dataframe[d].std()
+
+    return dataframe
+
+
+mag_df = normality_test(mag_filtrd)
+
+
+# for g in log_ls:
+#     sb.distplot(mag_filtrd[g])
+#     plt.show()
+
+MOV = movingaverage(mag_df.z_log_X, 1000).tolist()
 # print(MOV)
-mag_filtrd = mag_filtrd[10000:]
+mag_df = mag_df[10000:]
 MOV = MOV[10000:]
 
 STD = np.std(MOV)
 events = []
 ind = []
-for d in range(len(mag_filtrd.X)):
-    if mag_filtrd.X[d] > MOV[d] + 2*STD:
-        events.append([mag_filtrd.index[d], mag_filtrd.X[d]])
+for d in range(len(mag_df.z_log_X)):
+    if mag_df.z_log_X[d] > MOV[d] + 2 * STD:
+        events.append([mag_df.index[d], mag_df.z_log_X[d]])
 events_df = pd.DataFrame(events, columns=['timestamp',
                                           'anom_events'])
 events_df.index = events_df['timestamp']
 # del events_df.timestamp
 print(events_df.head())
 
-f = plt.figure(figsize=(15,5))
+f = plt.figure(figsize=(15, 5))
 f1 = f.add_subplot(111)
-f1.plot(mag_filtrd.index, mag_filtrd.X, color='skyblue', zorder=1)
-f1.plot(mag_filtrd.index, MOV, color='r',linewidth=0.5, zorder=2)
+f1.plot(mag_df.index, mag_df.z_log_X, color='skyblue', linewidth=0.75, zorder=1)
+f1.plot(mag_df.index, MOV, color='r', linewidth=0.5, zorder=2)
 f1.scatter(events_df.index, events_df.anom_events, facecolors='none',
-           edgecolors='r',linewidths=0.75, zorder=3)
-f1.set_ylim([0,160])
-f1.set_xlim([mag_filtrd.index[0],end])
+           edgecolors='r', linewidths=0.75, zorder=3)
+# f1.set_ylim([0, 160])
+f1.set_xlim([mag_df.index[0], end])
 plt.show()
+
+print(mag_df.head())
