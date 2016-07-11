@@ -87,6 +87,7 @@ def detect_anoms(data, k=0.49, alpha=0.05, num_obs_per_period=None,
 
     # Compute test statistic until r=max_outliers values have been
     # removed from the sample.
+
     for i in range(1, max_outliers + 1):
         if one_tail:
             if upper_tail:
@@ -94,7 +95,6 @@ def detect_anoms(data, k=0.49, alpha=0.05, num_obs_per_period=None,
             else:
                 ares = np.median(data['value']) - data['value']
         else:
-            # print(data)
             ares = np.abs((data['value'] - np.median(data['value'])))
 
         # protect against constant time series

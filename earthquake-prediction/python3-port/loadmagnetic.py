@@ -2,6 +2,7 @@
 
 from datetime import timedelta
 from time import process_time
+from datetime import datetime
 import pandas as pd
 import bandfilter as bf
 from urllib.parse import urlencode
@@ -10,6 +11,10 @@ import urllib.request
 import stationsdata as st
 from pandas.io.json import json_normalize
 import numpy as np
+import os
+from os import listdir
+from os.path import isfile, join
+import csv 
 
 def load_magnetic_data(station, min_date, max_date, download = False):
     start = process_time()
@@ -124,7 +129,6 @@ def jury_rig_dates(magnetic):
 
     return magnetic
 
-
 def load_db(station, min_date, max_date, sample_size = 10):
     print("Loading magnetic data", end='')
 
@@ -151,6 +155,114 @@ def load_db(station, min_date, max_date, sample_size = 10):
     # print(df_data)
     return df_data
 
-name, begin, end = 'ESP-Kodiak-3', '2016-06-03', '2016-06-04'
+def slice_data(station):
+    
+    def str_time(time):
+        return datetime.strptime(time[:10], '%Y-%m-%d')
+    
+    def str_time_s(time):
+        return datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f')
 
-# print(load_db(name, begin, end))
+    def get_time(n):
+        return str_time_s(pd.read_csv(path_csv, names=column_names, nrows = 1, skiprows = n-1).Date[0])
+
+    def row_counter():
+        file = open(path_csv)
+        return len(file.readlines())
+
+    def estimate_time(min_date, initial_time):
+        return int(max((min_date - initial_time).total_seconds(), 0))
+
+    def binarySearch(item):
+        first = skip+1
+        last = row_count
+        found = False
+
+        if item > get_time(first) and item < get_time(first+1):
+            return first
+
+        while first<=last and not found:
+            midpoint = (first + last)//2
+            if get_time(midpoint) == item:
+                found = True
+            else:
+                if item < get_time(midpoint):
+                    last = midpoint-1
+                else:
+                    first = midpoint+1
+  
+        return midpoint
+
+    def cut_data(begin, end):
+        index_begin = binarySearch(begin)
+        index_end = binarySearch(end)
+        return index_end - index_begin - 1, index_begin
+
+    start = process_time()
+
+    column_names = ['Date', 'X', 'Y', 'Z']
+    
+    path_csv = '../data/' + station + '/' + station + '.csv'
+    path_db  = '../data/' + station + '/'
+
+    for month in range(1, 13):
+        if not os.path.exists(path_db + str(month)):
+            os.makedirs(path_db + str(month))
+    
+    row_count = row_counter()        
+    last_time = get_time(row_count)
+    initial_time = get_time(1)
+
+    current_day = str_time(initial_time.strftime('%Y-%m-%d'))
+    skip = 0
+
+    while last_time > current_day:
+        print(current_day)
+        nxt_day = current_day+timedelta(days=1)
+
+        nrow, skip = cut_data(current_day, nxt_day)
+        day = pd.read_csv(path_csv, names=column_names, nrows = nrow, skiprows = skip)        
+        day.to_csv(path_db + str(current_day.month) + '/' + str(current_day.day) + '.csv', colums = column_names, header = False)
+    
+        skip += nrow 
+        current_day = nxt_day
+
+    print(" --- took", round(process_time() - start, 2), " s")
+
+def get_data(station, min_date, max_date):
+    
+    def str_time(time):
+        return datetime.strptime(time[:10], '%Y-%m-%d')
+
+    start = process_time()
+
+    column_names = ['Date', 'X', 'Y', 'Z']
+    
+    min_date = str_time(min_date)
+    max_date = str_time(max_date)
+    
+    path_db  = '../data/' + station + '/'
+
+    current_day = str_time(min_date.strftime('%Y-%m-%d'))
+
+    df = pd.DataFrame()
+
+    while current_day <= max_date:
+        df_aux = pd.read_csv(path_db + str(current_day.month) + '/' + str(current_day.day) + '.csv', names=column_names)
+        df = df.append(df_aux)
+        current_day += timedelta(days=1)
+
+    df.index = pd.to_datetime(df['Date'], utc=True)
+    df.interpolate().dropna(how='any', axis=0)
+
+    print(" --- took", round(process_time() - start, 2), " s")
+    return df
+
+name, begin, end = 'ESP-Kodiak-4', '2016-06-04', '2016-06-17'
+
+# get_data(name, begin, end)
+
+# slice_data('ESP-Kodiak-1')
+# slice_data('ESP-Kodiak-2')
+# slice_data('ESP-Kodiak-3')
+# slice_data('ESP-Kodiak-4')
