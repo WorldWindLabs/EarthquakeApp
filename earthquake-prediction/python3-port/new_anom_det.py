@@ -10,6 +10,22 @@ def movingaverage(interval, window_size):
     return np.convolve(interval, window, 'same')
 
 
+def weighted_moving_average(x, y, step_size=0.05, width=1):
+    bin_centers = np.arange(np.min(x), np.max(x) - 0.5 * step_size, step_size) + 0.5 * step_size
+    bin_avg = np.zeros(len(bin_centers))
+
+    # We're going to weight with a Gaussian function
+    def gaussian(x, amp=1, mean=0, sigma=1):
+        return amp * np.exp(-(x - mean) ** 2 / (2 * sigma ** 2))
+
+    for index in range(0, len(bin_centers)):
+        bin_center = bin_centers[index]
+        weights = gaussian(x, mean=bin_center, sigma=width)
+        bin_avg[index] = np.average(y, weights=weights)
+
+    return bin_centers, bin_avg
+
+
 def normality_test(dataframe):
     def describe(data):
         ls = data.columns.tolist()
@@ -58,38 +74,28 @@ def normality_test(dataframe):
 
     return dataframe
 
-def test_plot_anoms(mag):
 
-    t, x, y, z = mag.index, mag.z_log_X, mag.z_log_Y, mag.z_log_Z
-
+def anom_det(mag):
     columns = mag.columns.tolist()
-    for g in columns:
-        sb.distplot(mag[g])
-        plt.show()
+    # for g in columns:
+    #     sb.distplot(mag[g])
+    #     plt.show()
 
-    MOV = movingaverage(mag, 1000).tolist()
-    print(MOV)
     mag = mag[10000:]
-    MOV = MOV[10000:]
 
-    STD = np.std(MOV)
-    events = []
-    ind = []
-    for d in range(len(mag)):
-        if mag[d] > MOV[d] + 2 * STD:
-            events.append([mag.index[d], mag[d]])
-    events_df = pd.DataFrame(events, columns=['timestamp',
-                                              'anom_events'])
-    events_df.index = events_df['timestamp']
-    del events_df.timestamp
-    print(events_df.head())
+    events_ls = []
+    for g in columns:
+        MOV = movingaverage(mag[g], 1000).tolist()
+        # MOV = MOV[10000:]
+        STD = np.std(MOV)
 
-    f = plt.figure(figsize=(15, 5))
-    f1 = f.add_subplot(111)
-    f1.plot(t, x, color='skyblue', linewidth=0.75, zorder=1)
-    f1.plot(mag.index, MOV, color='r', linewidth=0.5, zorder=2)
-    f1.scatter(events_df.index, events_df.anom_events, facecolors='none',
-               edgecolors='r', linewidths=0.75, zorder=3)
-    # f1.set_ylim([0, 160])
-    # f1.set_xlim([mag.index[0], end])
-    plt.show()
+        events = []
+        ind = []
+        for d in range(len(mag[g])):
+            if mag[g][d] > MOV[d] + 2 * STD:
+                events.append([mag.index[d], mag[g][d]])
+        events_df = pd.DataFrame(events, columns=['timestamp',
+                                                  'anom_events'])
+        events_df.index = events_df['timestamp']
+        events_ls.append(events_df)
+    return events_ls

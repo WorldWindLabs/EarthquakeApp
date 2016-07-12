@@ -19,8 +19,6 @@ import learning as ml
 import scipy.stats as stat
 import new_anom_det
 
-
-
 # Date format: YYYY-MM-DD
 
 # name, begin, end = 'InteleCell-Kodiak', '2014-10-22', '2014-12-22'
@@ -49,14 +47,14 @@ earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
 # Setting Sample Rate (1min res or Full Res)
-resampled_df = mag.upsample_to_min(mag_filtrd)
+# resampled_df = mag.upsample_to_min(mag_filtrd)
 # jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
 # # Computing Anomalies
-anomalies = anom.compute_anomalies(resampled_df)
+# anomalies = anom.compute_anomalies(resampled_df)
 
 # # Plotting
-pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figtitle='-'.join((name, begin, end)))
+# pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figtitle='-'.join((name, begin, end)))
 # pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
 # pt.plot_earthquake_magnetic(earthquake, magnetic, figtitle='-'.join((name, begin, end)))
 
@@ -88,7 +86,16 @@ pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figti
 mag_df = new_anom_det.normality_test(mag_filtrd)
 # mag_df = new_anom_det.normality_test(magnetic)
 # mag_df = bf.butter_filter(mag_df)
+# print(mag_df.head())
 
-new_anom_det.test_plot_anoms(mag_filtrd)
+anoms = new_anom_det.anom_det(mag_df)
+
+print(anoms)
+# print(anoms[0])
+# print(anoms[1])
+# print(anoms[2])
+# print(anoms[3])
+# print(anoms[4])
+# print(anoms[5])
 
 # print(mag_df.head())
