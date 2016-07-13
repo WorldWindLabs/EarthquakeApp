@@ -104,7 +104,15 @@ def get_magnetic_data_esp(esp_station, min_date, max_date, intranet = False):
 def upsample_to_min(magnetic):
     magnetic = magnetic.resample('1T').mean()
     magnetic = magnetic.interpolate().dropna(how='any', axis=0)
-    magnetic['Date'] = magnetic.index
+    # magnetic['Date'] = magnetic.index
+    # magnetic = magnetic[10000:]
+
+    return magnetic
+
+def upsample_to_sec(magnetic):
+    magnetic = magnetic.resample('1S').mean()
+    magnetic = magnetic.interpolate().dropna(how='any', axis=0)
+    # magnetic['Date'] = magnetic.index
     # magnetic = magnetic[10000:]
 
     return magnetic

@@ -25,7 +25,8 @@ import new_anom_det
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-04-13'
 # name, begin, end = 'ESP-Kodiak-3', '2016-05-19', '2016-05-22'
 # name, begin, end = 'ESP-Kodiak-3', '2016-04-07', '2016-05-31'
-name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
+name, begin, end = 'ESP-Kodiak-3', '2016-04-12', '2016-04-14'
+# name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 # name, begin, end = 'ESP-Kodiak-3', '2016-06-04', '2016-06-07'
 # name, begin, end = 'ESP-Kodiak-2', '2016-06-15', '2016-06-16'
 
@@ -40,14 +41,17 @@ name, begin, end = 'ESP-Kodiak-3', '2016-04-10', '2016-05-10'
 stationcoord = station.get(name)
 # magnetic = mag.load_db(name, begin, end)
 # magnetic = mag.slice_data(name, begin, end)
-magnetic = mag.load_magnetic_data(name, begin, end)
+# magnetic = mag.load_magnetic_data(name, begin, end)
+magnetic = mag.get_data(name, begin, end)
 earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=2.5)
 
 # Filtering Data
 mag_filtrd = bf.butter_filter(magnetic.copy())
 
 # Setting Sample Rate (1min res or Full Res)
-# resampled_df = mag.upsample_to_min(mag_filtrd)
+
+# mag_filtrd = mag_filtrd[10000:]
+resampled_df = mag.upsample_to_sec(mag_filtrd)
 # jury_rigged_df = mag.jury_rig_dates(mag_filtrd)
 
 # # Computing Anomalies
@@ -85,20 +89,8 @@ mag_filtrd = bf.butter_filter(magnetic.copy())
 
 # mag_df = new_anom_det.normality_test(mag_filtrd)
 # mag_df = new_anom_det.normality_test(magnetic)
-# mag_df = bf.butter_filter(mag_df)
-# print(mag_df.head())
 
-test = new_anom_det.movingaverage(mag_filtrd.X,1000)
-# test = pd.DataFrame(test)
-print(test)
+mag_filtrd = mag_filtrd[10000:]
 
-mag_filtrd.index = mag_filtrd.reindex()
-test2 = new_anom_det.weighted_moving_average(mag_filtrd.index, mag_filtrd.X)
-print(test2)
-
-# anoms = new_anom_det.anom_det(mag_filtrd)
-# print(anoms)
-# pt.plot_earthquake_anomalies_magnetic(earthquake, anoms, mag_filtrd, figtitle='-'.join((name, begin, end)))
-
-
-# print(mag_df.head())
+anoms = new_anom_det.anom_det(resampled_df, window = 1000, correction = True, correctionfactor = 10)
+pt.plot_earthquake_anomalies_magnetic(earthquake, anoms, mag_filtrd, figtitle='-'.join((name, begin, end)))

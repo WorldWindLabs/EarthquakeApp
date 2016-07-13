@@ -3,12 +3,18 @@ import pandas as pd
 import scipy.stats as stat
 import matplotlib.pyplot as plt
 import seaborn as sb
+from time import process_time
 
 
 
 def movingaverage(interval, window_size):
-    window = np.ones(int(window_size)) / float(window_size)
-    return np.convolve(interval, window, 'same')
+    w = np.ones(int(window_size)) / float(window_size)
+    return np.convolve(interval, w, 'same')
+
+def weightedmovingaverage(interval, window_size):
+    window = np.cumsum(np.ones(window_size,dtype=float),axis=0)
+    w = window/np.sum(window)
+    return np.convolve(interval, w, 'same')
 
 
 def weighted_moving_average(x, y, step_size=0.05, width=1):
@@ -76,18 +82,26 @@ def normality_test(dataframe):
     return dataframe
 
 
-def anom_det(mag):
+def anom_det(mag, window = 1000, method='weighted', correction = False, correctionfactor = 10000):
+    print("Weighted running average anomaly detection", end='')
+    start = process_time()
+    
     columns = mag.columns.tolist()
+
     # for g in columns:
     #     sb.distplot(mag[g])
     #     plt.show()
 
-    # mag = mag[10000:]
+    if correction == True:
+        mag = mag[correctionfactor:]
 
     events_ls = []
     for g in columns:
-        MOV = movingaverage(mag[g], 1000).tolist()
-        # MOV = MOV[10000:]
+        
+        if method == 'weighted':
+            MOV = weightedmovingaverage(mag[g], window).tolist()
+        else:
+            MOV = movingaverage(mag[g], window).tolist()
         STD = np.std(MOV)
 
         events = []
@@ -99,4 +113,5 @@ def anom_det(mag):
                                                   'anoms'])
         events_df.index = events_df['timestamp']
         events_ls.append(events_df)
+    print(" --- took", round(process_time() - start, 2), " s")
     return events_ls[0], events_ls[1], events_ls[2]

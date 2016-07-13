@@ -75,16 +75,19 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigu
     # magnetic = magnetic[100000:]
 
 
-    f = plt.figure(figsize=(10, 5))
+    f = plt.figure(figsize=(30, 10))
     f1 = f.add_subplot(311)
     f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
-    f1.set_ylim([0, 60])
+    f1.set_ylim([0,(max(magnetic.X) + max(magnetic.X)*0.1)])
+    f1.set_xlim([min(magnetic.index),max(magnetic.index)])
     f2 = f.add_subplot(312)
     f2.plot(magnetic.index, magnetic.Y, color='g', linewidth='1', zorder=1)
-    f2.set_ylim([0, 60])
+    f2.set_ylim([0,(max(magnetic.Y) + max(magnetic.Y)*0.1)])
+    f2.set_xlim([min(magnetic.index),max(magnetic.index)])
     f3 = f.add_subplot(313)
     f3.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1', zorder=1)
-    f3.set_ylim([0, 60])
+    f3.set_ylim([0,(max(magnetic.Z) + max(magnetic.Z)*0.1)])
+    f3.set_xlim([min(magnetic.index),max(magnetic.index)])
 
     # my_win = 20
     # mw1 = pd.rolling_mean(magnetic.X, window = my_win, center = True)
@@ -104,9 +107,9 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigu
             f2.axvline(index, color='r', linewidth=1)
             f3.axvline(index, color='r', linewidth=1)
 
-    f1.scatter(anomX.index, anomX.anoms, color='r', zorder=2)
-    f2.scatter(anomY.index, anomY.anoms, color='r', zorder=2)
-    f3.scatter(anomZ.index, anomZ.anoms, color='r', zorder=2)
+    f1.scatter(anomX.index, anomX.anoms, edgecolors='r', zorder=2, facecolors='none')
+    f2.scatter(anomY.index, anomY.anoms, edgecolors='r', zorder=2, facecolors='none')
+    f3.scatter(anomZ.index, anomZ.anoms, edgecolors='r', zorder=2, facecolors='none')
 
     f.suptitle(figtitle)
     if savefigure == True:
