@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sb
 
 
+
 def movingaverage(interval, window_size):
     window = np.ones(int(window_size)) / float(window_size)
     return np.convolve(interval, window, 'same')
@@ -81,7 +82,7 @@ def anom_det(mag):
     #     sb.distplot(mag[g])
     #     plt.show()
 
-    mag = mag[10000:]
+    # mag = mag[10000:]
 
     events_ls = []
     for g in columns:
@@ -95,7 +96,7 @@ def anom_det(mag):
             if mag[g][d] > MOV[d] + 2 * STD:
                 events.append([mag.index[d], mag[g][d]])
         events_df = pd.DataFrame(events, columns=['timestamp',
-                                                  'anom_events'])
+                                                  'anoms'])
         events_df.index = events_df['timestamp']
         events_ls.append(events_df)
-    return events_ls
+    return events_ls[0], events_ls[1], events_ls[2]

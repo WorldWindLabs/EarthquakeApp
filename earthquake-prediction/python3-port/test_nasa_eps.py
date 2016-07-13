@@ -52,7 +52,7 @@ mag_filtrd = bf.butter_filter(magnetic.copy())
 
 # # Computing Anomalies
 # anomalies = anom.compute_anomalies(resampled_df)
-
+# print(anomalies)
 # # Plotting
 # pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, resampled_df, figtitle='-'.join((name, begin, end)))
 # pt.plot_earthquake_anomalies_magnetic(earthquake, anomalies, mag_filtrd, figtitle='-'.join((name, begin, end)))
@@ -83,19 +83,22 @@ mag_filtrd = bf.butter_filter(magnetic.copy())
 ##################################################################
 # New Anomaly Detection Function Build
 
-mag_df = new_anom_det.normality_test(mag_filtrd)
+# mag_df = new_anom_det.normality_test(mag_filtrd)
 # mag_df = new_anom_det.normality_test(magnetic)
 # mag_df = bf.butter_filter(mag_df)
 # print(mag_df.head())
 
-anoms = new_anom_det.anom_det(mag_df)
+test = new_anom_det.movingaverage(mag_filtrd.X,1000)
+# test = pd.DataFrame(test)
+print(test)
 
-print(anoms)
-# print(anoms[0])
-# print(anoms[1])
-# print(anoms[2])
-# print(anoms[3])
-# print(anoms[4])
-# print(anoms[5])
+mag_filtrd.index = mag_filtrd.reindex()
+test2 = new_anom_det.weighted_moving_average(mag_filtrd.index, mag_filtrd.X)
+print(test2)
+
+# anoms = new_anom_det.anom_det(mag_filtrd)
+# print(anoms)
+# pt.plot_earthquake_anomalies_magnetic(earthquake, anoms, mag_filtrd, figtitle='-'.join((name, begin, end)))
+
 
 # print(mag_df.head())
