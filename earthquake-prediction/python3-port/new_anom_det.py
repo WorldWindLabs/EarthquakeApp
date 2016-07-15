@@ -82,7 +82,7 @@ def normality_test(dataframe):
     return dataframe
 
 
-def anom_det(mag, window = 1000, method='weighted', correction = False, correctionfactor = 10000):
+def anom_det(mag, window = 1000, method='weighted',threshold = 2, correction = False, correctionfactor = 10000):
     print("Weighted running average anomaly detection", end='')
     start = process_time()
     
@@ -107,7 +107,7 @@ def anom_det(mag, window = 1000, method='weighted', correction = False, correcti
         events = []
         ind = []
         for d in range(len(mag[g])):
-            if mag[g][d] > MOV[d] + 2 * STD:
+            if mag[g][d] > MOV[d] + threshold * STD:
                 events.append([mag.index[d], mag[g][d]])
         events_df = pd.DataFrame(events, columns=['timestamp',
                                                   'anoms'])

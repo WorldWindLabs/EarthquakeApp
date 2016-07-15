@@ -32,7 +32,7 @@ def get(anorm_rates, anomalies):
             ini_time = time
             first_on_cluster = False
 
-        elif time - cluster_pts[i - 1] > dt.timedelta(hours=4):
+        elif time - cluster_pts[i - 1] > dt.timedelta(hours=2):
             clusters_intervals.append((ini_time, cluster_pts[i - 1]))
             first_on_cluster = True
 
@@ -72,9 +72,9 @@ def comp_features(anomalies_clusters):
     for cluster in anomalies_clusters:
         mean = get_mean(cluster)
         features.append([len(cluster),  # size
-                         (cluster.timestamp[-1] - cluster.timestamp[0]) / len(cluster),  # time density
-                         (mean - cluster.timestamp[0]) / len(cluster),  # time diameter
-                         (get_std(cluster)),  # time standard deviation
+                         ((cluster.timestamp[-1] - cluster.timestamp[0]) / len(cluster)).total_seconds(),  # time density
+                         ((mean - cluster.timestamp[0]) / len(cluster)).total_seconds(),  # time diameter
+                         (get_std(cluster)).total_seconds(),  # time standard deviation
                          (max(cluster.anoms) - min(cluster.anoms)) / len(cluster),  # value interval
                          (cluster.anoms.mean() - cluster.anoms[0]) / len(cluster),  # value diameter
                          cluster.anoms.std(),  # value standard deviation

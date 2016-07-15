@@ -78,7 +78,7 @@ def add_anomalies(eq, anom):
     return earthquake
 
 
-def look_relevant_earthquake(name, times, radius = 400, h = 10, min_mag = 3):
+def look_relevant_earthquake(name, times, radius = 400, h = 10, min_mag = 2.5):
     ans = []
     stationcoord = station.get(name)
 
