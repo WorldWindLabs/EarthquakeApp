@@ -84,8 +84,8 @@ The raw magnetic data (at 1 to 123hz) has a diurnal signal pattern.
 In order to eliminate this, we can utilize a bandpass filter (bandfilter.butterfilter()) to allow for finer analysis of how earthquake signals may affect the magnetic field vectors.
 ![filtered data](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_filtered.png)
 ###Anomaly Detection
-Two methods of anomaly detection are included in the repository. The first one is from Twitter's anomaly detection library ported into python 2. We then ported that library into python 3.
-The other method involves using numpy convolution to create a moving average to detect anomalies. They both accomplish similar results.
+Two methods of anomaly detection are included in the repository. The first one is from Twitter's anomaly detection library ported into python 2. We then ported that library into python 3 (pycularity).
+The other method involves using numpy convolution to create a moving average to detect anomalies(new_anom_det.det_anoms()). They both accomplish similar results.
 ![anomalies](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_anom.png)
 ###Earthquake Forecasting (theoretical)
 By analyzing the data in this fashion, we should be able to observe perturbations in the magnetic field vectors, allowing for machine learning to build a confidence on earthquakes occurring in the near future.
