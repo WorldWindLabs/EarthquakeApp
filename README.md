@@ -13,6 +13,7 @@ Based on: Dr. Friedemann Fruend's work: (http://geo.arc.nasa.gov/sg/cv/esddir3cv
 
 -St-Laurent, F., J. S. Derr, and F. Freund (2006), Earthquake Lights and Stress-Activation
  of Positive Hole Charge Carriers in Rocks, Phys. Chem. of the Earth, 31, 305-312.
+ 
 -Freund, F., A. Takeuchi, and B. W. S. Lau (2006), Electric currents streaming out of stressed
  igneous rocks: A step towards understanding pre-earthquake low frequency EM emissions,
  Phys. Chem. of the Earth, 31, 389-396.
