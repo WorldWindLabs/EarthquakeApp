@@ -9,85 +9,49 @@ import pandas as pd
 from scipy import signal
 
 
-def graph_xyz(data):
-    plt.subplots(1, figsize=(10, 6))
-    plt.plot(data['X'], 'b-')
-    plt.ylabel('X')
+def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, correction=False,
+                                       savefigure=False, savename='test_eq_anom_plt.png',
+                                       figtitle=None):
+    '''
+    Plots earthquake events against a magnetic data time series with anomalous magnetic data highlighted.
 
-    plt.plot(data['Y'], 'r-')
-    plt.ylabel('Y')
+    INPUT:
+    :param earthquake: (dataframe) Earthquake data (USGS), requires dates, magnitude, and location
+    :param anomalies: (tuple) output of anomaly detection functions, input a tuple of 3 dataframes (X, Y, Z)
+    :param magnetic: (dataframe) magnetic field vector data (raw or filtered)
+    :param correction: (int) correction for digital signal processing. Removes first 100000 rows to compensate
+                        for DSP recording errors
+    :param savefigure: (bool) to save the figure
+    :param savename: (string) name of the savefile, end with .png
+    :param figtitle: (string) name of the figure
 
-    plt.plot(data['Z'], 'y-')
-    plt.ylabel('Z')
-
-    plt.plot(np.linalg.norm(data, axis=1), 'g-')
-    plt.ylabel('norm')
-
-    plt.show()
-
-
-def graph_coordinates(data, axis):
-    plt.figure(figsize=(10, 6))
-    plt.plot(data[axis], 'b-')
-    plt.ylabel(axis)
-
-    plt.show()
-
-
-def graph_coordinates_time(vector, axis):
-    time = mdates.drange(datetime.datetime(2014, 10, 21, 16),
-                         datetime.datetime(2014, 10, 25, 16),
-                         datetime.timedelta(minutes=15))
-
-    f = plt.figure()
-
-    plt.plot_date(time, vector[axis] / 50000, 'b-')
-    plt.ylabel(axis)
-
-    plt.axvline(datetime.datetime(2014, 10, 23, 8, 30, 24))  # 2014-10-23T08:30:24Z
-
-    f.autofmt_xdate()
-
-    plt.show()
-
-
-# TODO: fix this function
-# def plot_interval(init, final, origin):
-#     magnetic_data = lmag.load_magnetic_data(init + "-to-" + final + ".csv")
-
-#     earthquakes = leq.load_earthquake_data(init, final, origin)
-
-#     graph_xyz(magnetic_data['vectors'])
-
-#     for d in range(3):
-#         graph_coordinates(magnetic_data['vectors'], d)
-
-#     plt.show()
-
-
-def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigure=False,
-                                       savename='test_eq_anom_plt.png', figtitle=None):
+    OUTPUT:
+    :return: A plot of 3 subplots (X, Y, Z) each with earthquakes, magnetic field vector, and anoms plotted
+            earthquakes: plotted as vertical lines showing event occurrences in 1 dimension.
+            magnetic: plots (raw or filtered) magnetic field vectors as a time series
+            anomalies: scatter plot of anomalies, highlighting anomalous points along the mag field vector
+    '''
     anomX, anomY, anomZ = anomalies
 
-    # anomX = anomX[100000:]
-    # anomY = anomY[100000:]
-    # anomZ = anomZ[100000:]
-    # magnetic = magnetic[100000:]
-
+    if correction == True:
+        anomX = anomX[100000:]
+        anomY = anomY[100000:]
+        anomZ = anomZ[100000:]
+        magnetic = magnetic[100000:]
 
     f = plt.figure(figsize=(30, 10))
     f1 = f.add_subplot(311)
     f1.plot(magnetic.index, magnetic.X, color='b', linewidth='1', zorder=1)
-    f1.set_ylim([0,(max(magnetic.X) + max(magnetic.X)*0.1)])
-    f1.set_xlim([min(magnetic.index),max(magnetic.index)])
+    f1.set_ylim([0, (max(magnetic.X) + max(magnetic.X) * 0.1)])
+    f1.set_xlim([min(magnetic.index), max(magnetic.index)])
     f2 = f.add_subplot(312)
     f2.plot(magnetic.index, magnetic.Y, color='g', linewidth='1', zorder=1)
-    f2.set_ylim([0,(max(magnetic.Y) + max(magnetic.Y)*0.1)])
-    f2.set_xlim([min(magnetic.index),max(magnetic.index)])
+    f2.set_ylim([0, (max(magnetic.Y) + max(magnetic.Y) * 0.1)])
+    f2.set_xlim([min(magnetic.index), max(magnetic.index)])
     f3 = f.add_subplot(313)
     f3.plot(magnetic.index, magnetic.Z, color='orange', linewidth='1', zorder=1)
-    f3.set_ylim([0,(max(magnetic.Z) + max(magnetic.Z)*0.1)])
-    f3.set_xlim([min(magnetic.index),max(magnetic.index)])
+    f3.set_ylim([0, (max(magnetic.Z) + max(magnetic.Z) * 0.1)])
+    f3.set_xlim([min(magnetic.index), max(magnetic.index)])
 
     # my_win = 20
     # mw1 = pd.rolling_mean(magnetic.X, window = my_win, center = True)
@@ -120,6 +84,21 @@ def plot_earthquake_anomalies_magnetic(earthquake, anomalies, magnetic, savefigu
 
 
 def plot_earthquake_magnetic(earthquake, mag, savefigure=False, savename='test_eq_plt.png', figtitle=None):
+    '''
+    Plots earthquake events against magnetic field vector timeseries
+
+    INPUT:
+    :param earthquake: (dataframe) Earthquake data (USGS), requires dates, magnitude, and location
+    :param mag: (dataframe) magnetic field vector data (raw or filtered)
+    :param savefigure: (bool) to save the figure
+    :param savename: (string) name of the savefile, end with .png
+    :param figtitle: (string) name of the figure
+
+    OUTPUT:
+    :return: A plot of 3 subplots (X, Y, Z) each with earthquakes and magnetic field vectors plotted
+            earthquakes: plotted as vertical lines showing event occurrences in 1 dimension.
+            magnetic: plots (raw or filtered) magnetic field vectors as a time series
+    '''
     t, x, y, z = mag.index, mag.X, mag.Y, mag.Z
     f = plt.figure(figsize=(10, 5))
 
@@ -157,11 +136,31 @@ def plot_AxB(a, b):
 
 
 def plot_histogram(data, bins=30):
+    '''
+    Seaborn distribution plot (histogram) to view data distributions
+
+    INPUT:
+    :param data: (series, list, array like)
+    :param bins: (int) bins for histogram
+
+    OUTPUT:
+    :return: seaborn distplot
+    '''
     sb.distplot(data, bins)
     plt.show()
 
 
 def plot_magnetic(mag):
+    '''
+    Plots 3 subplots of the 3 different magnetic field vectors
+
+    INPUT:
+    :param mag: (dataframe) magnetic field vector data (raw or filtered)
+
+    OUTPUT:
+    :return: A plot of 3 subplots (X, Y, Z) each with magnetic field vectors plotted
+            magnetic: plots (raw or filtered) magnetic field vectors as a time series
+    '''
     t, x, y, z = mag.index, mag.X, mag.Y, mag.Z
     f = plt.figure()
 
@@ -187,6 +186,15 @@ def plot_Y(y):
 
 
 def plot_fft(input_signal):
+    '''
+    Plots a fast fourier transformation signal profile
+
+    INPUT:
+    :param input_signal: (series, list, array like) signal time series data
+
+    OUTPUT:
+    :return: 2 Subplots of the original signal, and a fast fourier transformation
+    '''
     fs = 1 / 123
     f, Pxx = signal.welch(input_signal, fs, nperseg=1024)
     plt.subplot(211)
@@ -198,8 +206,32 @@ def plot_fft(input_signal):
 
 
 # temporary visualization of anom rate against the earthquake/mag data
-def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, begin, end, savefigure=False,
-                                        savename='test_anom_rate_plt.png', figtitle=None):
+def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z, begin, end,
+                                        savefigure=False, savename='test_anom_rate_plt.png',
+                                        figtitle=None):
+    '''
+    Plots anomaly rate time series visualization with eq and magnetic data
+
+    INPUT:
+    :param earthquake: (dataframe) Earthquake data (USGS), requires dates, magnitude, and location
+    :param anomalies: (tuple) output of anomaly detection functions, input a tuple of 3 dataframes (X, Y, Z)
+    :param magnetic: (dataframe) magnetic field vector data (raw or filtered)
+    :param X: (dataframe) X anomaly rate dataframe
+    :param Y: (dataframe) Y anomaly rate dataframe
+    :param Z: (dataframe) Z anomaly rate dataframe
+    :param begin: (datetime index) X axis start date, hardset for plotting purposes, retrieveable from station data
+    :param end: (datetime index) X axis end date, hardset for plotting purposes, retrieveable from station data
+    :param savefigure: (bool) to save figure
+    :param savename: (string) name of the savefile, end with .png
+    :param figtitle: (string) name to title figure
+
+    OUTPUT:
+    :return: A plot of 6 subplots (X, Y, Z) each with earthquakes, magnetic field vector, and anoms plotted
+            earthquakes: plotted as vertical lines showing event occurrences in 1 dimension.
+            magnetic: plots (raw or filtered) magnetic field vectors as a time series
+            anomalies: scatter plot of anomalies, highlighting anomalous points along the mag field vector
+            X, Y, Z: anomaly rate plotted as a time series highlighting clusters of anomalies
+    '''
     anomX, anomY, anomZ = anomalies
 
     f = plt.figure()
@@ -260,7 +292,25 @@ def plot_earthquake_anomalies_magnetic2(earthquake, anomalies, magnetic, X, Y, Z
     else:
         plt.show()
 
-def plot_eq_mag_compare(eq, mag1, mag2,savefigure=False, savename='test_eq_mag.png', figtitle=None):
+
+def plot_eq_mag_compare(eq, mag1, mag2, savefigure=False, savename='test_eq_mag.png', figtitle=None):
+    '''
+    Plots two magnetometer station data against each other for comparison purposes
+
+    INPUT:
+    :param eq: (dataframe) Earthquake data (USGS), requires dates, magnitude, and location
+    :param mag1: (dataframe) station 1 magnetic field vector data (raw or filtered)
+    :param mag2: (dataframe) station 2 magnetic field vector data (raw or filtered)
+    :param savefigure: (bool) to save figure
+    :param savename: (string) name of the savefile, end with .png
+    :param figtitle: (string) name to title figure
+
+    OUTPUT:
+    :return: A plot of 6 subplots (X, Y, Z) each with earthquakes, magnetic field vector, and anoms plotted
+            earthquakes: plotted as vertical lines showing event occurrences in 1 dimension.
+            magnetic: plots (raw or filtered) magnetic field vectors as a time series
+            anomalies: scatter plot of anomalies, highlighting anomalous points along the mag field vector
+    '''
     t1, x1, y1, z1 = mag1.index, mag1.X, mag1.Y, mag1.Z
     t2, x2, y2, z2 = mag2.index, mag2.X, mag2.Y, mag2.Z
 
@@ -268,7 +318,6 @@ def plot_eq_mag_compare(eq, mag1, mag2,savefigure=False, savename='test_eq_mag.p
     mag2 = mag2[100000:]
 
     f = plt.figure(figsize=(10, 5))
-
 
     f1 = f.add_subplot(611)
     f1.plot(t1, x1, color='b', linewidth='1', zorder=1)
