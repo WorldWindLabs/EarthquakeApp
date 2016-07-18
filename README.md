@@ -79,7 +79,7 @@ This loads from the USGS API database. It is likely that earthquakes of less tha
 -----------
 ###Data structure
 The raw magnetic data (at 1 to 123hz) has a diurnal signal pattern. 
-![raw unfiltered data]()
+![raw unfiltered data](https://github.com/NASAWorldWindResearch/EarthquakeApp/tree/master/documentation_pix/example_raw_data.png)
 In order to eliminate this, we can utilize a bandpass filter (bandfilter.butterfilter()) to allow for finer analysis of how earthquake signals may affect the magnetic field vectors.
 The data is not a normal distribution.
 
