@@ -1,13 +1,13 @@
 NASA World Wind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
 =======================================================================
-Organization: NASA Ames Research Center (PX)  
-Partners: Trillium Learning, Kodiak School District  
-Managers: Patrick Hogan, Ron Fortunado  
-Authors: Gabriel Militão, Benjamin Chang, Khaled Sharif, Farah Salah  
-Backend Team: Enika Biswas, Nidhi Jain  
-Field Team (AK): Seraphim McGann, Kiae Shin, Teyo DeGuzman
+**Organization:** NASA Ames Research Center (PX)  
+**Partners:** Trillium Learning, Kodiak School District  
+**Managers:** Patrick Hogan, Ron Fortunado  
+**Authors:** Gabriel Militão, Benjamin Chang, Khaled Sharif, Farah Salah  
+**Backend Team:** Enika Biswas, Nidhi Jain  
+**Field Team (AK):** Seraphim McGann, Kiae Shin, Teyo DeGuzman
 
-Based on: [Dr. Friedemann Fruend's work](http://geo.arc.nasa.gov/sg/cv/esddir3cv-freund.html)
+**Based on:** [Dr. Friedemann Fruend's work](http://geo.arc.nasa.gov/sg/cv/esddir3cv-freund.html)
 
 * St-Laurent, F., J. S. Derr, and F. Freund (2006), Earthquake Lights and Stress-Activation
  of Positive Hole Charge Carriers in Rocks, Phys. Chem. of the Earth, 31, 305-312.
