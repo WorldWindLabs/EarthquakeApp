@@ -71,7 +71,7 @@ Magnetic data (field vectors) needs to be a either readable or otherwise easily 
 Format must be timestamps, X, Y, Z. The current magnetic data is being sampled at 123hz.
 
 **Earthquake**  
-Earthquake data can be easily read into the analysis environment using the 'loadearthquake' function. 
+Earthquake data can be easily read into the analysis environment using the `loadearthquake.()` function. 
 This loads from the USGS API database. It is likely that earthquakes of less than magnitude 3 and of greater
  distance than 300km from the magnetometer station will not have much influence over the magnetic field vectors.
  
@@ -81,11 +81,11 @@ This loads from the USGS API database. It is likely that earthquakes of less tha
 The raw magnetic data (at 1 to 123hz) has a diurnal signal pattern. 
 ![raw unfiltered data](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_raw_data.png)
 ###Filtering
-In order to eliminate this, we can utilize a bandpass filter (bandfilter.butterfilter()) to allow for finer analysis of how earthquake signals may affect the magnetic field vectors.
+In order to eliminate this, we can utilize a bandpass filter (`bandfilter.butterfilter()`) to allow for finer analysis of how earthquake signals may affect the magnetic field vectors.
 ![filtered data](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_filtered.png)
 ###Anomaly Detection
 Two methods of anomaly detection are included in the repository. The first one is from Twitter's anomaly detection library ported into python 2. We then ported that library into python 3 (pycularity).
-The other method involves using numpy convolution to create a moving average to detect anomalies(new_anom_det.det_anoms()). They both accomplish similar results.
+The other method involves using numpy convolution to create a moving average to detect anomalies(`new_anom_det.det_anoms()`). They both accomplish similar results.
 ![anomalies](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_anom.png)
 ###Earthquake Forecasting (theoretical)
 By analyzing the data in this fashion, we should be able to observe perturbations in the magnetic field vectors, allowing for machine learning to build a confidence on earthquakes occurring in the near future.
@@ -98,15 +98,15 @@ By analyzing the data in this fashion, we should be able to observe perturbation
 ----------
 ###Plots
 Several plots can be created:
-* A subplot of the magnetic vectors plotted against earthquake events and a scatter plot of anomalous points (plot.plot_earthquake_anomalies_magnetic())
-* Distribution plots (histograms) of the data can be generated (plot.plot_histogram())
-* or you can compare two magnetic data sets (plot.plot_eq_mag_compare())
+* A subplot of the magnetic vectors plotted against earthquake events and a scatter plot of anomalous points (`plot.plot_earthquake_anomalies_magnetic()`)
+* Distribution plots (histograms) of the data can be generated (`plot.plot_histogram()`)
+* or you can compare two magnetic data sets (`plot.plot_eq_mag_compare()`)
 * etc. explore the plotting functions written!
 
 ###Machine Learning Earthquake Forecasting
 Still in testing, definitely not complete....but...
 
-You can generate features using the learning.preprocess() function. These generated functions can be fed into sklearn functions to generate results, albeit arbitrary results (for the time being).
+You can generate features using the `learning.preprocess()` function. These generated functions can be fed into sklearn functions to generate results, albeit arbitrary results (for the time being).
 
 -------
 Updated as of: 18/07/2016
