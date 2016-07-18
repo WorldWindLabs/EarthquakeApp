@@ -61,7 +61,7 @@ Repository Modules:
 
 3. Input Data
 ---
-###Data Query:
+###Data Query
 Because the data is very large (>10g) and currently being accessed from a database, most of the analyzable data is not publicly available. 
 However we encourage the implementation of this code with independent data sources. Loading the data should be as simple as reading (or parsing) your data into a pandas dataframe, and implementing that dataframe across the available modules for analysis.
 
