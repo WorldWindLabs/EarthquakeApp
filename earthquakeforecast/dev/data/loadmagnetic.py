@@ -1,20 +1,16 @@
 # NASA World Wind Earthquake load data code
 
+import json
+import os
+import urllib.request
+from datetime import datetime
 from datetime import timedelta
 from time import process_time
-from datetime import datetime
-import pandas as pd
-import bandfilter as bf
-from urllib.parse import urlencode
-import json 
-import urllib.request
-import stationsdata as st
-from pandas.io.json import json_normalize
+
+import data.stationsdata as st
 import numpy as np
-import os
-from os import listdir
-from os.path import isfile, join
-import csv 
+import pandas as pd
+
 
 def load_magnetic_data(station, min_date, max_date, download = False):
     start = process_time()
@@ -28,13 +24,6 @@ def load_magnetic_data(station, min_date, max_date, download = False):
         else:
             print("Getting magnetic data", end='')
             df = get_magnetic_data_esp(station, min_date, max_date)
-
-        # if filter_data:
-        #     df = bf.filter(df)
-
-        # else:     
-        #     df = df.resample('1T').mean() 
-        #     df = df.interpolate().dropna(how='any', axis=0)
 
         print(" --- took", round(process_time() - start, 2), " s")
         return df
@@ -104,7 +93,7 @@ def get_magnetic_data_esp(esp_station, min_date, max_date, intranet = False):
 def upsample_to_min(magnetic):
     magnetic = magnetic.resample('1T').mean()
     magnetic = magnetic.interpolate().dropna(how='any', axis=0)
-    # magnetic['Date'] = magnetic.index
+    magnetic['Date'] = magnetic.index
     # magnetic = magnetic[10000:]
 
     return magnetic
@@ -112,7 +101,7 @@ def upsample_to_min(magnetic):
 def upsample_to_sec(magnetic):
     magnetic = magnetic.resample('1S').mean()
     magnetic = magnetic.interpolate().dropna(how='any', axis=0)
-    # magnetic['Date'] = magnetic.index
+    magnetic['Date'] = magnetic.index
     # magnetic = magnetic[10000:]
 
     return magnetic

@@ -1,15 +1,12 @@
 # NASA World Wind Earthquake load data code
+import data.stationsdata as station
 import datetime as dt
-from datetime import datetime 
+import pandas as pd
+import numpy as np
+from math import radians, cos, sin, asin, sqrt
+from datetime import datetime
 from time import process_time
 from urllib.parse import urlencode
-import pandas as pd
-from math import radians, cos, sin, asin, sqrt
-import numpy as np
-import stationsdata as station
-import plot as pt
-import loadearthquake as eaq
-
 
 
 def load_earthquake_data(min_date, max_date, origin, min_magnitude="4", max_distance="300"):
@@ -95,3 +92,4 @@ def look_relevant_earthquake(name, times, radius = 400, h = 10, min_mag = 2.5):
             ans.append(False)
 
     return ans
+

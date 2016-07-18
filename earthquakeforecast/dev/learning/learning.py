@@ -1,21 +1,7 @@
 # NASA World Wind Earthquake Data Analysis code
-import datetime as dt
-from datetime import datetime
-from time import process_time
-import matplotlib.pyplot as plt
-import loadearthquake as eaq
-import loadmagnetic as magl
-import plot as pt
-import pyculiarity.detect_ts as pyc
-import stationsdata as station
-import pandas as pd
-import bandfilter as bf
-import statsmodels.api as sm
-import detectanomalies as anom
-import seaborn as sb
-import numpy as np
-import clusters
-
+import data.loadearthquake as eaq
+import anomdetec.detectanomalies as anom
+import learning.clusters as clusters
 
 def preprocess(name, magnetic, anomalies):
     x = []

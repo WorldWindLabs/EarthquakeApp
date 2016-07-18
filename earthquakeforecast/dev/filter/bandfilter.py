@@ -1,11 +1,9 @@
 from time import process_time
-from datetime import timedelta
 import numpy as np
 from scipy.signal import butter, cheby1, cheby2, lfilter
-import matplotlib.pyplot as plt
 import pandas as pd
-import stationsdata as station
-import loadearthquake as eaq
+import data.stationsdata as station
+import data.loadearthquake as eaq
 import plot as pt
 
 def butter_highpass(cutoff, fs, order=5):

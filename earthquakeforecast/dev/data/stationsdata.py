@@ -1,4 +1,4 @@
-import loadearthquake as earthquake
+
 # TODO: update other coordinates
 w, h = 3, 9
 data = [[0 for x in range(w)] for y in range(h)]
@@ -24,6 +24,7 @@ def get(name):
 def get_esp_name(name):
 	return "esp_" + name[-1:]
 
+'''
 def get_relevant_dates(min_mag = 4):
 
 	stations = [['ESP-Kenny-Lake-1', '2016-01-01', '2016-03-01'],
@@ -56,3 +57,4 @@ def get_relevant_dates(min_mag = 4):
 	        relevant_data.append(item)
 
 	return relevant_data
+'''

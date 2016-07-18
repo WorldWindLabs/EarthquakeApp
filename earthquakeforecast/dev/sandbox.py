@@ -1,23 +1,14 @@
 # NASA World Wind Earthquake Data Analysis code
-import datetime as dt
-from datetime import datetime
-from time import process_time
-import matplotlib.pyplot as plt
-import loadearthquake as eaq
-import loadmagnetic as mag
+
+import data.loadearthquake as eaq
+import data.loadmagnetic as mag
+import data.stationsdata as station
 import plot as pt
-import pyculiarity.detect_ts as pyc
-import stationsdata as station
 import pandas as pd
-import bandfilter as bf
-import statsmodels.api as sm
-import detectanomalies as anom
-import seaborn as sb
-import numpy as np
-import clusters as cl
-import learning as ml
-import scipy.stats as stat
-import new_anom_det
+import filter.bandfilter as bf
+import anomdetec.detectanomalies as anom
+import learning.learning as ml
+import anomdetec.new_anom_det
 from sklearn import svm
 # Date format: YYYY-MM-DD
 
@@ -45,14 +36,11 @@ stationcoord = station.get(name)
 
 # Magnetic Data Load
 magnetic = mag.load_magnetic_data(name, begin, end)
-magnetic = magnetic[130000:]
-pt.plot_magnetic(magnetic)
-mag_filtrd = bf.butter_filter(magnetic.copy())
-mag_filtrd = mag_filtrd[10000:]
-pt.plot_magnetic(mag_filtrd)
-'''
+
 # Earthquake Data Load
-# earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=1.5)
+earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=1.5)
+
+"""
 
 # Filtering Data
 
@@ -127,4 +115,4 @@ mag_filtrd = mag_filtrd[10000:]
 anoms = new_anom_det.anom_det(resampled_df,threshold = 3, window = 300, correction = True, correctionfactor = 20)
 
 x, y = ml.preprocess(name, magnetic, anoms)
-'''
+"""

@@ -1,32 +1,40 @@
 import datetime
 from time import process_time
-import matplotlib.pyplot as plt
-import loadearthquake as eaq
-import loadmagnetic as mag
-import plot as pt
-import pyculiarity.detect_ts as pyc
-import stationsdata as station
 import pandas as pd
-import bandfilter as bf
-import statsmodels.api as sm
-import detectanomalies as anom
-import seaborn as sb
 import numpy as np
+
+import sys, os
+lib_path = os.path.abspath(os.path.join('anomdetec'))
+sys.path.append(lib_path)
+import pyculiarity.detect_ts as pyc
 
 
 def compute_anomalies(mag):
+    '''
+    Anomaly detection function for all axes directly from magnetic field
+
+    :param mag: Data frame containing magnetic field data
+    :return: Tuple of anomaly data frames for each axes
+    '''
     return get_anom(mag, 'X'), get_anom(mag, 'Y'), get_anom(mag, 'Z')
 
 
-def get_anom(magnetic, column):
-    print("Detecting anomalies for", column, "axis", end='')
+def get_anom(magnetic, axis):
+    '''
+    Axis anomaly detection helper function
+
+    :param magnetic: Data frame containing magnetic field data
+    :param axis: One of the three axes ('X', 'Y', 'Z')
+    :return: Data frame containing timestamps, values for the anomalies in that axis.
+    '''
+    print("Detecting anomalies for", axis, "axis", end='')
     start = process_time()
 
-    df = magnetic[['Date', column]]
+    # preprocessing data
+    df = magnetic[['Date', axis]]
     df.columns = ["timestamp", "value"]
 
-    # df = df[df.value < 5]
-
+    # using pyculiarity to detect anomalies
     # TODO: mess around with maximum_anomalies and alpha to improve resulting plots
     eq_anom = pyc.detect_ts(df, maximum_anomalies=0.025, direction='pos', alpha=0.05)
 
@@ -34,27 +42,35 @@ def get_anom(magnetic, column):
     return eq_anom['anoms']
 
 
-def compute_anomalies_for_earthquake(eq, anomalies, time=24):
+def compute_anomalies_for_earthquake(earthquake, anomalies, interval=24):
+    '''
+    Get anomalies in a time range from every earthquake
+
+    :param earthquake: Data frame containing earthquake data
+    :param anomalies: Tuple of anomaly data frames for each axes
+    :param time: Time range previous to earthquake which anomalies are counted for
+    :return: Data frame which each line in indexed by an earthquake timestamp and each
+            line entry has the number of anomalies close to the earthquake in that axis
+    '''
     x, y, z = anomalies
-    anoms = comp_anom_for_eq(eq, x, time), comp_anom_for_eq(eq, y, time), comp_anom_for_eq(eq, z, time)
+
+    anoms = []
+    for axis in range(len(anomalies)):
+        axis_anoms = []
+        anomaly = anomalies[axis]
+        for index, row in earthquake.iterrows():
+            end = index
+            start = end - datetime.timedelta(hours=interval)
+            axis_temp = anomaly[start:end]
+
+            axis_anoms.append(len(axis_temp.index))
+
+        anoms.append(axis_anoms)
+
     return pd.DataFrame({'X_anoms': anoms[0],
                          'Y_anoms': anoms[1],
                          'Z_anoms': anoms[2]},
-                        index=eq.index)
-
-
-def comp_anom_for_eq(earthquake, anomaly, interval):
-    X_anoms = []
-
-    for index, row in earthquake.iterrows():
-        end = index
-        start = end - datetime.timedelta(hours=interval)
-        tempX = anomaly[start:end]
-
-        X_anoms.append(len(tempX.index))
-
-    return X_anoms
-
+                        index=earthquake.index)
 
 def anomaly_rate(magnetic, anomalies, num_h=4):
     mag_interval = magnetic.resample('10T').mean()
