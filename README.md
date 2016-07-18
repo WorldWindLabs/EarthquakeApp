@@ -1,5 +1,6 @@
 # EarthquakeApp
 
+<<<<<<< HEAD
 NASA World Wind Earthquake Data Analysis Sandbox {Ver 1 (Python 3)}
 ===================================================================
 Organization: NASA Ames Research Center (PX)
