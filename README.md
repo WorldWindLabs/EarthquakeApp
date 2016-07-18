@@ -16,8 +16,8 @@ NASA World Wind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
  igneous rocks: A step towards understanding pre-earthquake low frequency EM emissions,
  Phys. Chem. of the Earth, 31, 389-396.
 
+1. Introduction
 ---
-###1. Introduction
 This project aims to apply practically Dr. Freidemann Freund’s theory of earthquake sensory precursors. Dr. Freund's theory 
 states that several hours prior to large earthquakes the Earth sends out intense energy bursts, detectable as electromagnetic fields, 
 caused by the tectonic plate stressing the local crust. These EM field bursts consists of sudden local magnetic field fluctuations and a 
@@ -34,8 +34,8 @@ Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak A
 to analyze and understand magnetic field data being recorded in Kodiak, AK to determine whether or not earthquake forecasting can be accomplished 
 through the interpretation of magnetic field variations.
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-###2. Required Packages
+2. Required Packages
+---
 In order for the whole repository to function properly, these packages must be installed on python 3:
 
 Packages:
@@ -58,3 +58,36 @@ Repository Modules:
 * clusters
 * learning
 * new_anom_det
+
+3. Input Data
+---
+###Data Query:
+Because the data is very large (>10g) and currently being accessed from a database, most of the analyzable data is not publicly available. 
+However we encourage the implementation of this code with independent data sources. Loading the data should be as simple as reading (or parsing) your data into a pandas dataframe, and implementing that dataframe across the available modules for analysis.
+
+###Input Data
+**Magnetic**  
+Magnetic data (field vectors) needs to be a either readable or otherwise easily parsed. 
+Format must be timestamps, X, Y, Z. The current magnetic data is being sampled at 123hz.
+
+**Earthquake**  
+Earthquake data can be easily read into the analysis environment using the 'loadearthquake' function. 
+This loads from the USGS API database. It is likely that earthquakes of less than magnitude 3 and of greater
+ distance than 300km from the magnetometer station will not have much influence over the magnetic field vectors.
+ 
+4. Outputs
+----------
+###Plots
+Several plots can be created:
+* A subplot of the magnetic vectors plotted against earthquake events and a scatter plot of anomalous points (plot.plot_earthquake_anomalies_magnetic())
+* Distribution plots (histograms) of the data can be generated (plot.plot_histogram())
+* or you can compare two magnetic data sets (plot.plot_eq_mag_compare())
+* etc. explore the plotting functions written!
+
+###Machine Learning Earthquake Forecasting
+Still in testing, definitely not complete....but...
+
+You can generate features using the learning.preprocess() function. These generated functions can be fed into sklearn functions to generate results, albeit arbitrary results (for the time being).
+
+-------
+Updated as of: 18/07/2016
