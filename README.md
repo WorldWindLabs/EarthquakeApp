@@ -27,23 +27,39 @@ Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak A
 In order for the whole repository to function properly, these packages must be installed on python 3:
 
 Packages:
+
 time
+
 datetime
+
 matplotlib
+
 pandas
+
 numpy
+
 seaborn
+
 scipy
+
 sklearn
+
 statsmodels.api
 
 Repository Modules:
-loadmagnetic
-plot
-stationsdata
-bandfilter
-detectanomalies
-clusters
-learning
-new_anom_det
 
+loadmagnetic
+
+plot
+
+stationsdata
+
+bandfilter
+
+detectanomalies
+
+clusters
+
+learning
+
+new_anom_det
