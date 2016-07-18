@@ -118,6 +118,16 @@ def upsample_to_sec(magnetic):
     return magnetic
 
 def jury_rig_dates(magnetic):
+    '''
+    For use with pycularity anomaly detection. separates timestamps linearly by 1 hour to force pycularity to read all data
+    instead of resampling the data
+
+    INPUT:
+    :param magnetic: Dataframe
+
+    OUTPUT:
+    :return: Dataframe
+    '''
 
     magnetic.index = magnetic.index.astype(np.int64)
     initial_time = magnetic.index[0]
