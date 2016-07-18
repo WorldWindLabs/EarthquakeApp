@@ -80,8 +80,17 @@ This loads from the USGS API database. It is likely that earthquakes of less tha
 ###Data structure
 The raw magnetic data (at 1 to 123hz) has a diurnal signal pattern. 
 ![raw unfiltered data](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_raw_data.png)
+###Filtering
 In order to eliminate this, we can utilize a bandpass filter (bandfilter.butterfilter()) to allow for finer analysis of how earthquake signals may affect the magnetic field vectors.
-The data is not a normal distribution.
+![filtered data](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_filtered.png)
+###Anomaly Detection
+Two methods of anomaly detection are included in the repository. The first one is from Twitter's anomaly detection library ported into python 2. We then ported that library into python 3.
+The other method involves using numpy convolution to create a moving average to detect anomalies. They both accomplish similar results.
+![anomalies](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_anom.png)
+###Earthquake Forecasting (theoretical)
+By analyzing the data in this fashion, we should be able to observe perturbations in the magnetic field vectors, allowing for machine learning to build a confidence on earthquakes occurring in the near future.
+![earthquake det](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_eq_det.png)
+(The red line is an earthquake event of magnitude >3 within 300km of this magnetic anomaly)
 
 ###
  
