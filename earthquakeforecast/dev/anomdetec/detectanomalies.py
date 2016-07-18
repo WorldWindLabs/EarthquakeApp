@@ -48,12 +48,12 @@ def comp_anom_for_eq(earthquake, anomaly, interval):
         Compiles known anomalies in timeseries for a specified event (earthquakes)
 
         INPUTS:
-        earthquake: (pd dataframe) DF of earthquake events (timestamps, magnitudes, locations, etc.)
-        anomaly: (dataframe) DF of anomalies in a timeseries (magnetic data)
-        interval: (int) hours before an event (earthquake) in which to search for anomalies and compile
+        :param earthquake: (pd dataframe) DF of earthquake events (timestamps, magnitudes, locations, etc.)
+        :param anomaly: (dataframe) DF of anomalies in a timeseries (magnetic data)
+        :param interval: (int) hours before an event (earthquake) in which to search for anomalies and compile
 
         OUTPUT:
-        X_anoms: a list of lists anomalies, in order for each event in your earthquake DF.
+        :return: X_anoms: a list of lists anomalies, in order for each event in your earthquake DF.
         '''
     X_anoms = []
 
@@ -74,22 +74,22 @@ def anomaly_rate(magnetic, anomalies, num_h=4):
         as normal or anomalous datapoints.
 
         INPUTS:
-        magnetic: (dataframe) dataframe of magnetic data (series: X, Y, Z)
-        anomalies: (dataframe) output of anomaly detection functions, (X, Y, Z)
-        num_h: hour window in which to search for anomalies for creating an anomaly 'rate'
+        :param magnetic: (dataframe) dataframe of magnetic data (series: X, Y, Z)
+        :param anomalies: (dataframe) output of anomaly detection functions, (X, Y, Z)
+        :param num_h: hour window in which to search for anomalies for creating an anomaly 'rate'
 
         OUTPUT:
-        anom_r: (dataframe; columns = anom_r, log_anom_r, log_z_score, log_z_score_zero_trans;
-                index = Date)
+        :return: anom_r: (dataframe; columns = anom_r, log_anom_r, log_z_score, log_z_score_zero_trans;
+                        index = Date)
 
-                Columns:
-                anom_r: anomalies/num_h (hour rate param)
-                log_anom_r: log(10) transformation of anonm_r
-                log_z_score: z score of log_anom_r
-                log_z_score_zero_trans: series minimum transformation of data (absolute values)
+                        Columns:
+                        anom_r: anomalies/num_h (hour rate param)
+                        log_anom_r: log(10) transformation of anonm_r
+                        log_z_score: z score of log_anom_r
+                        log_z_score_zero_trans: series minimum transformation of data (absolute values)
 
-                index:
-                Date: Dates from input dataframe (magnetic)
+                        index:
+                        Date: Dates from input dataframe (magnetic)
         '''
 
     mag_interval = magnetic.resample('10T').mean()

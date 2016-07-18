@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="934dacfe-b50b-421b-bd6b-e3abc2b1083b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/plot.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/plot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" />
     </list>
     <ignored path="EarthquakeApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +41,8 @@
       <file leaf-file-name="new_anom_det.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1395">
-              <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+            <state relative-caret-position="285">
+              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -55,8 +53,8 @@
       <file leaf-file-name="detectanomalies.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1470">
-              <caret line="98" column="19" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+            <state relative-caret-position="1275">
+              <caret line="85" column="39" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -67,9 +65,11 @@
       <file leaf-file-name="sandbox.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-              <folding />
+            <state relative-caret-position="105">
+              <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+              <folding>
+                <element signature="e#48#69#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,9 +77,11 @@
       <file leaf-file-name="plot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4590">
-              <caret line="312" column="0" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="30">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding>
+                <element signature="e#49#64#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,9 +120,10 @@
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
         <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/new_anom_det.py" />
-        <option value="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" />
-        <option value="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" />
         <option value="$PROJECT_DIR$/earthquakeforecast/dev/plot.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" />
       </list>
     </option>
   </component>
@@ -608,7 +611,14 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="9" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -922,37 +932,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/plot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4590">
-          <caret line="312" column="0" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1395">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+        <state relative-caret-position="30">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#49#64#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="98" column="19" selection-start-line="98" selection-start-column="19" selection-end-line="98" selection-end-column="19" />
+        <state relative-caret-position="1275">
+          <caret line="85" column="39" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-          <folding />
+        <state relative-caret-position="105">
+          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+          <folding>
+            <element signature="e#48#69#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
