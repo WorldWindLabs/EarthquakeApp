@@ -75,7 +75,17 @@ Earthquake data can be easily read into the analysis environment using the 'load
 This loads from the USGS API database. It is likely that earthquakes of less than magnitude 3 and of greater
  distance than 300km from the magnetometer station will not have much influence over the magnetic field vectors.
  
-4. Outputs
+4. Analysis
+-----------
+###Data structure
+The raw magnetic data (at 1 to 123hz) has a diurnal signal pattern. 
+![alt text]
+In order to eliminate this, we can utilize a bandpass filter (bandfilter.butterfilter()) to allow for finer analysis of how earthquake signals may affect the magnetic field vectors.
+The data is not a normal distribution.
+
+###
+ 
+5. Outputs
 ----------
 ###Plots
 Several plots can be created:
