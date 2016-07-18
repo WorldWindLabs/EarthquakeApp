@@ -49,20 +49,10 @@ Packages:
 * sklearn
 * statsmodels.api
 
-Repository Modules:
-* loadmagnetic
-* plot
-* stationsdata
-* bandfilter
-* detectanomalies
-* clusters
-* learning
-* new_anom_det
-
 3. Input Data
 ---
 ###Data Query
-Because the data is very large (>10g) and currently being accessed from a database, most of the analyzable data is not publicly available. 
+Because the data being recorded in Alaska is very large (>10g due to the high resolution of 123hz) and currently being accessed from a database, most of the analyzable data is not publicly available. 
 However we encourage the implementation of this code with independent data sources. Loading the data should be as simple as reading (or parsing) your data into a pandas dataframe, and implementing that dataframe across the available modules for analysis.
 
 ###Input Data
