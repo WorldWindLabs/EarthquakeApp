@@ -102,7 +102,7 @@ def anomaly_rate(magnetic, anomalies, num_h=4):
 
             index:
             Date: Dates from input dataframe (magnetic)
-        '''
+    '''
 
     mag_interval = magnetic.resample('10T').mean()
 

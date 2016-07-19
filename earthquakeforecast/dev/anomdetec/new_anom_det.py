@@ -10,23 +10,32 @@ from time import process_time
 
 def movingaverage(interval, window_size):
     '''
-        Creates a moving average with inputs of interval (data) and window size (in # of datapoints)
-        uses numpy convolution (np.convolve()) to create a moving average window.
+    Creates a moving average with inputs of interval (data) and window size (in # of datapoints)
+    uses numpy convolution (np.convolve()) to create a moving average window.
 
-        INPUTS:
-        interval = (series, list, array like) time series data for moving average to be created
-        window_size
-        '''
+    INPUTS:
+    :param interval: (series, list, array like) time series data for moving average to be created
+    :param window_size: window size in # data points
+
+    OUTPUT:
+    :return: (list) moving average
+    '''
     w = np.ones(int(window_size)) / float(window_size)
     return np.convolve(interval, w, 'same')
 
 
 def weightedmovingaverage(interval, window_size):
     '''
-        Creates a weighted moving average with inputs of interval (data) and
-        window size (in # of datapoints) uses numpy convolution and cumulative
-        sum (np.convolve() & np.cumsum()) to create a weighted moving average window.
-        '''
+    Creates a weighted moving average with inputs of interval (data) and
+    window size (in # of datapoints) uses numpy convolution and cumulative
+    sum (np.convolve() & np.cumsum()) to create a weighted moving average window.
+
+    :param interval: (series, list, array like) time series data for moving average to be created
+    :param window_size: window size in # data points
+
+    :return: (list) weighted moving average
+    '''
+
     window = np.cumsum(np.ones(window_size, dtype=float), axis=0)
     w = window / np.sum(window)
     return np.convolve(interval, w, 'same')
@@ -34,9 +43,9 @@ def weightedmovingaverage(interval, window_size):
 
 def weighted_moving_average(x, y, step_size=0.05, width=1):
     '''
-        Another method of creating a weighted moving average. Utilizes numpy arrays.
-        (IN TESTING)
-        '''
+    Another method of creating a weighted moving average. Utilizes numpy arrays.
+    (IN TESTING)
+    '''
     bin_centers = np.arange(np.min(x), np.max(x) - 0.5 * step_size, step_size) + 0.5 * step_size
     bin_avg = np.zeros(len(bin_centers))
 
@@ -54,11 +63,17 @@ def weighted_moving_average(x, y, step_size=0.05, width=1):
 
 def normality_test(dataframe):
     '''
-        A normailty test for data within a data frame. Input a pandas dataframe and it will
-        analyze it for the individual data series' skew and kurtosis to determine normailty.
-        If data is not normal, it will create a transformed data series to normalize data
-        (CURRENTLY ONLY WORKS FOR LOG NORMAL TRANSFORMAITONS)
-        '''
+    A normailty test for data within a data frame. Input a pandas dataframe and it will
+    analyze it for the individual data series' skew and kurtosis to determine normailty.
+    If data is not normal, it will create a transformed data series to normalize data
+    (CURRENTLY ONLY WORKS FOR LOG NORMAL TRANSFORMAITONS)
+
+    INPUT:
+    :param dataframe: (dataframe) data in pandas dataframe format
+
+    OUTPUT:
+    :return: (dataframe) original input w/ transformed data if needed
+    '''
     def describe(data):
         ls = data.columns.tolist()
         desc = []
@@ -114,21 +129,21 @@ def anom_det(mag, window=1000, method='weighted', threshold=2, correction=False,
         anomalous data points in dataframe format (columns = timestamp, anoms; index = timestamp).
 
         INPUTS:
-        mag: dataframe to be analyzed
-        window: windo for moving average (in # of data points)
-        method: weighted or means moving average
-        threshold: (1 = 68.3% confidence, 2 = 95% confidence, 3 = 99.7% confidence, > 3 = 99.99- % confidence)
-                    standard deviation threshold in which anomalies will be detected
-        correction: (boolean) compensation for data recording errors at start of a series
-                    (created in digital signal procesisng)
-        correctionfactor: number of rows to be removed to compensate for DSP recording errors
+        :param mag: dataframe to be analyzed
+        :param window: windo for moving average (in # of data points)
+        :param method: weighted or means moving average
+        :param threshold: (1 = 68.3% confidence, 2 = 95% confidence, 3 = 99.7% confidence)
+                            standard deviation threshold in which anomalies will be detected
+        :param correction: (boolean) compensation for data recording errors at start of a series
+                            (created in digital signal procesisng)
+        :param correctionfactor: number of rows to be removed to compensate for DSP recording errors
 
         OUTPUT:
-        Tuple of 3 dataframes of the first 3 series in the mag input DF
-        (for magnetic data analysis X,Y,Z)
-        To retrieve in easily in DF format call function like so:
+        :return: Tuple of 3 dataframes of the first 3 series in the mag input DF
+                (for magnetic data analysis X,Y,Z)
+                To retrieve in easily in DF format call function like so:
 
-        df_1, df_2, df_3 = anom_det(mag, window = 1000, method = 'weighted'.....etc.)
+                df_1, df_2, df_3 = anom_det(mag, window = 1000, method = 'weighted'.....etc.)
         '''
     print("Weighted running average anomaly detection", end='')
     start = process_time()

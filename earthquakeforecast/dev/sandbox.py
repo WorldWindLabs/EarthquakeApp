@@ -10,6 +10,70 @@ import anomdetec.detectanomalies as anom
 import learning.learning as ml
 import anomdetec.new_anom_det
 from sklearn import svm
+
+'''
+NASA World Wind Earthquake Data Analysis Sandbox [Ver 1 (Python 3)]
+###################################################################################################
+Organization: NASA Ames Research Center (PX)
+Partners: Trillium Learning, Kodiak School District
+Managers: Patrick Hogan, Ron Fortunado
+Authors: Gabriel Militão, Benjamin Chang, Khaled Sharif, Farah Salah
+Backend Team: Enika Biswas, Nidhi Jain
+Field Team (AK): Seraphim McGann, Kiae Shin, Teyo DeGuzman
+
+Based on: Dr. Friedemann Fruend's work: (http://geo.arc.nasa.gov/sg/cv/esddir3cv-freund.html)
+
+            -St-Laurent, F., J. S. Derr, and F. Freund (2006), Earthquake Lights and Stress-Activation
+             of Positive Hole Charge Carriers in Rocks, Phys. Chem. of the Earth, 31, 305-312.
+            -Freund, F., A. Takeuchi, and B. W. S. Lau (2006), Electric currents streaming out of stressed
+             igneous rocks: A step towards understanding pre-earthquake low frequency EM emissions,
+             Phys. Chem. of the Earth, 31, 389-396.
+###################################################################################################
+1.
+This file is a space to utilize the data analysis tools written to analyze magnetic field vectors
+their relationship with earthquake events. Based on Dr. Friedemann Freund's theories, tectonic
+plate stresses on rock build up energy (electricity) several hours prior to an earthquake. This
+energy should be detectable in the form of magnetic field anomalies.
+
+Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak AK School District,
+a small team of interns is tirelessly working to analyze and understand magnetic field data being
+recorded in Kodiak, AK to determine whether or not earthquake forecasting can be accomplished
+through the interpretation of magnetic field variations.
+###################################################################################################
+2.
+This sandbox should be used to analyze magnetic field data. It takes 2 basic inputs:
+
+magnetic field data: in the form of X, Y, and Z vector data (timeseries)
+earthquake data: event data retrieved from the USGS API
+
+automated retrieval of data can be accomplished through the 'data' folder functions
+###################################################################################################
+3.
+In order for the whole repository to function properly, these packages must be installed on python 3:
+
+Packages:
+time
+datetime
+matplotlib
+pandas
+numpy
+seaborn
+scipy
+sklearn
+statsmodels.api
+
+Repository Modules:
+loadmagnetic
+plot
+stationsdata
+bandfilter
+detectanomalies
+clusters
+learning
+new_anom_det
+###################################################################################################
+
+'''
 # Date format: YYYY-MM-DD
 
 # name, begin, end = 'InteleCell-Kodiak', '2014-10-22', '2014-12-22'
