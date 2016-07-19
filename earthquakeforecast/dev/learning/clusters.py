@@ -1,10 +1,22 @@
-# NASA World Wind Earthquake Data Analysis code
+# Cluster computation and featuring module
+
 import datetime as dt
 import pandas as pd
 import numpy as np
 
 
 def get(anorm_rates, anomalies):
+    '''
+    Computes the anomaly point clusters from data anomaly rates
+
+    Args:
+        anorm_rates: (dataframe) anomaly rate from anomdetec/detectanomalies.py
+        anomalies: (dataframe) anomaly data points
+
+    Returns:
+        clusters: list of clusters. Each cluster is a list of data points (timestamp, value)
+    '''
+
     # extracts the clusters in dates, albeit sloppily
     cluster_pts = []
     for index, row in anorm_rates.iterrows():
@@ -38,22 +50,32 @@ def get(anorm_rates, anomalies):
 
 
 def get_mean(df_c):
+    # Computes mean from cluster data frame df_c
     df = pd.DataFrame()
     df['unix_time'] = df_c.index.astype(np.int64)
     df_mean = df.unix_time.mean()
     df_dt = pd.to_datetime(df_mean)
     return df_dt
 
-
 def get_std(df_c):
+    # Computes standard deviation from cluster data frame df_c
     df = pd.DataFrame()
     df['unix_time'] = df_c.index.astype(np.int64)
     df_std = df.unix_time.std()
     df_dt = pd.to_timedelta(df_std)
     return df_dt
 
-
 def comp_features(anomalies_clusters):
+    '''
+    Computes features for cluster anomalies
+
+    Args:
+        anomalies_clusters: list of clusters. output from get
+
+    Returns:
+        features: list of features for each cluster.
+        interval: list of intervals (cluster_first_point, cluster_last_point)
+    '''
     features = []
     interval = []
 

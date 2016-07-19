@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="934dacfe-b50b-421b-bd6b-e3abc2b1083b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/.idea/python3-port.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="7414414a-194d-4689-ad7d-b615ff55e999" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/data/earthquake.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/data/magnetic.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/Ben.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/loadearthquake.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/loadmagnetic.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/test_load_123hz_data.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/test_load_123hz_data.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/EarthquakeApp.iml" afterPath="$PROJECT_DIR$/.idea/EarthquakeApp.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/loadearthquake.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/data/loadearthquake.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/loadmagnetic.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/data/loadmagnetic.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/split_huge_files.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/data/split_huge_files.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/filter/bandfilter.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/filter/bandfilter.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/learning/clusters.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/learning/clusters.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/learning/learning.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/learning/learning.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/plot.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/plot.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" afterPath="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" />
     </list>
     <ignored path="EarthquakeApp.iws" />
@@ -31,16 +34,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/EarthquakeApp$test_nasa_eps.coverage" NAME="test_nasa_eps Coverage Results" MODIFIED="1468366502590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$test_lowpassfilter.coverage" NAME="test_lowpassfilter Coverage Results" MODIFIED="1466530636360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$.coverage" NAME=" Coverage Results" MODIFIED="1467136953572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$test_fft.coverage" NAME="test_fft Coverage Results" MODIFIED="1466442208441" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$detectanomalies.coverage" NAME="detectanomalies Coverage Results" MODIFIED="1467838502662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$loadmagnetic.coverage" NAME="loadmagnetic Coverage Results" MODIFIED="1467839930126" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$sandbox_py.coverage" NAME="sandbox.py Coverage Results" MODIFIED="1468875660532" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquakeforecast/dev" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$new_anom_det.coverage" NAME="new_anom_det Coverage Results" MODIFIED="1468365264971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$test_vertical_lines.coverage" NAME="test_vertical_lines Coverage Results" MODIFIED="1467757857300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-    <SUITE FILE_PATH="coverage/EarthquakeApp$plot.coverage" NAME="plot Coverage Results" MODIFIED="1467758208151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquake-prediction/python3-port" />
+    <SUITE FILE_PATH="coverage/EarthquakeApp$sandbox.coverage" NAME="sandbox Coverage Results" MODIFIED="1468950385191" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/earthquakeforecast/dev" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -51,89 +45,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="detectanomalies.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="sandbox.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-              <folding>
-                <element signature="e#49#82#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clusters.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/learning/clusters.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#48#69#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bandfilter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/filter/bandfilter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-300">
-              <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+            <state relative-caret-position="0">
+              <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loadmagnetic.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/loadmagnetic.py">
+      <file leaf-file-name="earthquake.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/earthquake.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="96" column="33" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="33" />
-              <folding>
-                <element signature="e#45#56#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loadearthquake.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/loadearthquake.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+            <state relative-caret-position="0">
+              <caret line="0" column="47" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stationsdata.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py">
+      <file leaf-file-name="magnetic.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/magnetic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detect_ts.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/pyculiarity/detect_ts.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="828">
-              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="39" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -141,45 +77,21 @@
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/earthquake-prediction/dev/test123" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/dev/loadmagnetic.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/dev/test.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/dev/plot.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/pyculiarity/detect_ts.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_fft.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadearthquake.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_lowpassfilter.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/OLS Model Diagnostics.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/ols_mod_diagnostics.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/clusters.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/learning.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_vertical_lines.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-        <option value="$PROJECT_DIR$/earthquake-prediction/python3-port/new_anom_det.py" />
-        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py" />
-        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/loadearthquake.py" />
         <option value="$PROJECT_DIR$/earthquakeforecast/dev/filter/bandfilter.py" />
         <option value="$PROJECT_DIR$/earthquakeforecast/dev/learning/clusters.py" />
-        <option value="$PROJECT_DIR$/earthquakeforecast/dev/learning/learning.py" />
-        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/loadmagnetic.py" />
         <option value="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/split_huge_files.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/learning/learning.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/earthquake.py" />
+        <option value="$PROJECT_DIR$/earthquakeforecast/dev/data/magnetic.py" />
         <option value="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" />
       </list>
     </option>
@@ -194,28 +106,6 @@
     <option name="y" value="24" />
     <option name="width" value="1920" />
     <option name="height" value="1056" />
-  </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-          <State>
-            <id>General</id>
-          </State>
-          <State>
-            <id>Python</id>
-          </State>
-        </expanded-state>
-        <selected-state>
-          <State>
-            <id>Buildout</id>
-          </State>
-        </selected-state>
-      </profile-state>
-    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -242,6 +132,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -382,120 +274,26 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="51" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="53" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="54" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="536" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="51" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="53" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="54" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="536" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
   </component>
-  <component name="RunManager" selected="Python.sandbox.py">
-    <configuration default="false" name="test_nasa_eps" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.sandbox">
+    <configuration default="false" name="sandbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquakeforecast/dev" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="EarthquakeApp" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="plot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="EarthquakeApp" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="loadmagnetic" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="EarthquakeApp" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="detectanomalies" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="EarthquakeApp" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="new_anom_det" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="EarthquakeApp" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/new_anom_det.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -562,7 +360,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
+      <module name="EarthquakeApp" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
@@ -708,58 +506,12 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="sandbox.py" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquakeforecast/dev" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="EarthquakeApp" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="test_lowpassfilter" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/earthquake-prediction/python3-port" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="EarthquakeApp" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/earthquake-prediction/python3-port/test_lowpassfilter.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <list size="7">
-      <item index="0" class="java.lang.String" itemvalue="Python.sandbox.py" />
-      <item index="1" class="java.lang.String" itemvalue="Python.test_lowpassfilter" />
-      <item index="2" class="java.lang.String" itemvalue="Python.test_nasa_eps" />
-      <item index="3" class="java.lang.String" itemvalue="Python.plot" />
-      <item index="4" class="java.lang.String" itemvalue="Python.loadmagnetic" />
-      <item index="5" class="java.lang.String" itemvalue="Python.detectanomalies" />
-      <item index="6" class="java.lang.String" itemvalue="Python.new_anom_det" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Python.sandbox" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test_nasa_eps" />
-        <item index="1" class="java.lang.String" itemvalue="Python.new_anom_det" />
-        <item index="2" class="java.lang.String" itemvalue="Python.loadmagnetic" />
-        <item index="3" class="java.lang.String" itemvalue="Python.detectanomalies" />
-        <item index="4" class="java.lang.String" itemvalue="Python.plot" />
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.sandbox" />
       </list>
     </recent_temporary>
   </component>
@@ -771,50 +523,35 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="934dacfe-b50b-421b-bd6b-e3abc2b1083b" name="Default" comment="" />
-      <created>1465940863212</created>
+      <changelist id="7414414a-194d-4689-ad7d-b615ff55e999" name="Default" comment="" />
+      <created>1468945559056</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1465940863212</updated>
-      <workItem from="1465940865581" duration="502000" />
-      <workItem from="1466208280463" duration="435000" />
+      <updated>1468945559056</updated>
     </task>
     <servers />
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="937000" />
-  </component>
-  <component name="TodoView" selected-index="1">
-    <todo-panel id="selected-file">
-      <are-modules-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.122994654" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32809225" sideWeight="0.49786097" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2548596" sideWeight="0.13994911" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1919786" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="764" y="476" width="513" height="350" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32668713" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38877004" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="635" y="52" width="713" height="1028" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328877" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08490566" sideWeight="0.8600509" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22012578" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39570552" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -830,174 +567,149 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="10" />
-    </breakpoint-manager>
+    <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_timeseries.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
-    <entry file="file://$PROJECT_DIR$/app/GeoJSON.html">
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
-    <entry file="file://$USER_HOME$/OneDrive/sa_prac1/results/q3.1.html" />
-    <entry file="file://$PROJECT_DIR$/app/LookAtNavigator.js">
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/split_huge_files.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#77#92#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/dev/loadmagnetic.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/dev/test.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/dev/loadearthquake.py" />
-    <entry file="file://$USER_HOME$/Dropbox/sa_excode2/5SSG2060_ExecutableCode2_1427801.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/dev/plot.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/README.md" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_bundle/pydev_import_hook.py" />
-    <entry file="file://$PROJECT_DIR$/app/GeoJSON.js">
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/magnetic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+        <state relative-caret-position="3438">
+          <caret line="200" column="28" selection-start-line="200" selection-start-column="28" selection-end-line="200" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/GeoJSON.html">
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/test_load_123hz_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_fft.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_lowpassfilter.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/pandas/indexes/base.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/OLS Model Diagnostics.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/ols_mod_diagnostics.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_timeseries.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/pandas/core/generic.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/learning.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/loadearthquake.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_vertical_lines.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/stationsdata.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/clusters.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/pyculiarity/r_stl.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/pyculiarity/detect_anoms.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/pyculiarity/detect_ts.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/scipy/stats/morestats.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/loadmagnetic.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/detectanomalies.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/plot.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/bandfilter.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/new_anom_det.py" />
-    <entry file="file://$PROJECT_DIR$/earthquake-prediction/python3-port/test_nasa_eps.py" />
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/pyculiarity/detect_ts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        <state relative-caret-position="-54">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/loadearthquake.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="27" column="25" selection-start-line="27" selection-start-column="25" selection-end-line="27" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/learning/learning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding>
-            <element signature="e#48#81#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/learning/clusters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#48#69#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/filter/bandfilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-300">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        <state relative-caret-position="140">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/loadmagnetic.py">
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/split_huge_files.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="96" column="33" selection-start-line="96" selection-start-column="33" selection-end-line="96" selection-end-column="33" />
+        <state relative-caret-position="0">
+          <caret line="0" column="75" selection-start-line="0" selection-start-column="75" selection-end-line="0" selection-end-column="75" />
           <folding>
-            <element signature="e#45#56#0" expanded="true" />
+            <element signature="e#77#92#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/detectanomalies.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="732">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#28#43#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/stationsdata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="26" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/learning/clusters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="42" selection-start-line="0" selection-start-column="42" selection-end-line="0" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/learning/learning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
+          <folding>
+            <element signature="e#34#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/anomdetec/new_anom_det.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="53" selection-start-line="0" selection-start-column="53" selection-end-line="0" selection-end-column="53" />
+          <folding>
+            <element signature="e#55#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/earthquake.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="47" selection-start-line="0" selection-start-column="47" selection-end-line="0" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/data/magnetic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="39" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/earthquakeforecast/dev/sandbox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="e#49#82#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ScopeChooserConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

@@ -1,7 +1,7 @@
-# NASA World Wind Earthquake Data Analysis code
+# Project sandbox file
 
-import data.loadearthquake as eaq
-import data.loadmagnetic as mag
+import data.earthquake as eaq
+import data.magnetic as mag
 import data.stationsdata as station
 import plot as pt
 import pandas as pd
@@ -35,10 +35,13 @@ stationcoord = station.get(name)
 # magnetic = mag.load_magnetic_data(name, begin, end)
 
 # Magnetic Data Load
-magnetic = mag.load_magnetic_data(name, begin, end)
+magnetic = mag.load_magnetic(name, begin, end)
+magnetic = mag.resample_to_min(magnetic)
 
 # Earthquake Data Load
-earthquake = eaq.load_earthquake_data(begin, end, stationcoord, min_magnitude=1.5)
+earthquake = eaq.load_earthquakes(begin, end, stationcoord, min_magnitude=1.5)
+
+anomalies = anom.compute_anomalies(magnetic)
 
 """
 

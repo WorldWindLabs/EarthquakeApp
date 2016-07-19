@@ -1,3 +1,5 @@
+# Anomaly detection module
+
 import datetime
 from time import process_time
 import pandas as pd
@@ -13,7 +15,8 @@ def compute_anomalies(mag):
     '''
     Anomaly detection function for all axes directly from magnetic field
 
-    :param mag: Data frame containing magnetic field data
+    :param mag: (dataframe) dataframe of magnetic data (series: X, Y, Z)
+
     :return: Tuple of anomaly data frames for each axes
     '''
     return get_anom(mag, 'X'), get_anom(mag, 'Y'), get_anom(mag, 'Z')
@@ -23,8 +26,9 @@ def get_anom(magnetic, axis):
     '''
     Axis anomaly detection helper function
 
-    :param magnetic: Data frame containing magnetic field data
+    :param magnetic: (dataframe) dataframe of magnetic data (series: X, Y, Z)
     :param axis: One of the three axes ('X', 'Y', 'Z')
+
     :return: Data frame containing timestamps, values for the anomalies in that axis.
     '''
     print("Detecting anomalies for", axis, "axis", end='')
@@ -44,16 +48,21 @@ def get_anom(magnetic, axis):
 
 def compute_anomalies_for_earthquake(earthquake, anomalies, interval=24):
     '''
-    Get anomalies in a time range from every earthquake
+    Compiles known anomalies in timeseries for a specified event (earthquakes)
 
-    :param earthquake: Data frame containing earthquake data
-    :param anomalies: Tuple of anomaly data frames for each axes
-    :param time: Time range previous to earthquake which anomalies are counted for
-    :return: Data frame which each line in indexed by an earthquake timestamp and each
-            line entry has the number of anomalies close to the earthquake in that axis
+    :param earthquake: (pd dataframe) DF of earthquake events (timestamps, magnitudes, locations, etc.)
+    :param anomaly: (dataframe) DF of anomalies in a timeseries (magnetic data)
+    :param interval: (int) hours before an event (earthquake) in which to search for anomalies and compile
+
+    :return pd: (dataframe; columns = X_anoms, Y_anoms, Z_anoms; index = Date)
+
+            Columns:
+            '[Axis]_anoms': list of number of anomalies in [Axis] within a period of time before the earthquake
+
+            index:
+            Date: Dates from input dataframe (earthquake)
     '''
-    x, y, z = anomalies
-
+    
     anoms = []
     for axis in range(len(anomalies)):
         axis_anoms = []
@@ -73,6 +82,28 @@ def compute_anomalies_for_earthquake(earthquake, anomalies, interval=24):
                         index=earthquake.index)
 
 def anomaly_rate(magnetic, anomalies, num_h=4):
+    '''
+    Creates anomaly 'rates' to be adapted into features for machine learning algorithms
+    The anomaly 'rates' are anomalies per hour, and determine clusters of anomalies to be analyzed
+    as normal or anomalous datapoints.
+
+    :param magnetic: (dataframe) dataframe of magnetic data (series: X, Y, Z)
+    :param anomalies: (dataframe) output of anomaly detection functions, (X, Y, Z)
+    :param num_h: hour window in which to search for anomalies for creating an anomaly 'rate'
+
+    :return anom_r: (dataframe; columns = anom_r, log_anom_r, log_z_score, log_z_score_zero_trans;
+            index = Date)
+
+            Columns:
+            anom_r: anomalies/num_h (hour rate param)
+            log_anom_r: log(10) transformation of anonm_r
+            log_z_score: z score of log_anom_r
+            log_z_score_zero_trans: series minimum transformation of data (absolute values)
+
+            index:
+            Date: Dates from input dataframe (magnetic)
+        '''
+
     mag_interval = magnetic.resample('10T').mean()
 
     anom_rate = []

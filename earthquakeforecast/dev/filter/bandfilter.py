@@ -3,7 +3,7 @@ import numpy as np
 from scipy.signal import butter, cheby1, cheby2, lfilter
 import pandas as pd
 import data.stationsdata as station
-import data.loadearthquake as eaq
+import data.earthquake as eaq
 import plot as pt
 
 def butter_highpass(cutoff, fs, order=5):
