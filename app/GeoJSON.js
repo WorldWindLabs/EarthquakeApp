@@ -4,6 +4,7 @@
  */
 
 var limitQuery = 50;
+var polygonLayer;
 
 var redraw = function(minMagnitude, maxMagnitude, minDate, maxDate, limit, layer)
 {
@@ -45,18 +46,17 @@ var shapeConfigurationCallback = function (geometry, properties)
 		{
 			var min = $("#magSlider").slider("values",0);
 			var max = $("#magSlider").slider("values",1);
-			configuration.attributes.imageScale = ((properties.mag - min + 1) / (max - min)) * 0.25;
+			configuration.attributes.imageScale = ((properties.mag - min + 1) / (max - min)) * 0.5;
 
-			configuration.attributes.imageColor = WorldWind.Color.TRANSPARENT;
+			//configuration.attributes.imageColor = WorldWind.Color.TRANSPARENT;
 		}
 
 		if (geometry && geometry['coordinates'])
 		{
-			geometry['coordinates'][2] *= 1000;
-
 			var boundaries = [];
 			boundaries[0] = [];
-			var altitude = geometry['coordinates'][2]*4 + 10000;
+			var altitude = geometry['coordinates'][2] * -1000 * 4; // multiplying by a fixed constant to improve visibility
+			geometry['coordinates'][2] = 0;
 			var x = ((properties.mag - min + 1) / (max - min));
 			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]-x, geometry['coordinates'][0]-x, altitude));
 			boundaries[0].push(new WorldWind.Position(geometry['coordinates'][1]-x, geometry['coordinates'][0]+x, altitude));
@@ -78,18 +78,22 @@ var shapeConfigurationCallback = function (geometry, properties)
 			if (utcDate - date > (30*24*60*60*1000))
 			{
 				polygonAttributes.interiorColor = WorldWind.Color.GREEN;
+				configuration.attributes.imageColor = WorldWind.Color.GREEN;
 			}
 			else if (utcDate - date > (8*24*60*60*1000))
 			{
 				polygonAttributes.interiorColor = WorldWind.Color.YELLOW;
+				configuration.attributes.imageColor = WorldWind.Color.YELLOW;
 			}
 			else if (utcDate - date > (24*60*60*1000))
 			{
 				polygonAttributes.interiorColor = WorldWind.Color.ORANGE;
+				configuration.attributes.imageColor = WorldWind.Color.ORANGE;
 			}
 			else
 			{
 				polygonAttributes.interiorColor = WorldWind.Color.RED;
+				configuration.attributes.imageColor = WorldWind.Color.RED;
 			}
 
 			polygonAttributes.drawInterior = true;
@@ -103,7 +107,8 @@ var shapeConfigurationCallback = function (geometry, properties)
 			highlightAttributes.outlineColor = WorldWind.Color.RED;
 			polygon.highlightAttributes = highlightAttributes;
 
-			window.wwd.layers[1].addRenderable(polygon);
+			window.polygonLayer.addRenderable(polygon);
+			configuration.attributes.imageColor = WorldWind.Color.TRANSPARENT;
 		}
 	}
 
@@ -121,22 +126,27 @@ requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './Co
 	    var wwd = new WorldWind.WorldWindow("canvasOne");
 	    window.wwd = wwd;
 
+	    // Enable sub-surface rendering for the World Window.
+	    wwd.subsurfaceMode = true;
+	    // Enable deep picking in order to detect the sub-surface shapes.
+	    wwd.deepPicking = true;
+	    // Make the surface semi-transparent in order to see the sub-surface shapes.
+	    wwd.surfaceOpacity = 0.5;
+
         WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
 
 	    var annotationController = new AnnotationController(wwd);
 
         var layers = [
 	        {layer: new WorldWind.BMNGLayer(), enabled: true},
-	        {layer: new WorldWind.RenderableLayer("Polygon"), enabled:true},
-	        
             {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
             {layer: new WorldWind.CompassLayer(), enabled: false},
             {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-            {layer: new WorldWind.ViewControlsLayer(wwd), enabled: false}
+            {layer: new WorldWind.ViewControlsLayer(wwd), enabled: false},
+	        {layer: new WorldWind.RenderableLayer("Polygon"), enabled:true}
         ];
 
-	    layers[0]['layer'].opacity = 1;
-	    layers[1]['layer'].opacity = 1;
+	    window.polygonLayer = layers[5]['layer'];
 
         for (var l = 0; l < layers.length; l++)
         {
@@ -151,7 +161,7 @@ requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './Co
 	    var minDate = $("#dateSlider").slider("values",0);
 	    var maxDate = $("#dateSlider").slider("values",1);
 
-	    window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, layers[1]['layer']);
+	    window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer);
 
 	    wwd.goTo(new WorldWind.Position(31.956578,35.945695,25500*1000))
 
