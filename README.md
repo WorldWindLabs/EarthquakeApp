@@ -98,5 +98,10 @@ Still in testing, definitely not complete....but...
 
 You can generate features using the `learning.preprocess()` function. These generated functions can be fed into sklearn functions to generate results, albeit arbitrary results (for the time being).
 
--------
+6. NASA Web World Wind Earthquake Application
+---------------------------------------------
+You can view the preliminary application for the earthquake app. Open the GeoJSON.html in a web server to run the web app.
+
+
+----
 Updated as of: 18/07/2016
