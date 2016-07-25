@@ -100,8 +100,7 @@ You can generate features using the `learning.preprocess()` function. These gene
 
 6. NASA Web World Wind Earthquake Application
 ---------------------------------------------
-You can view the preliminary application for the earthquake app. Open the GeoJSON.html in a web server to run the web app.
-
-
+You can view the preliminary application for the earthquake app. Open the GeoJSON.html (EarthquakeApp/app/Earthquake App WWW/examples/GeoJSON.html) in a web server (Webstorm does this automatically) to run the web app.
+![screencap of app](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/app_screencap.png)
 ----
 Updated as of: 18/07/2016
