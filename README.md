@@ -81,8 +81,6 @@ The other method involves using numpy convolution to create a moving average to 
 By analyzing the data in this fashion, we should be able to observe perturbations in the magnetic field vectors, allowing for machine learning to build a confidence on earthquakes occurring in the near future.
 ![earthquake det](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/example_eq_det.png)
 (The red line is an earthquake event of magnitude >3 within 300km of this magnetic anomaly)
-
-###
  
 5. Outputs
 ----------
@@ -102,5 +100,18 @@ You can generate features using the `learning.preprocess()` function. These gene
 ---------------------------------------------
 You can view the preliminary application for the earthquake app. Open the GeoJSON.html (EarthquakeApp/app/Earthquake App WWW/examples/GeoJSON.html) in a web server (Webstorm does this automatically) to run the web app.
 ![screencap of app](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/app_screencap.png)
+
+###Goals:
+* Allow for viewing of recent earthquakes (epicenter, hypocenter, age of EQ, magnitude)
+* Display of associated data in separate box (date, magnitude, coordinates, relative location, relative age, etc.)
+* Query functionality for access to the USGS API from front end interface
+* Time series of EQ
+* EQ Forecasting implementation
+
+###How to use:
+Still being built, instructions coming soon.
+
+
+
 ----
-Updated as of: 18/07/2016
+Updated as of: 26/07/2016
