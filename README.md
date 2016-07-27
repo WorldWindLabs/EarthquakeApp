@@ -111,7 +111,3 @@ You can view the preliminary application for the earthquake app. Open the GeoJSO
 ###How to use:
 Still being built, instructions coming soon.
 
-
-
-----
-Updated as of: 26/07/2016
