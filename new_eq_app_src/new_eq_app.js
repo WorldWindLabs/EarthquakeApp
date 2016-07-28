@@ -11,16 +11,18 @@
 
 // USGS API
 
+// Test URL
 var TestURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-04-10&endtime=2016-04-20&limit=5' +
     '&minmagnitude=2.5';
+// Decade (2006-2016) of Earthquake data URL
 var DecadeURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2006-01-01&endtime=2016-01-01' +
     '&minmagnitude=6&maxmagnitude=7';
 
+// Khaled's Dynamic URL (automatically updates to last 10 days)
 var minMagnitude = 2.5,
     maxMagnitude = 10,
     minDate = -10,
     maxDate = 0;
-
 
 var currentTimeUTC = +new Date();
 var minDateISO = new Date(currentTimeUTC + minDate*24*60*60*1000).toISOString().split(/[-]+/);
@@ -40,6 +42,7 @@ var URL = resourcesUrl + '&' + query;
 
 console.log(URL);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // JQuery API Calling
 $.get(DecadeURL, function (EQ) {
     console.log(EQ.features[0].properties.mag);
