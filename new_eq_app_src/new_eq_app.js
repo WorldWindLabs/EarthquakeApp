@@ -13,6 +13,8 @@
 
 var TestURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-04-10&endtime=2016-04-20&limit=5' +
     '&minmagnitude=2.5';
+var DecadeURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2006-01-01&endtime=2016-01-01' +
+    '&minmagnitude=6&maxmagnitude=7';
 
 var minMagnitude = 2.5,
     maxMagnitude = 10,
@@ -39,7 +41,7 @@ var URL = resourcesUrl + '&' + query;
 console.log(URL);
 
 // JQuery API Calling
-$.get(TestURL, function (EQ) {
+$.get(DecadeURL, function (EQ) {
     console.log(EQ.features[0].properties.mag);
     console.log(EQ.features[0].geometry.coordinates);
     placeMarkCreation(EQ);
@@ -47,9 +49,11 @@ $.get(TestURL, function (EQ) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Data Display
 // function dataDisplay(EQ_GeoJSON) {
+    var magnitudePlaceholder = document.getElementById('magnitude');
+    var locPlaceholder = document.getElementById('location');
+    var eventdatePlaceholder = document.getElementById('time');
     var latitudePlaceholder = document.getElementById('latitude');
     var longitudePlaceholder = document.getElementById('longitude');
-    var magnitudePlaceholder = document.getElementById('magnitude');
 // }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,9 +95,9 @@ function placeMarkCreation(GeoJSON) {
     canvas.height = size;
 
     var gradient = ctx2d.createRadialGradient(c, c, innerRadius, c, c, outerRadius);
-    gradient.addColorStop(0, 'rgb(255, 255, 255)');
-    gradient.addColorStop(0.5, 'rgb(255, 255, 255)');
-    gradient.addColorStop(1, 'rgb(255, 255, 255)');
+    gradient.addColorStop(0, 'rgb(255, 0, 0)');
+    gradient.addColorStop(0.5, 'rgb(255, 73, 0)');
+    gradient.addColorStop(1, 'rgb(255, 153, 0)');
 
     ctx2d.fillStyle = gradient;
     ctx2d.arc(c, c, outerRadius, 0, 2 * Math.PI, false);
@@ -111,19 +115,19 @@ function placeMarkCreation(GeoJSON) {
         WorldWind.OFFSET_FRACTION, 0.5);
     placemarkAttributes.imageColor = WorldWind.Color.WHITE;
     placemarkAttributes.imageSource = new WorldWind.ImageSource(canvas);
-    placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
-        WorldWind.OFFSET_FRACTION, 0.5,
-        WorldWind.OFFSET_FRACTION, 1.0);
-    placemarkAttributes.labelAttributes.imageScale = 5
-    placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
+    // placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
+    //     WorldWind.OFFSET_FRACTION, 0.5,
+    //     WorldWind.OFFSET_FRACTION, 1.0);
+    // placemarkAttributes.labelAttributes.imageScale = 5;
+    // placemarkAttributes.labelAttributes.color = WorldWind.Color.YELLOW;
 
     // Placemark Generation
     for (var i = 0, len = GeoJSON.features.length; i < len; i++) {
         var longitude = GeoJSON.features[i].geometry.coordinates[0];
         var latitude = GeoJSON.features[i].geometry.coordinates[1];
         placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude,
-            1e2), true, placemarkAttributes);
-        placemark.label = 'lat: ' + latitude.toString() + 'long: ' + longitude.toString() + 'mag: '+ GeoJSON.features[i].properties.mag.toString();
+            1e5), true, placemarkAttributes);
+        // placemark.label = 'lat: ' + latitude.toString() + 'long: ' + longitude.toString() + 'mag: '+ GeoJSON.features[i].properties.mag.toString();
         // Highlight attributes
         highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
         highlightAttributes.imageScale = 5;
@@ -136,49 +140,49 @@ function placeMarkCreation(GeoJSON) {
 
     // Polygon Generation
 
-    // var polygon,
-    //     polyhighlightAttributes,
-    //     polygonLayer = new WorldWind.RenderableLayer("Depth (KM)");
-    //
-    // var polygonAttributes = new WorldWind.ShapeAttributes(null);
-    //
-    // polygonAttributes.drawInterior = true;
-    // polygonAttributes.drawOutline = false;
-    // polygonAttributes.outlineColor = WorldWind.Color.BLUE;
-    // polygonAttributes.interiorColor = WorldWind.Color.WHITE;
-    // polygonAttributes.imageColor = WorldWind.Color.WHITE;
-    // // polygonAttributes.drawVerticals = polygon.extrude;
-    // polygonAttributes.applyLighting = true;
-    //
-    // for (var i = 0, len = GeoJSON.features.length; i < len; i++) {
-    //
-    //     var boundaries = [];
-    //     boundaries[0] = [];
-    //     var altitude = GeoJSON.features[i].geometry['coordinates'][2] * -1000 * 4; // multiplying by a fixed constant to improve visibility
-    //     GeoJSON.features[i].geometry['coordinates'][2] = 0;
-    //     // var x = ((GeoJSON.features[i].properties.mag - min + 1) / (max - min));
-    //     boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] - 1, GeoJSON.features[i].geometry['coordinates'][0] - 1, altitude));
-    //     boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] - 1, GeoJSON.features[i].geometry['coordinates'][0] + 1, altitude));
-    //     boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] + 1, GeoJSON.features[i].geometry['coordinates'][0] + 1, altitude));
-    //     boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] + 1, GeoJSON.features[i].geometry['coordinates'][0] - 1, altitude));
-    //
-    //     polygon = new WorldWind.Polygon(boundaries, null);
-    //     polygon.altitudeMode = WorldWind.ABSOLUTE;
-    //     polygon.extrude = true;
-    //     polygon.textureCoordinates = [
-    //         [new WorldWind.Vec2(0, 0), new WorldWind.Vec2(1, 0), new WorldWind.Vec2(1, 1), new WorldWind.Vec2(0, 1)]
-    //     ];
-    //     // Highlight Attributes
-    //     polyhighlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
-    //     polyhighlightAttributes.outlineColor = WorldWind.Color.RED;
-    //     polygonAttributes.highlightAttributes = polyhighlightAttributes;
-    //
-    //     polygon.attributes = polygonAttributes;
-    //
-    //     polygonLayer.addRenderable(polygon);
-    // }
+    var polygon,
+        polyhighlightAttributes,
+        polygonLayer = new WorldWind.RenderableLayer("Depth (KM)");
 
-    // wwd.addLayer(polygonLayer);
+    var polygonAttributes = new WorldWind.ShapeAttributes(null);
+
+    polygonAttributes.drawInterior = true;
+    polygonAttributes.drawOutline = false;
+    polygonAttributes.outlineColor = WorldWind.Color.BLUE;
+    polygonAttributes.interiorColor = WorldWind.Color.WHITE;
+    polygonAttributes.imageColor = WorldWind.Color.WHITE;
+    // polygonAttributes.drawVerticals = polygon.extrude;
+    polygonAttributes.applyLighting = true;
+
+    for (var i = 0, len = GeoJSON.features.length; i < len; i++) {
+
+        var boundaries = [];
+        boundaries[0] = [];
+        var altitude = GeoJSON.features[i].geometry['coordinates'][2] * -1000 * 4; // multiplying by a fixed constant to improve visibility
+        GeoJSON.features[i].geometry['coordinates'][2] = 0;
+        // var x = ((GeoJSON.features[i].properties.mag - min + 1) / (max - min));
+        boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] - 1, GeoJSON.features[i].geometry['coordinates'][0] - 1, altitude));
+        boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] - 1, GeoJSON.features[i].geometry['coordinates'][0] + 1, altitude));
+        boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] + 1, GeoJSON.features[i].geometry['coordinates'][0] + 1, altitude));
+        boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] + 1, GeoJSON.features[i].geometry['coordinates'][0] - 1, altitude));
+
+        polygon = new WorldWind.Polygon(boundaries, null);
+        polygon.altitudeMode = WorldWind.ABSOLUTE;
+        polygon.extrude = true;
+        polygon.textureCoordinates = [
+            [new WorldWind.Vec2(0, 0), new WorldWind.Vec2(1, 0), new WorldWind.Vec2(1, 1), new WorldWind.Vec2(0, 1)]
+        ];
+        // Highlight Attributes
+        polyhighlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
+        polyhighlightAttributes.outlineColor = WorldWind.Color.RED;
+        polygonAttributes.highlightAttributes = polyhighlightAttributes;
+
+        polygon.attributes = polygonAttributes;
+
+        polygonLayer.addRenderable(polygon);
+    }
+
+    wwd.addLayer(polygonLayer);
 
     // Layer Manager
     var layerManger = new LayerManager(wwd);
@@ -221,9 +225,11 @@ function placeMarkCreation(GeoJSON) {
                 for (var eq = 0; eq < GeoJSON.features.length ; eq++) {
                     if (GeoJSON.features[eq].geometry.coordinates[1] == pickList.objects[p].position.latitude &&
                         GeoJSON.features[eq].geometry.coordinates[0] == pickList.objects[p].position.longitude) {
+                        magnitudePlaceholder.textContent = GeoJSON.features[eq].properties.mag;
+                        locPlaceholder.textContent = GeoJSON.features[eq].properties.place;
+                        eventdatePlaceholder.textContent = Date(GeoJSON.features[eq].properties.time);
                         latitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[1];
                         longitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[0];
-                        magnitudePlaceholder.textContent = GeoJSON.features[eq].properties.mag;
                     }
                 }
 
