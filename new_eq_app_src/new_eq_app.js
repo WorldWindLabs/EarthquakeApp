@@ -210,13 +210,22 @@ function placeMarkCreation(GeoJSON) {
             redrawRequired = true;
         }
 
+        if (pickList.objects.length > 1) {
+            redrawRequired = true;
+        }
+
         // Highlight the items picked by simply setting their highlight flag to true.
         if (pickList.objects.length > 0) {
             for (var p = 0; p < pickList.objects.length; p++) {
                 pickList.objects[p].userObject.highlighted = true;
-                latitudePlaceholder.textContent = GeoJSON.features[p].geometry.coordinates[1];
-                longitudePlaceholder.textContent = GeoJSON.features[p].geometry.coordinates[0];
-                magnitudePlaceholder.textContent = GeoJSON.features[p].properties.mag;
+                for (var eq = 0; eq < GeoJSON.features.length ; eq++) {
+                    if (GeoJSON.features[eq].geometry.coordinates[1] == pickList.objects[p].position.latitude &&
+                        GeoJSON.features[eq].geometry.coordinates[0] == pickList.objects[p].position.longitude) {
+                        latitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[1];
+                        longitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[0];
+                        magnitudePlaceholder.textContent = GeoJSON.features[eq].properties.mag;
+                    }
+                }
 
                 // Keep track of highlighted items in order to de-highlight them later.
                 highlightedItems.push(pickList.objects[p].userObject);
