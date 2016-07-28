@@ -225,14 +225,16 @@ function placeMarkCreation(GeoJSON) {
         if (pickList.objects.length > 0) {
             for (var p = 0; p < pickList.objects.length; p++) {
                 pickList.objects[p].userObject.highlighted = true;
-                for (var eq = 0; eq < GeoJSON.features.length ; eq++) {
-                    if (GeoJSON.features[eq].geometry.coordinates[1] == pickList.objects[p].position.latitude &&
-                        GeoJSON.features[eq].geometry.coordinates[0] == pickList.objects[p].position.longitude) {
-                        magnitudePlaceholder.textContent = GeoJSON.features[eq].properties.mag;
-                        locPlaceholder.textContent = GeoJSON.features[eq].properties.place;
-                        eventdatePlaceholder.textContent = Date(GeoJSON.features[eq].properties.time);
-                        latitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[1];
-                        longitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[0];
+                if (pickList.objects[p].position) {
+                    for (var eq = 0; eq < GeoJSON.features.length; eq++) {
+                        if (GeoJSON.features[eq].geometry.coordinates[1] == pickList.objects[p].position.latitude &&
+                            GeoJSON.features[eq].geometry.coordinates[0] == pickList.objects[p].position.longitude) {
+                            magnitudePlaceholder.textContent = GeoJSON.features[eq].properties.mag;
+                            locPlaceholder.textContent = GeoJSON.features[eq].properties.place;
+                            eventdatePlaceholder.textContent = Date(GeoJSON.features[eq].properties.time);
+                            latitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[1];
+                            longitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[0];
+                        }
                     }
                 }
 
