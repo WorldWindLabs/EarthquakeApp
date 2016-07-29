@@ -17,30 +17,35 @@ var DecadeURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&
 // Khaled's Dynamic URL (automatically updates to last 10 days)
 var minMagnitude = 2.5,
     maxMagnitude = 10,
-    minDate = -10,
-    maxDate = 0;
-
-var currentTimeUTC = +new Date();
-var minDateISO = new Date(currentTimeUTC + minDate*24*60*60*1000).toISOString().split(/[-]+/);
-console.log(minDateISO);
-var maxDateISO = new Date(currentTimeUTC + maxDate*24*60*60*1000).toISOString().split(/[-]+/);
-console.log(maxDateISO);
-minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
-maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
+    minDate = -30,
+    maxDate = 0,
+    limit = 500;
 
 // layer.removeAllRenderables();
 
-var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
-var query = "starttime="+minDateISO.join('-')+"&endtime="+maxDateISO.join('-')+"&minmagnitude=" +
-    minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString();// + "&orderby=magnitude&limit=" +
-//limit.toString();
-var URL = resourcesUrl + '&' + query;
+function DynamicDT(minMagnitude, maxMagnitude, minDate, maxDate, limit) {
+    var currentTimeUTC = +new Date();
+    var minDateISO = new Date(currentTimeUTC + minDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+    console.log(minDateISO);
+    var maxDateISO = new Date(currentTimeUTC + maxDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+    console.log(maxDateISO);
+    minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
+    maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
 
-console.log(URL);
+    var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
+    var query = "starttime=" + minDateISO.join('-') + "&endtime=" + maxDateISO.join('-') + "&minmagnitude=" +
+        minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString() + "&limit=" + limit.toString();
+    // + "&orderby=magnitude;
+
+    var URL = resourcesUrl + '&' + query;
+    return URL
+
+}
+console.log(DynamicDT(minMagnitude, maxMagnitude, minDate, maxDate, limit));
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // JQuery API Calling
-$.get(DecadeURL, function (EQ) {
+$.get(DynamicDT(minMagnitude, maxMagnitude, minDate, maxDate, limit), function (EQ) {
     console.log(EQ.features[0].properties.mag);
     console.log(EQ.features[0].geometry.coordinates);
     placeMarkCreation(EQ);
@@ -48,11 +53,12 @@ $.get(DecadeURL, function (EQ) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Data Display
 // function dataDisplay(EQ_GeoJSON) {
-    var magnitudePlaceholder = document.getElementById('magnitude');
-    var locPlaceholder = document.getElementById('location');
-    var eventdatePlaceholder = document.getElementById('time');
-    var latitudePlaceholder = document.getElementById('latitude');
-    var longitudePlaceholder = document.getElementById('longitude');
+var magnitudePlaceholder = document.getElementById('magnitude');
+var locPlaceholder = document.getElementById('location');
+var eventdatePlaceholder = document.getElementById('time');
+var latitudePlaceholder = document.getElementById('latitude');
+var longitudePlaceholder = document.getElementById('longitude');
+var depthPlaceholder = document.getElementById('depth');
 // }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,19 +119,20 @@ function placeMarkCreation(GeoJSON) {
             highlightAttributes,
             placemarkLayer = new WorldWind.RenderableLayer('Earthquakes');
 
-        placemarkAttributes.imageScale = 3;
+        placemarkAttributes.imageScale = 1;
         placemarkAttributes.imageOffset = new WorldWind.Offset(
             WorldWind.OFFSET_FRACTION, 0.5,
             WorldWind.OFFSET_FRACTION, 0.5);
         placemarkAttributes.imageColor = WorldWind.Color.WHITE;
-        placemarkAttributes.imageSource = new WorldWind.ImageSource(newCircle());
+        // placemarkAttributes.imageSource = new WorldWind.ImageSource(newCircle());
+        placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/white-dot.png";
 
         // Placemark Generation
         for (var i = 0; i < GeoJSON.features.length; i++) {
             var longitude = GeoJSON.features[i].geometry.coordinates[0];
             var latitude = GeoJSON.features[i].geometry.coordinates[1];
             placemark = new WorldWind.Placemark(new WorldWind.Position(latitude, longitude,
-                1e5), true, placemarkAttributes);
+                1e2), true, placemarkAttributes);
             // Highlight attributes
             highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
             highlightAttributes.imageScale = 5;
@@ -147,18 +154,17 @@ function placeMarkCreation(GeoJSON) {
 
         polygonAttributes.drawInterior = true;
         polygonAttributes.drawOutline = false;
-        polygonAttributes.outlineColor = WorldWind.Color.BLUE;
+        polygonAttributes.outlineColor = WorldWind.Color.WHITE;
         polygonAttributes.interiorColor = WorldWind.Color.WHITE;
-        polygonAttributes.imageColor = WorldWind.Color.WHITE;
-        // polygonAttributes.drawVerticals = polygon.extrude;
+        // polygonAttributes.imageColor = WorldWind.Color.WHITE;
         polygonAttributes.applyLighting = true;
 
-        for (var i = 0; i <  GeoJSON.features.length; i++) {
+        for (var i = 0; i < GeoJSON.features.length; i++) {
 
             var boundaries = [];
             boundaries[0] = [];
-            var altitude = GeoJSON.features[i].geometry['coordinates'][2] * -1000 * 4; // multiplying by a fixed constant to improve visibility
-            GeoJSON.features[i].geometry['coordinates'][2] = 0;
+            var altitude = Math.abs(GeoJSON.features[i].geometry['coordinates'][2]) * -1000 * 4; // multiplying by a fixed constant to improve visibility
+            GeoJSON.features[i].geometry['coordinates'][2] = Math.abs(GeoJSON.features[i].geometry['coordinates'][2]);
 
             boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] - 1, GeoJSON.features[i].geometry['coordinates'][0] - 1, altitude));
             boundaries[0].push(new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1] - 1, GeoJSON.features[i].geometry['coordinates'][0] + 1, altitude));
@@ -173,9 +179,36 @@ function placeMarkCreation(GeoJSON) {
             ];
             // Highlight Attributes
             polyhighlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
-            polyhighlightAttributes.outlineColor = WorldWind.Color.RED;
-            polygonAttributes.highlightAttributes = polyhighlightAttributes;
 
+            // var date = (+new Date(GeoJSON.features[i].properties.time));
+            // var utcDate  = (+new Date());
+            //
+            // if (utcDate - date > (30*24*60*60*1000))
+            // {
+            //     polygonAttributes.interiorColor = WorldWind.Color.GREEN;
+            // }
+            // else if (utcDate - date > (8*24*60*60*1000))
+            // {
+            //     polygonAttributes.interiorColor = WorldWind.Color.YELLOW;
+            // }
+            // else if (utcDate - date > (24*60*60*1000))
+            // {
+            //     polygonAttributes.interiorColor = WorldWind.Color.ORANGE;
+            // }
+            // else
+            // {
+            //     polygonAttributes.interiorColor = WorldWind.Color.RED;
+            // }
+            //
+            // polygonAttributes.drawInterior = true;
+            // polygonAttributes.drawOutline = false;
+            // polygonAttributes.applyLighting = true;
+            // polygonAttributes.drawVerticals = polygon.extrude;
+            // Highlighting
+            polyhighlightAttributes.outlineColor = WorldWind.Color.RED;
+            polyhighlightAttributes.interiorColor = WorldWind.Color.RED;
+            polygonAttributes.highlightAttributes = polyhighlightAttributes;
+            polygon.highlightAttributes = polyhighlightAttributes;
             polygon.attributes = polygonAttributes;
 
             polygon.center = new WorldWind.Position(GeoJSON.features[i].geometry['coordinates'][1], GeoJSON.features[i].geometry['coordinates'][0]);
@@ -238,9 +271,10 @@ function placeMarkCreation(GeoJSON) {
                         GeoJSON.features[eq].geometry.coordinates[0] == pickList.objects[p].userObject.center.longitude) {
                         magnitudePlaceholder.textContent = GeoJSON.features[eq].properties.mag;
                         locPlaceholder.textContent = GeoJSON.features[eq].properties.place;
-                        eventdatePlaceholder.textContent = Date(GeoJSON.features[eq].properties.time);
+                        eventdatePlaceholder.textContent = new Date(GeoJSON.features[eq].properties.time);
                         latitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[1];
                         longitudePlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[0];
+                        depthPlaceholder.textContent = GeoJSON.features[eq].geometry.coordinates[2];
                     }
                 }
 
