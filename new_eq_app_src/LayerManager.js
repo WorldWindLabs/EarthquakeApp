@@ -5,7 +5,7 @@
 /**
  * @exports LayerManager
  */
-// define(function () {
+define(function () {
     "use strict";
 
     /**
@@ -235,5 +235,5 @@
         }
     };
 
-    // return LayerManager;
-// });
+    return LayerManager;
+});
