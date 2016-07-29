@@ -54,7 +54,7 @@ define([
          * @param {WorldWindow} worldWindow The world window to associate with this navigator.
          */
         var LookAtNavigator = function (worldWindow) {
-			var mouseWheelTimer;
+            var mouseWheelTimer;
 
             Navigator.call(this, worldWindow);
 
@@ -123,36 +123,36 @@ define([
                 thisNavigator.handleTilt(recognizer);
             });
 
-	        this.updateQuery = function() {
-				if (mouseWheelTimer)
-				{
-					window.clearTimeout(mouseWheelTimer);
-				}
-		        mouseWheelTimer = setTimeout(this.updateQueryTimed, 1000);
-	        };
+            this.updateQuery = function() {
+                if (mouseWheelTimer)
+                {
+                    window.clearTimeout(mouseWheelTimer);
+                }
+                mouseWheelTimer = setTimeout(this.updateQueryTimed, 1000);
+            };
 
-	        this.updateQueryTimed = function() {
-		        var scratchPos = new WorldWind.Position(),
-		            navigatorState = worldWindow.navigator.currentState(),
-		            eyePoint = navigatorState.eyePoint,
-		            eyePos = worldWindow.globe.computePositionFromPoint(eyePoint[0], eyePoint[1], eyePoint[2], scratchPos);
+            this.updateQueryTimed = function() {
+                var scratchPos = new WorldWind.Position(),
+                    navigatorState = worldWindow.navigator.currentState(),
+                    eyePoint = navigatorState.eyePoint,
+                    eyePos = worldWindow.globe.computePositionFromPoint(eyePoint[0], eyePoint[1], eyePoint[2], scratchPos);
 
-		        //console.log(eyePos.altitude);
+                //console.log(eyePos.altitude);
 
-		        var minMagnitude = $("#magSlider").slider("values",0);
-		        var maxMagnitude = $("#magSlider").slider("values",1);
-		        var minDate = $("#dateSlider").slider("values",0);
-		        var maxDate = $("#dateSlider").slider("values",1);
+                var minMagnitude = $("#magSlider").slider("values",0);
+                var maxMagnitude = $("#magSlider").slider("values",1);
+                var minDate = $("#dateSlider").slider("values",0);
+                var maxDate = $("#dateSlider").slider("values",1);
 
-		        window.limitQuery = ~~(-0.00003725855*eyePos.altitude + 1000.093025);
+                window.limitQuery = ~~(-0.00003725855*eyePos.altitude + 1000.093025);
 
-		        window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, worldWindow.layers[1]);
-	        };
+                window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer);
+            };
 
             // Register wheel event listeners on the WorldWindow's canvas.
             worldWindow.addEventListener("wheel", function (event) {
                 thisNavigator.handleWheelEvent(event);
-	            thisNavigator.updateQuery();
+                thisNavigator.updateQuery();
             });
 
             // Establish the dependencies between gesture recognizers. The pan, pinch and rotate gesture may recognize
