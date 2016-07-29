@@ -25,26 +25,32 @@ define([''], function(ww) {
          * @return {string}
          */
 
-        this.url = DynamicDT(this.minMagnitude, this.maxMagnitude, this.minDate, this.maxDate, this.limit);
+        this.getUrl = function DynamicDT() {
+            var minMagnitude = this.minMagnitude,
+                maxMagnitude = this.maxMagnitude,
+                minDate = this.minDate,
+                maxDate = this.maxDate,
+                limit = this.limit;
+
+            var currentTimeUTC = +new Date();
+            var minDateISO = new Date(currentTimeUTC + minDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+            console.log(minDateISO);
+            var maxDateISO = new Date(currentTimeUTC + maxDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+            console.log(maxDateISO);
+            minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
+            maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
+
+            var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
+            var query = "starttime=" + minDateISO.join('-') + "&endtime=" + maxDateISO.join('-') + "&minmagnitude=" +
+                minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString() + "&limit=" + limit.toString();
+            // + "&orderby=magnitude;
+
+            var url = resourcesUrl + '&' + query;
+            return url;
+        }
     };
 
-    function DynamicDT(minMagnitude, maxMagnitude, minDate, maxDate, limit) {
-        var currentTimeUTC = +new Date();
-        var minDateISO = new Date(currentTimeUTC + minDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
-        console.log(minDateISO);
-        var maxDateISO = new Date(currentTimeUTC + maxDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
-        console.log(maxDateISO);
-        minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
-        maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
 
-        var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
-        var query = "starttime=" + minDateISO.join('-') + "&endtime=" + maxDateISO.join('-') + "&minmagnitude=" +
-            minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString() + "&limit=" + limit.toString();
-        // + "&orderby=magnitude;
-
-        var url = resourcesUrl + '&' + query;
-        return url;
-    }
 
     return USGS;
 });

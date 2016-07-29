@@ -17,7 +17,6 @@ define(['./worldwindlib'],
 
         var polyhighlightAttributes;
 
-
         var polygonAttributes = new WorldWind.ShapeAttributes(null);
 
         polygonAttributes.drawInterior = true;
