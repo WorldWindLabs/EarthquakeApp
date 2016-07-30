@@ -1,4 +1,4 @@
-NASA World Wind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
+NASA WorldWind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
 =======================================================================
 **Organization:** NASA Ames Research Center (PX)  
 **Partners:** Trillium Learning, Kodiak School District  
@@ -42,8 +42,7 @@ Packages:
 3. Input Data
 ---
 ###Data Query
-Because the data being recorded in Alaska is very large (>10g due to the high resolution of 123hz) and currently being accessed from a database, most of the analyzable data is not publicly available.
-However we encourage the implementation of this code with independent data sources. Loading the data should be as simple as reading (or parsing) your data into a pandas dataframe, and implementing that dataframe across the available modules for analysis.
+Because the data being recorded in Alaska is very large (>10g due to the high resolution of 123hz) and currently being accessed from a database, most of the analyzable data is not publicly available. However we encourage the implementation of this code with independent data sources. Loading the data should be as simple as reading (or parsing) your data into a pandas dataframe, and implementing that dataframe across the available modules for analysis.
 
 ###Input Data
 **Magnetic**  
@@ -52,8 +51,7 @@ Format must be timestamps, X, Y, Z. The current magnetic data is being sampled a
 
 **Earthquake**  
 Earthquake data can be easily read into the analysis environment using the `loadearthquake.()` function.
-This loads from the USGS API database. It is likely that earthquakes of less than magnitude 3 and of greater
- distance than 300km from the magnetometer station will not have much influence over the magnetic field vectors.
+This loads from the USGS API database. It is likely that earthquakes of less than magnitude 3 and of greater distance than 300km from the magnetometer station will not have much influence over the magnetic field vectors.
 
 4. Analysis
 -----------
@@ -86,7 +84,7 @@ Still in testing, definitely not complete....but...
 
 You can generate features using the `learning.preprocess()` function. These generated functions can be fed into sklearn functions to generate results, albeit arbitrary results (for the time being).
 
-6. NASA Web World Wind Earthquake Application
+6. NASA Web WorldWind Earthquake Application
 ---------------------------------------------
 You can view the preliminary application for the earthquake app. Open the GeoJSON.html (EarthquakeApp/app/Earthquake App WWW/examples/GeoJSON.html) in a web server (Webstorm does this automatically) to run the web app.
 ![screencap of app](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/app_screencap.png)
