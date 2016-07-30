@@ -18,21 +18,11 @@ NASA World Wind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
 
 1. Introduction
 ---
-This project aims to apply practically Dr. Freidemann Freund’s theory of earthquake sensory precursors. Dr. Freund's theory
-states that several hours prior to large earthquakes the Earth sends out intense energy bursts, detectable as electromagnetic fields,
-caused by the tectonic plate stressing the local crust. These EM field bursts consists of sudden local magnetic field fluctuations and a
-variety of atmospheric and ionospheric phenomena. This project aims to observe this phenomenon in historic and real time data, with the
-ultimate goal of observing a live anomalous EM field fluctuation and accurately forecasting an earthquake within a specified geographical range.
+This project aims to apply Dr. Freidemann Freund’s theory of earthquake precursor science. Dr. Freund's theory states that during the time leading up to large earthquakes the Earth generates intense energy bursts, detectable by their affect to the electromagnetic (EM) field, and caused by tectonic forces stressing the local rock mass. These high energy bursts cause very short-lived fluctuations to the local magnetic field, as well as a variety of atmospheric and ionosphere phenomena. This project aims to observe this phenomenon using historic and real time data, with the ultimate goal of observing a live anomalous EM field fluctuation and accurately forecasting an earthquake within a specified geographical range.
 
-This project analyses the magnetic field data collected in Alaska, the most seismically active region in the world. First, common magnetic signals
-are filtered through multi-signal noise canceling to enable observation of the baseline magnetic signal. Second, an anomaly detection algorithm is
-applied to the data, identifying abnormal points in the data that may be indicative of a pending earthquake. Then, an algorithm clusters the anomalous
-points, and then generates features statistically. Machine learning algorithms are fed the anomalous features extracted from historical data to
-build “Earthquake Sensory Precursors” that can be then used to forecast, in real time, future earthquakes.
+This project analyses the magnetic field data collected in Alaska, the most seismically active region in the world. First, common magnetic signals are filtered through multi-signal noise canceling to enable observation of the baseline magnetic signal. Second, an anomaly detection algorithm is applied to the data, identifying abnormal points in the data that may be indicative of a pending earthquake. Then, an algorithm clusters the anomalous points, and then generates features statistically. Machine learning algorithms are fed the anomalous features extracted from historical data to build “Earthquake Sensory Precursors” that can be then used to forecast, in real time, future earthquakes.
 
-Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak AK School District, a small team of interns is tirelessly working
-to analyze and understand magnetic field data being recorded in Kodiak, AK to determine whether or not earthquake forecasting can be accomplished
-through the interpretation of magnetic field variations.
+Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak AK School District, a small team of interns is working to analyze and understand magnetic field data being recorded in Kodiak, AK to determine whether or not earthquake forecasting can be accomplished through interpretation of magnetic field fluctuations.
 
 2. Required Packages
 ---
