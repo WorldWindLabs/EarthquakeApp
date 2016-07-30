@@ -59,7 +59,7 @@ define([''], function(ww) {
             return center.latitude + radius * Math.cos(angle);
         }
 
-        var numPoints = 3;
+        var numPoints = 10;
 
         var angles = [];
 
@@ -80,11 +80,12 @@ define([''], function(ww) {
             return [x, y];
         });
 
+        var altitude = Math.abs(depth) * -1000 * 4;
         var positions = locations.map(function(location) {
             var loc = CartesianToEarth(location[0], location[1], coordinates.z)
             var lat = location[1];
             var long = location[0];
-            return new WorldWind.Position(lat, long, height);
+            return new WorldWind.Position(lat, long, altitude);
         });
 
         var boundaries = [positions, []];

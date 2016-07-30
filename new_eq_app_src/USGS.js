@@ -8,10 +8,10 @@ define([''], function(ww) {
     // USGS API
     var USGS = function () {
         // Test URL
-        var TestURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-04-10&endtime=2016-04-20&limit=5' +
+        this.TestURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-04-10&endtime=2016-04-20&limit=5' +
             '&minmagnitude=2.5';
         // Decade (2006-2016) of Earthquake data URL
-        var DecadeURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2006-01-01&endtime=2016-01-01' +
+        this.DecadeURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2006-01-01&endtime=2016-01-01' +
             '&minmagnitude=6&maxmagnitude=7';
 
         // Khaled's Dynamic URL (automatically updates to last 10 days)

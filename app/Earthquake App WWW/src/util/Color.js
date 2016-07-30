@@ -130,6 +130,12 @@ define([
         Color.TRANSPARENT = new Color(0, 0, 0, 0);
 
         /**
+         * An orange color.
+         * @type {Color}
+         */
+        Color.ORANGE = new Color(1, 0.645, 0, 1);
+
+        /**
          * Assigns the components of this color.
          * @param {Number} red The red component, a number between 0 and 1.
          * @param {Number} green The green component, a number between 0 and 1.

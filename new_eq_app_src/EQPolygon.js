@@ -21,14 +21,14 @@ define(['./worldwindlib'],
 
         polygonAttributes.drawInterior = true;
         polygonAttributes.drawOutline = false;
-        polygonAttributes.outlineColor = WorldWind.Color.WHITE;
-        polygonAttributes.interiorColor = WorldWind.Color.WHITE;
+        polygonAttributes.outlineColor = WorldWind.Color.YELLOW;
+        polygonAttributes.interiorColor = WorldWind.Color.YELLOW;
         // polygonAttributes.imageColor = WorldWind.Color.WHITE;
         polygonAttributes.applyLighting = true;
 
         var boundaries = [];
         boundaries[0] = [];
-        var altitude = Math.abs(depth) * -1000 * 4; // multiplying by a fixed constant to improve visibility
+        var altitude = Math.abs(depth) * -1000; // multiplying by a fixed constant to improve visibility
         depth = Math.abs(depth);
 
         boundaries[0].push(new WorldWind.Position(latitude - 1, longitude - 1, altitude));
@@ -156,29 +156,6 @@ define(['./worldwindlib'],
         //
         // }
     }
-
-    // Object.defineProperties(EQPolygon.prototype, {
-    //     highlighted: {
-    //         get: function() {
-    //             return this.cylinder.highlighted;
-    //         },
-    //
-    //         set: function(value) {
-    //             this.cylinder.highlighted = value;
-    //         }
-    //     },
-    //
-    //     enabled: {
-    //         get: function() {
-    //             return this.cylinder.enabled;
-    //         },
-    //
-    //         set: function(value) {
-    //             this.cylinder.enabled = value;
-    //         }
-    //     }
-    // });
-
 
     return EQPolygon;
 });

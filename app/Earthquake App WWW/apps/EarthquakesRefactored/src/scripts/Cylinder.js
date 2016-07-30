@@ -210,11 +210,6 @@ define([''], function(ww) {
 
         }
 
-
-
-
-
-
     }
 
     Object.defineProperties(Cylinder.prototype, {

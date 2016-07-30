@@ -5,11 +5,13 @@
 define(['./Cylinder',
     './LayerManager',
     './EQPolygon',
+    './EQPlacemark',
     './USGS',
     './worldwindlib'],
     function(Cylinder,
      LayerManager,
      EQPolygon,
+     EQPlacemark,
      USGS,
      WorldWind) {
 
@@ -22,7 +24,7 @@ define(['./Cylinder',
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // JQuery API Calling
-    $.get(new_eq.getUrl(), function (EQ) {
+    $.get(new_eq.DecadeURL, function (EQ) {
         console.log(EQ.features[0].properties.mag);
         console.log(EQ.features[0].geometry.coordinates);
         placeMarkCreation(EQ);
@@ -73,11 +75,14 @@ define(['./Cylinder',
             var polygonLayer = new WorldWind.RenderableLayer("Depth (KM)");
 
             for (var i = 0; i < GeoJSON.features.length; i++) {
-                var polygon = new EQPolygon(GeoJSON.features[i].geometry['coordinates']);
-                polygonLayer.addRenderable(polygon.polygon);
+                // var polygon = new EQPolygon(GeoJSON.features[i].geometry['coordinates']);
+                // polygonLayer.addRenderable(polygon.polygon);
 
                 // var polygon = new Cylinder(GeoJSON.features[i].geometry['coordinates'], GeoJSON.features[i].properties['mag'] * 5e5);
                 // polygonLayer.addRenderable(polygon.cylinder);
+
+                var placeMark = new EQPlacemark(GeoJSON.features[i].geometry['coordinates'], GeoJSON.features[i].properties['mag']);
+                polygonLayer.addRenderable(placeMark.placemark);
             }
             return polygonLayer;
         };
