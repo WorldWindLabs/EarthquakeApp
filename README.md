@@ -2,7 +2,7 @@ NASA World Wind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
 =======================================================================
 **Organization:** NASA Ames Research Center (PX)  
 **Partners:** Trillium Learning, Kodiak School District  
-**Managers:** Patrick Hogan, Ron Fortunado  
+**Managers:** Patrick Hogan, Ron Fortunato  
 **Authors:** Gabriel Militão, Benjamin Chang, Khaled Sharif, Farah Salah  
 **Backend Team:** Enika Biswas, Nidhi Jain  
 **Field Team (AK):** Seraphim McGann, Kiae Shin, Teyo DeGuzman
