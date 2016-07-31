@@ -24,7 +24,7 @@ This project aims to apply Dr. Friedemann Freund’s theory of earthquake precur
 
 This property is so unusual that these electronic charge carriers have been given their own name: positive-holes.
 
-As these electronic charge carriers propagate through the Earth’s crust, they represent an electric current, which produce a magnetic field. Such positive-hole currents are seldom steady. They fluctuate, emitting electromagnetic (EM) waves. EM waves in the frequency range above 10 Hz are quickly attenuated in the rocks, but EM waves below 20 Hz can propagate over long distances and can be measured at the Earth’s surface.
+As these electronic charge carriers propagate through the Earth’s crust, they represent an electric current, which produce a magnetic field. Such positive-hole currents are seldom steady. They fluctuate, emitting electromagnetic (EM) waves. EM waves in the frequency range above 20 Hz are quickly attenuated in the rocks, but EM waves below 10 Hz can propagate over long distances.
 
 A noteworthy feature that comes out of this study is that the EM waves recorded on Kodiak Island exhibit a distinct diurnal pattern with intensity variations from day to day.  The analysis presented here indicates that, while some of these intensity variations are clearly repetitive and diurnal, there are also anomalies in the intensity variations of the EM waves, which seem to correlate with the build-up of tectonic stresses at the origin point of a seismic event that in a few days’ time could initiate an earthquake.
 
