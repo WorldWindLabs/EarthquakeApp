@@ -7,26 +7,69 @@ define(['./Cylinder',
     './EQPolygon',
     './EQPlacemark',
     './USGS',
-    './worldwindlib'],
+    './worldwindlib',
+    './AnnotationController'],
     function(Cylinder,
      LayerManager,
      EQPolygon,
      EQPlacemark,
      USGS,
-     WorldWind) {
+     WorldWind,
+     AnnotationController) {
 
     "use strict";
 
+    var redrawMe = function(minMagnitude, maxMagnitude, minDate, maxDate) {
+        new_eq.setMinDate(minDate);
+        new_eq.setMaxDate(maxDate);
+        new_eq.setMinMagnitude(minMagnitude);
+        new_eq.setMaxMagnitude(maxMagnitude);
+        $.get(new_eq.getUrl(), function (EQ) {
+            console.log(EQ.features.length);
+
+            var layer = wwd.layers[5];
+            layer.removeAllRenderables();
+            wwd.layers = wwd.layers.slice(0,5);
+            placeMarkCreation(EQ);
+        });
+    };
+
     var new_eq = new USGS();
 
-    // layer.removeAllRenderables();
+    // WorldWind Canvas
+    WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
 
+    var wwd = new WorldWind.WorldWindow("canvasOne");
+    // Enable sub-surface rendering for the World Window.
+    wwd.subsurfaceMode = true;
+    // Enable deep picking in order to detect the sub-surface shapes.
+    wwd.deepPicking = true;
+    // Make the surface semi-transparent in order to see the sub-surface shapes.
+    wwd.surfaceOpacity = 0.5;
+    wwd.redrawMe = redrawMe;
+    var annotationController = new AnnotationController(wwd);
+
+    var layers = [
+        {layer: new WorldWind.BMNGLayer(), enabled: true},
+        {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
+        {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
+        {layer: new WorldWind.CompassLayer(), enabled: false},
+        {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
+        // {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
+    ];
+
+    for (var l = 0; l < layers.length; l++) {
+        layers[l].layer.enabled = layers[l].enabled;
+        wwd.addLayer(layers[l].layer);
+    }
+
+    // Layer Manager
+    var layerManger = new LayerManager(wwd);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // JQuery API Calling
-    $.get(new_eq.DecadeURL, function (EQ) {
-        console.log(EQ.features[0].properties.mag);
-        console.log(EQ.features[0].geometry.coordinates);
+    $.get(new_eq.getUrl(), function (EQ) {
+        console.log(EQ.features.length);
         placeMarkCreation(EQ);
     });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,32 +86,16 @@ define(['./Cylinder',
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function placeMarkCreation(GeoJSON) {
 
-        // WorldWind Canvas
-        WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
 
-        var wwd = new WorldWind.WorldWindow("canvasOne");
-        // Enable sub-surface rendering for the World Window.
-        wwd.subsurfaceMode = true;
-        // Enable deep picking in order to detect the sub-surface shapes.
-        wwd.deepPicking = true;
-        // Make the surface semi-transparent in order to see the sub-surface shapes.
-        wwd.surfaceOpacity = 0.5;
 
-        // var annotationController = new AnnotationController(wwd);
+        var minMagnitude = $("#magSlider").slider("values",0);
+        var maxMagnitude = $("#magSlider").slider("values",1);
+        var minDate = $("#dateSlider").slider("values",0);
+        var maxDate = $("#dateSlider").slider("values",1);
+        var opacity = $("#opacitySlider").slider("value");
 
-        var layers = [
-            {layer: new WorldWind.BMNGLayer(), enabled: true},
-            {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
-            {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
-            {layer: new WorldWind.CompassLayer(), enabled: false},
-            {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-            // {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
-        ];
+        // window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer, wwd.surfaceOpacity, opacity);
 
-        for (var l = 0; l < layers.length; l++) {
-            layers[l].layer.enabled = layers[l].enabled;
-            wwd.addLayer(layers[l].layer);
-        }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Polygon Generation
         var polygonGeneration = function () {
@@ -88,8 +115,7 @@ define(['./Cylinder',
         };
         wwd.addLayer(polygonGeneration());
 
-        // Layer Manager
-        var layerManger = new LayerManager(wwd);
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Highlight Picking
@@ -162,7 +188,6 @@ define(['./Cylinder',
 
         // Listen for taps on mobile devices and highlight the placemarks that the user taps.
         var tapRecognizer = new WorldWind.TapRecognizer(wwd, handlePick);
-
     }
 
 });

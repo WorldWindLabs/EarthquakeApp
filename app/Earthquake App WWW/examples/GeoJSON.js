@@ -6,8 +6,9 @@
 var limitQuery = 50;
 var polygonLayer;
 
-var redraw = function(minMagnitude, maxMagnitude, minDate, maxDate, limit, layer)
+var redraw = function(minMagnitude, maxMagnitude, minDate, maxDate, limit, layer, newOpacity)
 {
+    console.log("redrawing");
     var currentTimeUTC = +new Date();
     var minDateISO = new Date(currentTimeUTC + minDate*24*60*60*1000).toISOString().split(/[-]+/);
     var maxDateISO = new Date(currentTimeUTC + maxDate*24*60*60*1000).toISOString().split(/[-]+/);
@@ -21,7 +22,7 @@ var redraw = function(minMagnitude, maxMagnitude, minDate, maxDate, limit, layer
         minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString() + "&orderby=magnitude&limit=" +
         limit.toString();
     var polygonGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "&" + query);
-
+    this.wwd.surfaceOpacity = newOpacity;
     polygonGeoJSON.load(shapeConfigurationCallback, layer);
 };
 
@@ -161,7 +162,7 @@ requirejs(['../src/WorldWind', './LayerManager', './AnnotationController', './Co
         var minDate = $("#dateSlider").slider("values",0);
         var maxDate = $("#dateSlider").slider("values",1);
 
-        window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer);
+        window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer, wwd.surfaceOpacity);
 
         wwd.goTo(new WorldWind.Position(31.956578,35.945695,25500*1000))
 

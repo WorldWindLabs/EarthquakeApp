@@ -5,13 +5,14 @@
 define(function () {
     "use strict";
 
-    var AnnotationController = function (worldWindow)
-    {
+    var AnnotationController = function (worldWindow)   {
         this.worldWindow = worldWindow;
 
         this.magSlider  = $("#magSlider");
         this.dateSlider = $("#dateSlider");
-
+        this.opacitySlider = $("#opacitySlider");
+        console.log(this.magSlider);
+        console.log(this.magSlider.slider);
         this.magSlider.slider({
             range:   true,
             values:  [0.0, 7.0],
@@ -29,8 +30,9 @@ define(function () {
             {
                 var minDate = $("#dateSlider").slider("values",0);
                 var maxDate = $("#dateSlider").slider("values",1);
+                var opacity = $("#opacitySlider").slider("value");
                 window.redraw(ui.values[0], ui.values[1], minDate, maxDate, window.limitQuery,
-                    window.polygonLayer);
+                    window.polygonLayer, opacity);
             }
 
 
@@ -52,9 +54,31 @@ define(function () {
             {
                 var minMagnitude = $("#magSlider").slider("values",0);
                 var maxMagnitude = $("#magSlider").slider("values",1);
+                var opacity = $("#opacitySlider").slider("value");
                 window.redraw(minMagnitude, maxMagnitude, ui.values[0], ui.values[1],  window.limitQuery,
-                    window.polygonLayer);
+                    window.polygonLayer, opacity);
 
+            }
+        });
+
+        this.opacitySlider.slider({
+            value:  50,
+            // min:     0,
+            // max:     100,
+            // step:    5,
+            animate: true,
+            slide:   function (event, ui)
+            {
+                $("#opacitySliderValue").html(ui.value.toString() + "% opacity");
+            },
+            stop:    function (event, ui)
+            {
+                var minMagnitude = $("#opacitySlider").slider("values",0);
+                var maxMagnitude = $("#opacitySlider").slider("values",1);
+                var minDate = $("#dateSlider").slider("values",0);
+                var maxDate = $("#dateSlider").slider("values",1);
+                window.redraw(minMagnitude, maxMagnitude, minDate, maxDate, window.limitQuery,
+                    window.polygonLayer, ui.value/100);
             }
         });
 
@@ -62,7 +86,7 @@ define(function () {
             this.magSlider.slider("values",1).toString() + " Richter");
         $("#dateSliderValue").html(this.dateSlider.slider("values",0).toString() + " to " +
             this.dateSlider.slider("values",1).toString() + " days");
-
+        $("#opacitySliderValue").html(this.opacitySlider.slider("value").toString() + "% opacity");
 
     };
 
