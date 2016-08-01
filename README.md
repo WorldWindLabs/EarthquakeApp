@@ -1,4 +1,4 @@
-NASA WorldWind Earthquake Data Analysis Sandbox ----- Ver 1 (Python 3)
+NASA WorldWind Earthquake Data Analysis Sandbox
 =======================================================================
 **Organization:** NASA Ames Research Center (PX)  
 **Partners:** Trillium Learning, Kodiak School District  
