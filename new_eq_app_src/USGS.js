@@ -62,50 +62,7 @@ define([''], function(ww) {
         this.setMaxDate = function(value) {
             this.maxDate = value;
         };
-
-        Object.defineProperties(USGS.prototype, {
-            minMagnitude: {
-                get: function() {
-                    return this.minMagnitude;
-                },
-
-                set: function(value) {
-                    this.minMagnitude = value;
-                }
-            },
-
-            maxMagnitude: {
-                get: function() {
-                    return this.maxMagnitude;
-                },
-
-                set: function(value) {
-                    this.maxMagnitude = value;
-                }
-            },
-
-            minDate: {
-                get: function() {
-                    return this.minDate;
-                },
-
-                set: function(value) {
-                    this.minDate = value;
-                }
-            },
-
-            maxDate: {
-                get: function() {
-                    return this.maxDate;
-                },
-
-                set: function(value) {
-                    this.maxDate = value;
-                }
-            }
-        });
     };
-
 
     return USGS;
 });
