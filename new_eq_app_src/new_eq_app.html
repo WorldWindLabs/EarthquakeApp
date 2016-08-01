@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script data-main="new_eq_app" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+    <title>Quake Viewer</title>
 </head>
 <body>
 <div class="container">
@@ -37,14 +38,14 @@
 
     <!--<br><br>-->
         <div class="col-sm-3" style="
-    display: inline;
-    position: fixed;
-    left: 0;
-    background: rgba(0,0,0,0.5);
-    color: #FFFFFF;
-    width: 15%;
+            display: inline;
+            position: fixed;
+            left: 0;
+            background: rgba(0,0,0,0.5);
+            color: #FFFFFF;
+            width: 15%;
 
-    ">
+            ">
             <br><br>
             <div style="text-align: center;">
                 <img src="./new_eq_app_files/NASA_logo.svg.png" style="width: 75%;height: 75%;">
@@ -76,6 +77,24 @@
                     </button>
                 </span>
             </div>
+        </div>
+        <div class="col-sm-2" style="
+            position: fixed;
+            right: 0;
+            background: rgba(0,0,0,0.5);
+            color: #E2E2E2;
+            width: 12%;
+            ">
+            <br>
+            <br>
+            <h4>USGS API Query</h4>
+            <p>Number of Eathquakes: <span id="eq_count"></span></p>
+            <p>Start Date: <span id="minDate"></span></p>
+            <p>End Date: <span id="maxDate"></span></p>
+            <p>Min Magnitude: <span id="minMagnitude"></span></p>
+            <p>Max Magnitude: <span id="maxMagnitude"></span></p>
+            <br>
+            <br>
         </div>
     <!--</div>-->
     </div>

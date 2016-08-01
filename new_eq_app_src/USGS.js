@@ -47,7 +47,7 @@ define([''], function(ww) {
 
             var url = resourcesUrl + '&' + query;
             return url;
-        }
+        };
     };
 
 

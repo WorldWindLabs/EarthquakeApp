@@ -19,6 +19,8 @@ define(['./Cylinder',
 
     var new_eq = new USGS();
 
+    console.log(new_eq);
+
     // layer.removeAllRenderables();
 
 
@@ -31,15 +33,22 @@ define(['./Cylinder',
     });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Data Display
-// function dataDisplay(EQ_GeoJSON) {
+// Individual Earthquakes
     var magnitudePlaceholder = document.getElementById('magnitude');
     var locPlaceholder = document.getElementById('location');
     var eventdatePlaceholder = document.getElementById('time');
     var latitudePlaceholder = document.getElementById('latitude');
     var longitudePlaceholder = document.getElementById('longitude');
     var depthPlaceholder = document.getElementById('depth');
-// }
+// Query Metadata
+    var earthquakecountPlaceholder = document.getElementById('eq_count');
+    var min_datePlaceholder = document.getElementById('minDate');
+    var max_datePlaceholder = document.getElementById('maxDate');
+    var minMagnitudePlaceholder = document.getElementById('minMagnitude');
+    var maxMagnitudePlaceholder = document.getElementById('maxMagnitude');
 
+    minMagnitudePlaceholder.textContent = new_eq.minMagnitude;
+    maxMagnitudePlaceholder.textContent = new_eq.maxMagnitude;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function placeMarkCreation(GeoJSON) {
 
@@ -81,7 +90,7 @@ define(['./Cylinder',
                 // var polygon = new Cylinder(GeoJSON.features[i].geometry['coordinates'], GeoJSON.features[i].properties['mag'] * 5e5);
                 // polygonLayer.addRenderable(polygon.cylinder);
 
-                var placeMark = new EQPlacemark(GeoJSON.features[i].geometry['coordinates'], GeoJSON.features[i].properties['mag']);
+                var placeMark = new EQPlacemark(GeoJSON.features[i].geometry.coordinates, GeoJSON.features[i].properties.mag);
                 polygonLayer.addRenderable(placeMark.placemark);
             }
             return polygonLayer;
@@ -91,6 +100,20 @@ define(['./Cylinder',
         // Layer Manager
         var layerManger = new LayerManager(wwd);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Metadata Display
+        earthquakecountPlaceholder.textContent = GeoJSON.features.length;
+        var startdate,
+            enddate,
+            GeoJSON_dates = [];
+        for(var i = 0, len = GeoJSON.features.length; i < len; i++) {
+            GeoJSON_dates.push(new Date(GeoJSON.features[i].properties.time));
+        };
+        startdate=new Date(Math.min.apply(null,GeoJSON_dates));
+        enddate=new Date(Math.max.apply(null,GeoJSON_dates));
+
+        min_datePlaceholder.textContent = startdate;
+        max_datePlaceholder.textContent = enddate;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Highlight Picking
         var highlightedItems = [];
