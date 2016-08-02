@@ -132,15 +132,16 @@ The app can map earthquakes on a 3D globe to display epicenters, hypocenters, an
 
 7. Future Work & Final Thoughts
 ------------------------------
+ More research on the spatial distribution of the positive-hole currents would also be worth while. Several ground station networks could be set up to record the EM waves
+  and use the available triaxial information to gain insight into the distributions of the p-hole currents. This would tell us how the currents flow
+   in the Earth’s crust and how their spatial distribution correlates with the "source" locations where the p-hole currents originate. With a sufficiently
+    large number of recording stations, one would be able to map out the current flow patterns in 3-D and compare them to the locations of the earthquake hypocenters
+     that are the “sources” of the outflow currents.
+
 While this study is focusing on the anomalous deviations from the diurnal pattern, it would be interesting to research the diurnal EM
  patterns themselves. What makes the currents in the Earth’s crust wax and wane regularly over 24 hours and what is the underlying physics? 
  An extended study could involve the recording several parameters influencing the EM field, foremost being solar activity, its UV output, and the arrival bursts 
  of solar wind plasma impacting the Earth known as geomagnetic storms. These high energy bursts cause very short-lived fluctuations to the local magnetic field, as well as a variety of atmospheric and ionosphere phenomena.
  
- More research on the spatial distribution of the positive-hole currents would also be worth while. Several ground station networks could be set up to record the EM waves
-  and use the available triaxial information to gain insight into the distributions of the p-hole currents. This would tell us how the currents flow
-   in the Earth’s crust and how their spatial distribution correlates with the "source" locations where the p-hole currents originate. With a sufficiently
-    large number of recording stations, one would be able to map out the current flow patterns in 3-D and compare them to the locations of the earthquake hypocenters
-     that are “sources” of the outflow currents.
 ***
-Updated as of 30/07/2016 (July 30th, 2016)
+Updated as of 02/08/2016 (August 2nd, 2016)
