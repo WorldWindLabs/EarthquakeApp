@@ -69,7 +69,7 @@ define(['./Cylinder',
             configuration.attributes =  new WorldWind.ShapeAttributes(null);
             configuration.attributes.drawOutline = true;
             configuration.attributes.outlineColor = new WorldWind.Color(
-                0.65 * configuration.attributes.interiorColor.red,
+                0.6 * configuration.attributes.interiorColor.red,
                 0.3 * configuration.attributes.interiorColor.green,
                 0.3 * configuration.attributes.interiorColor.blue,
                 1.0);
