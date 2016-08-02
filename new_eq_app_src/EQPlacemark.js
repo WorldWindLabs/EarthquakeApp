@@ -35,7 +35,7 @@ define(['./worldwindlib'],
             } else {
                 ctx2d.fillStyle = ('rgb(255, 255, 255)');
             }
-            ctx2d.globalAlpha = 0.65;
+            ctx2d.globalAlpha = 0.85;
             ctx2d.arc(c, c, outerRadius, 0, 2 * Math.PI, false);
             ctx2d.fill();
 

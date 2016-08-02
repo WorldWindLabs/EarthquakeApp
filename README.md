@@ -87,25 +87,36 @@ Still in testing, definitely not complete....but...
 
 You can generate features using the `learning.preprocess()` function. These generated functions can be fed into sklearn functions to generate results, albeit arbitrary results (for the time being).
 
-6. NASA Web WorldWind Earthquake Application
----------------------------------------------
-You can view the preliminary application for the earthquake app. Open the GeoJSON.html (EarthquakeApp/app/Earthquake App WWW/examples/GeoJSON.html) in a web server (Webstorm does this automatically) to run the web app.
-![screencap of app](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/app_screencap.png)
+6. *Quake Hunter* Earthquake Application
+----------------------------------------
+This application is a visualization of earthquake events as accessed through the USGS API.
+The app can map earthquakes on a 3D globe to display epicenters, hypocenters, and relevant information of recorded earthquakes.
+![screencap of app](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/newapp_screencap.png)
 
-###Goals:
-* Allow for viewing of recent earthquakes (epicenter, hypocenter, age of EQ, magnitude)
-* Display of associated data in separate box (date, magnitude, coordinates, relative location, relative age, etc.)
+###How to use:
+1. To run the app, download the repository and run *new_eq_app.html* (EarthquakeApp/new_eq_app_src/new_eq_app.html) in a web server (WebStorm has a built in web server).
+    * Hover over the events to view event specific information
+    * The box in the upper right-hand corner provides info on the whole query
+2. The sliders on the left-hand side change the opacity, magnitude and date range queried
+3. Use mouse or UI controls to change view angle to observe the depth of the events.
+    * Currently supports placemarks and polygons, will soon support toggle controls.
+
+###Future Functionality:
 * Query functionality for access to the USGS API from front end interface
 * Time series of EQ
 * EQ Forecasting implementation
+* Toggle between magnitude and age color coding
+* Recent 'reset' button
+* Geographically constrained queries (queries within drawn polygons or radii)
+* Greater UI control over layers
+    * Toggle between placemarks, polygons, lines, etc.
+* Tectonic Plate layer
+* Better date query
 
-###How to use:
-Still being built, instructions coming soon.
-
-
-###Future work:
+7. Future Work
+--------------
 This study is understandably focusing on the anomalous deviations from the diurnal pattern, but it would certainly be interesting to also record the diurnal rhythm to see how it is influenced by solar processes.  Another very interesting feature to study would be to have several ground stations record the EM waves and use the available triaxial information to gain insight into the spatial distribution of the positive-hole currents. This would tell us how the currents flow in the Earth’s crust and how their spatial distribution correlates with the ‘source’ locations where the positive-hole currents originate. With a sufficiently large number of recording stations one would be able to map out the current flow patterns in 3-D and compare them to the locations of the earthquake hypocenters that are “sources” of the outflow currents.
 
-Another scientifically important question would be to find out why there is a diurnal pattern in the first place. What makes the currents in the Earth’s crust wax and wane rather regularly over 24 hours and what is the underlying physics? As part of such an extended study one would also want to record other parameters, foremost would be solar activity, its UV output, and the arrival bursts of solar wind plasma ‘impacting the Earth known as geomagnetic storms. These high energy bursts cause very short-lived fluctuations to the local magnetic field, as well as a variety of atmospheric and ionosphere phenomena.
+Another important question would be to find out why there is a diurnal pattern in the first place. What makes the currents in the Earth’s crust wax and wane rather regularly over 24 hours and what is the underlying physics? As part of such an extended study one would also want to record other parameters, foremost would be solar activity, its UV output, and the arrival bursts of solar wind plasma ‘impacting the Earth known as geomagnetic storms. These high energy bursts cause very short-lived fluctuations to the local magnetic field, as well as a variety of atmospheric and ionosphere phenomena.
 ***
 Updated as of 30/07/2016 (July 30th, 2016)
