@@ -24,6 +24,7 @@ define(['./Cylinder',
         new_eq.setMaxDate(maxDate);
         new_eq.setMinMagnitude(minMagnitude);
         new_eq.setMaxMagnitude(maxMagnitude);
+
         $.get(new_eq.getUrl(), function (EQ) {
             console.log(EQ.features.length);
 
@@ -88,8 +89,6 @@ define(['./Cylinder',
     var minMagnitudePlaceholder = document.getElementById('minMagnitude');
     var maxMagnitudePlaceholder = document.getElementById('maxMagnitude');
 
-    minMagnitudePlaceholder.textContent = new_eq.minMagnitude;
-    maxMagnitudePlaceholder.textContent = new_eq.maxMagnitude;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     function placeMarkCreation(GeoJSON) {
 
@@ -138,6 +137,10 @@ define(['./Cylinder',
 
         min_datePlaceholder.textContent = startdate;
         max_datePlaceholder.textContent = enddate;
+
+        minMagnitudePlaceholder.textContent = new_eq.minMagnitude;
+        maxMagnitudePlaceholder.textContent = new_eq.maxMagnitude;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Highlight Picking
         var highlightedItems = [];
