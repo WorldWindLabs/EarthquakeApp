@@ -14,9 +14,9 @@ define(function () {
 
         this.magSlider.slider({
             range:   true,
-            values:  [2.5, 7.0],
+            values:  [2.5, 10.0],
             min:     0.0,
-            max:     7.0,
+            max:     10.0,
             step:    0.1,
             animate: true,
             slide:   function (event, ui)
