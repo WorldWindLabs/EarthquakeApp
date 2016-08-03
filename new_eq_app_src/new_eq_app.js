@@ -70,7 +70,6 @@ define(['./Cylinder',
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // JQuery API Calling
         $.get(new_eq.getUrl(), function (EQ) {
-            console.log(EQ.features.length);
             placeMarkCreation(EQ);
         });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,11 +204,103 @@ define(['./Cylinder',
                 }
             };
 
+            var drawingStates = {
+                OFF : 0,
+                ONE_V : 1,
+                TWO_V : 2,
+                ON: 3
+            };
+
+            var drawLayer = new WorldWind.RenderableLayer("Drawing");
+            wwd.addLayer(drawLayer);
+            var drawingState = drawingStates.ON;
+            var p1 = {}, 
+                p2 = {};
+
+            var handleClick = function (event) {
+
+                if (drawingState != drawingStates.OFF) {
+                    var x = event.clientX,
+                        y = event.clientY;
+
+                    var pickList = wwd.pick(wwd.canvasCoordinates(x, y)),
+                        long = pickList.objects[0].position.longitude,
+                        lati = pickList.objects[0].position.latitude,
+                        alti = pickList.objects[0].position.altitude;
+
+                    var earthCoordinates = [long, lati, 0];
+                    var placeMark = new EQPlacemark(earthCoordinates, 7);
+                    drawLayer.addRenderable(placeMark.placemark);
+                    if (drawingState == drawingStates.ONE_V) {
+                        p2.X = x;
+                        p2.Y = y;
+                        p2.Long = long;
+                        p2.Lati = lati;
+                        drawrectangle(p1, p2);
+                        drawingState = drawingStates.OFF;
+                    }
+                    else if (drawingState == drawingStates.ON) {
+                        drawingState = drawingStates.ONE_V;
+                        p1.X = x;
+                        p1.Y = y;
+                        p1.Long = long;
+                        p1.Lati = lati;
+                    }
+
+                }
+            };
+
+            var drawrectangle = function (p1, p2) {
+
+                var minLong = Math.min(p2.Long, p1.Long);
+                var maxLong = Math.max(p2.Long, p1.Long);
+
+                var minLati = Math.min(p2.Lati, p1.Lati);
+                var maxLati = Math.max(p2.Lati, p1.Lati);
+
+                var boundaries = [];
+                boundaries[0] = []; 
+                boundaries[0].push(new WorldWind.Position(minLati, minLong, 1e5));
+                boundaries[0].push(new WorldWind.Position(maxLati, minLong, 1e5));
+                boundaries[0].push(new WorldWind.Position(maxLati, maxLong, 1e5));
+                boundaries[0].push(new WorldWind.Position(minLati, maxLong, 1e5));
+
+                // Create the polygon and assign its attributes.
+                var polygon = new WorldWind.Polygon(boundaries, null);
+                polygon.altitudeMode = WorldWind.ABSOLUTE;
+                polygon.extrude = true;
+                polygon.textureCoordinates = [
+                    [new WorldWind.Vec2(0, 0), new WorldWind.Vec2(1, 0), new WorldWind.Vec2(1, 1), new WorldWind.Vec2(0, 1)]
+                ];
+
+                var polygonAttributes = new WorldWind.ShapeAttributes(null);
+                // Specify a texture for the polygon and its four extruded sides.
+                polygonAttributes.drawInterior = false;
+                polygonAttributes.drawOutline = true;
+                polygonAttributes.outlineColor = WorldWind.Color.BLUE;
+                polygonAttributes.interiorColor = WorldWind.Color.WHITE;
+                polygonAttributes.drawVerticals = polygon.extrude;
+                polygonAttributes.applyLighting = true;
+                polygon.attributes = polygonAttributes;
+                var highlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
+                highlightAttributes.outlineColor = WorldWind.Color.RED;
+                polygon.highlightAttributes = highlightAttributes;
+
+                drawLayer.addRenderable(polygon);
+            };
+
             // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
             wwd.addEventListener("mousemove", handlePick);
+            // wwd.addEventListener("mousemove", rectangleDrawer);
 
             // Listen for taps on mobile devices and highlight the placemarks that the user taps.
             var tapRecognizer = new WorldWind.TapRecognizer(wwd, handlePick);
+
+            // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
+            wwd.addEventListener("mousedown", handleClick);
+
+
+
         }
 
     });

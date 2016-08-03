@@ -9,8 +9,8 @@ define(['./worldwindlib'],
 
         function EQPlacemark(coordinates, magnitude) {
 
-            var latitude = coordinates[1],
-                longitude = coordinates[0],
+            var longitude = coordinates[0],
+                latitude = coordinates[1],
                 depth = coordinates[2];
 
             var placemark, highlightAttributes,
