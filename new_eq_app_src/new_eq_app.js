@@ -2,40 +2,28 @@
  * Copyright (C) 2014 United States Government as represented by the Administrator of the
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
-define(['./Cylinder',
+define(['./Circle',
+        './Cylinder',
         './LayerManager',
         './EQPolygon',
         './EQPlacemark',
         './USGS',
         './worldwindlib',
-        './AnnotationController'],
-    function (Cylinder,
+        './AnnotationController',
+        './Point',
+        './Rectangle'],
+    function (Circle,
+              Cylinder,
               LayerManager,
               EQPolygon,
               EQPlacemark,
               USGS,
               WorldWind,
-              AnnotationController) {
+              AnnotationController,
+              Point,
+              Rectangle) {
 
         "use strict";
-
-        var redrawMe = function (minMagnitude, maxMagnitude, minDate, maxDate) {
-            new_eq.setMinDate(minDate);
-            new_eq.setMaxDate(maxDate);
-            new_eq.setMinMagnitude(minMagnitude);
-            new_eq.setMaxMagnitude(maxMagnitude);
-
-            $.get(new_eq.getUrl(), function (EQ) {
-                console.log(EQ.features.length);
-
-                var layer = wwd.layers[5];
-                layer.removeAllRenderables();
-                wwd.layers = wwd.layers.slice(0, 5);
-                placeMarkCreation(EQ);
-            });
-        };
-
-        var new_eq = new USGS();
 
         // WorldWind Canvas
         WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
@@ -48,6 +36,7 @@ define(['./Cylinder',
         // Make the surface semi-transparent in order to see the sub-surface shapes.
         wwd.surfaceOpacity = 0.5;
         wwd.redrawMe = redrawMe;
+        var earthquakes = new USGS();
         var annotationController = new AnnotationController(wwd);
 
         var layers = [
@@ -64,12 +53,14 @@ define(['./Cylinder',
             wwd.addLayer(layers[l].layer);
         }
 
+        tectonicplateLayer();
+
         // Layer Manager
         var layerManger = new LayerManager(wwd);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // JQuery API Calling
-        $.get(new_eq.getUrl(), function (EQ) {
+        $.get(earthquakes.getUrl(), function (EQ) {
             placeMarkCreation(EQ);
         });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,11 +78,45 @@ define(['./Cylinder',
         var max_datePlaceholder = document.getElementById('maxDate');
         var minMagnitudePlaceholder = document.getElementById('minMagnitude');
         var maxMagnitudePlaceholder = document.getElementById('maxMagnitude');
+        var earthquakeLayer;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function redrawMe(minMagnitude, maxMagnitude, minDate, maxDate) {
+            earthquakes.setMinDate(minDate);
+            earthquakes.setMaxDate(maxDate);
+            earthquakes.setMinMagnitude(minMagnitude);
+            earthquakes.setMaxMagnitude(maxMagnitude);
+
+            $.get(earthquakes.getUrl(), function (EQ) {
+                wwd.removeLayer(earthquakeLayer);
+                placeMarkCreation(EQ);
+            });
+        }
+
+
+// Tectonic Plates Layer
+        function tectonicplateLayer() {
+            var shapeConfigurationCallback = function (geometry, properties) {
+                var configuration = {};
+                configuration.attributes = new WorldWind.ShapeAttributes(null);
+                configuration.attributes.drawOutline = true;
+                configuration.attributes.outlineColor = new WorldWind.Color(
+                    0.6 * configuration.attributes.interiorColor.red,
+                    0.3 * configuration.attributes.interiorColor.green,
+                    0.3 * configuration.attributes.interiorColor.blue,
+                    1.0);
+                configuration.attributes.outlineWidth = 1.0;
+                return configuration;
+            };
+
+            var plateBoundariesLayer = new WorldWind.RenderableLayer("World Borders");
+            var plateBoundariesJSON = new WorldWind.GeoJSONParser("./new_eq_app_files/plate_boundaries.json");
+            plateBoundariesJSON.load(shapeConfigurationCallback, plateBoundariesLayer);
+            wwd.addLayer(plateBoundariesLayer);
+        }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function placeMarkCreation(GeoJSON) {
-
-
             var minMagnitude = $("#magSlider").slider("values", 0);
             var maxMagnitude = $("#magSlider").slider("values", 1);
             var minDate = $("#dateSlider").slider("values", 0);
@@ -102,8 +127,8 @@ define(['./Cylinder',
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Polygon Generation
-            var polygonGeneration = function () {
-                var polygonLayer = new WorldWind.RenderableLayer("Depth (KM)");
+            function polygonGeneration() {
+                earthquakeLayer = new WorldWind.RenderableLayer("Earthquakes");
 
                 for (var i = 0; i < GeoJSON.features.length; i++) {
                     // var polygon = new EQPolygon(GeoJSON.features[i].geometry['coordinates']);
@@ -113,11 +138,11 @@ define(['./Cylinder',
                     // polygonLayer.addRenderable(polygon.cylinder);
 
                     var placeMark = new EQPlacemark(GeoJSON.features[i].geometry.coordinates, GeoJSON.features[i].properties.mag);
-                    polygonLayer.addRenderable(placeMark.placemark);
+                    earthquakeLayer.addRenderable(placeMark.placemark);
                 }
-                return polygonLayer;
-            };
-            wwd.addLayer(polygonGeneration());
+            }
+            polygonGeneration();
+            wwd.addLayer(earthquakeLayer);
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,8 +160,8 @@ define(['./Cylinder',
             min_datePlaceholder.textContent = startdate;
             max_datePlaceholder.textContent = enddate;
 
-            minMagnitudePlaceholder.textContent = new_eq.minMagnitude;
-            maxMagnitudePlaceholder.textContent = new_eq.maxMagnitude;
+            minMagnitudePlaceholder.textContent = earthquakes.minMagnitude;
+            maxMagnitudePlaceholder.textContent = earthquakes.maxMagnitude;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Highlight Picking
@@ -218,8 +243,9 @@ define(['./Cylinder',
                 p2 = {};
 
             var handleClick = function (event) {
+                // drawCircle();
 
-                if (drawingState != drawingStates.OFF) {
+                if (drawingState != drawingStates.OFF && $("#flip-1").val() != "off") {
                     var x = event.clientX,
                         y = event.clientY;
 
@@ -229,14 +255,14 @@ define(['./Cylinder',
                         alti = pickList.objects[0].position.altitude;
 
                     var earthCoordinates = [long, lati, 0];
-                    var placeMark = new EQPlacemark(earthCoordinates, 7);
+                    var placeMark = new Point(earthCoordinates);
                     drawLayer.addRenderable(placeMark.placemark);
                     if (drawingState == drawingStates.ONE_V) {
                         p2.X = x;
                         p2.Y = y;
                         p2.Long = long;
                         p2.Lati = lati;
-                        drawrectangle(p1, p2);
+                        drawFig(p1, p2);
                         drawingState = drawingStates.OFF;
                     }
                     else if (drawingState == drawingStates.ON) {
@@ -250,7 +276,39 @@ define(['./Cylinder',
                 }
             };
 
-            var drawrectangle = function (p1, p2) {
+            function drawFig(p1, p2) {
+                if ($("#flip-1").val() == "rectangle") {
+                    drawRectangle(p1, p2);
+                }
+                else if ($("#flip-1").val() == "circle") {
+                    drawCircle(p1, p2);
+                }
+            }
+
+            function drawRectangle(p1, p2) {
+                drawLayer.addRenderable(new Rectangle(p1, p2));
+            }
+
+            function drawCircle(p1, p2) {
+                function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+                    var R = 6371; // Radius of the earth in km
+                    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+                    var dLon = deg2rad(lon2-lon1);
+                    var a =
+                            Math.sin(dLat/2) * Math.sin(dLat/2) +
+                            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                            Math.sin(dLon/2) * Math.sin(dLon/2)
+                        ;
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                    var d = R * c; // Distance in km
+                    return d;
+                }
+
+                function deg2rad(deg) {
+                    return deg * (Math.PI/180)
+                }
+
+                var radius = getDistanceFromLatLonInKm(p1.Lati, p1.Long, p2.Lati, p2.Long);
 
                 var minLong = Math.min(p2.Long, p1.Long);
                 var maxLong = Math.max(p2.Long, p1.Long);
@@ -258,48 +316,69 @@ define(['./Cylinder',
                 var minLati = Math.min(p2.Lati, p1.Lati);
                 var maxLati = Math.max(p2.Lati, p1.Lati);
 
-                var boundaries = [];
-                boundaries[0] = []; 
-                boundaries[0].push(new WorldWind.Position(minLati, minLong, 1e5));
-                boundaries[0].push(new WorldWind.Position(maxLati, minLong, 1e5));
-                boundaries[0].push(new WorldWind.Position(maxLati, maxLong, 1e5));
-                boundaries[0].push(new WorldWind.Position(minLati, maxLong, 1e5));
+                var canvas = document.createElement("canvas"),
+                    ctx2d = canvas.getContext("2d"),
+                    size = 64, c = size / 2  - 0.5, innerRadius = 5, outerRadius = 30;
 
-                // Create the polygon and assign its attributes.
-                var polygon = new WorldWind.Polygon(boundaries, null);
-                polygon.altitudeMode = WorldWind.ABSOLUTE;
-                polygon.extrude = true;
-                polygon.textureCoordinates = [
-                    [new WorldWind.Vec2(0, 0), new WorldWind.Vec2(1, 0), new WorldWind.Vec2(1, 1), new WorldWind.Vec2(0, 1)]
-                ];
+                canvas.width = size;
+                canvas.height = size;
 
-                var polygonAttributes = new WorldWind.ShapeAttributes(null);
-                // Specify a texture for the polygon and its four extruded sides.
-                polygonAttributes.drawInterior = false;
-                polygonAttributes.drawOutline = true;
-                polygonAttributes.outlineColor = WorldWind.Color.BLUE;
-                polygonAttributes.interiorColor = WorldWind.Color.WHITE;
-                polygonAttributes.drawVerticals = polygon.extrude;
-                polygonAttributes.applyLighting = true;
-                polygon.attributes = polygonAttributes;
-                var highlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
-                highlightAttributes.outlineColor = WorldWind.Color.RED;
-                polygon.highlightAttributes = highlightAttributes;
+                var gradient = ctx2d.createRadialGradient(c, c, outerRadius-1, c, c, outerRadius);
+                gradient.addColorStop(0, 'rgb(255, 0, 0)');
+                gradient.addColorStop(0.5, 'rgb(0, 255, 0)');
+                gradient.addColorStop(1, 'rgb(255, 0, 0)');
 
-                drawLayer.addRenderable(polygon);
+                // ctx2d.fillStyle = gradient;
+                ctx2d.arc(c, c, outerRadius, 0, 2 * Math.PI, false);
+                ctx2d.fill();
+
+
+                var mydownloadingImage = new Image();
+                mydownloadingImage.onload = function(){
+                    // imageCircle.src = this.src;
+                };
+                mydownloadingImage.src = "./images/circle.png";
+
+                // Create the mesh's positions.
+                var meshPositions = [];
+                for (var lat = minLati; lat <= maxLati; lat += 0.5) {
+                    var row = [];
+                    for (var lon = minLong; lon <= maxLong; lon += 0.5) {
+                        row.push(new WorldWind.Position(lat, lon, 100e3));
+                    }
+
+                    meshPositions.push(row);
+                }
+
+                // Create the mesh.
+                var mesh = new WorldWind.GeographicMesh(meshPositions, null);
+
+                // Create and assign the mesh's attributes.
+                var meshAttributes = new WorldWind.ShapeAttributes(null);
+                // meshAttributes.outlineColor = WorldWind.Color.BLUE;
+                meshAttributes.drawOutline = false;
+                meshAttributes.interiorColor = new WorldWind.Color(1, 1, 1, 0.7);
+                meshAttributes.imageSource = new WorldWind.ImageSource(mydownloadingImage);
+                meshAttributes.applyLighting = false;
+                mesh.attributes = meshAttributes;
+
+                // Create and assign the mesh's highlight attributes.
+                var highlightAttributes = new WorldWind.ShapeAttributes(meshAttributes);
+                highlightAttributes.outlineColor = WorldWind.Color.WHITE;
+                mesh.highlightAttributes = highlightAttributes;
+
+                // Add the shape to the layer.
+                drawLayer.addRenderable(mesh);
             };
 
             // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
             wwd.addEventListener("mousemove", handlePick);
-            // wwd.addEventListener("mousemove", rectangleDrawer);
 
             // Listen for taps on mobile devices and highlight the placemarks that the user taps.
             var tapRecognizer = new WorldWind.TapRecognizer(wwd, handlePick);
 
             // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
             wwd.addEventListener("mousedown", handleClick);
-
-
 
         }
 

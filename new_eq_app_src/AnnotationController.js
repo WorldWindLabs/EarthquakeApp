@@ -72,9 +72,36 @@ define(function () {
                 // var maxDate = $("#dateSlider").slider("values",1);
                 // window.redraw(minMagnitude, maxMagnitude, minDate, maxDate, window.limitQuery,
                 //     window.polygonLayer, ui.value/100);
-                console.log(worldWindow);
+                // console.log(worldWindow);
                 worldWindow.surfaceOpacity = ui.value/100;
             }
+        });
+
+        // this.queryshapeSwitch.slider({
+        //     value:  50,
+        //     // min:     0,
+        //     // max:     100,
+        //     // step:    5,
+        //     animate: true,
+        //     slide:   function (event, ui)
+        //     {
+        //         $("#queryshapeSwitchValue").html(ui.value.toString() + " state");
+        //     },
+        //     stop:    function (event, ui)
+        //     {
+        //         // var minMagnitude = $("#opacitySlider").slider("values",0);
+        //         // var maxMagnitude = $("#opacitySlider").slider("values",1);
+        //         // var minDate = $("#dateSlider").slider("values",0);
+        //         // var maxDate = $("#dateSlider").slider("values",1);
+        //         // window.redraw(minMagnitude, maxMagnitude, minDate, maxDate, window.limitQuery,
+        //         //     window.polygonLayer, ui.value/100);
+        //         console.log(ui.value);
+        //         // worldWindow.surfaceOpacity = ui.value/100;
+        //     }
+        // });
+
+        $('#submit').on("click", function() {
+            alert($("#flip-1").val());
         });
 
         $("#magSliderValue").html(this.magSlider.slider("values",0).toString() + " to " +
@@ -82,6 +109,7 @@ define(function () {
         $("#dateSliderValue").html(this.dateSlider.slider("values",0).toString() + " to " +
             this.dateSlider.slider("values",1).toString() + " days");
         $("#opacitySliderValue").html(this.opacitySlider.slider("value").toString() + "% opacity");
+        // $("#queryshapeSwitchValue").html(this.queryshapeSwitch.slider("value").toString() + "% opacity");
 
     };
 
