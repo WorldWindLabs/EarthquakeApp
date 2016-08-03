@@ -44,12 +44,6 @@ define(function () {
             }
         });
 
-        // console.log(this.MaxDate);
-        // this.MinDate = $("#minDatePicker");
-
-
-        console.log(this.MaxDate);
-
         this.magSlider.slider({
             range:   true,
             values:  [2.5, 10.0],

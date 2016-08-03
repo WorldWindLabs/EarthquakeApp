@@ -11,7 +11,8 @@ define(['./Circle',
         './worldwindlib',
         './AnnotationController',
         './Point',
-        './Rectangle'],
+        './Rectangle',
+        './TectonicPlateLayer'],
     function (Circle,
               Cylinder,
               LayerManager,
@@ -21,7 +22,8 @@ define(['./Circle',
               WorldWind,
               AnnotationController,
               Point,
-              Rectangle) {
+              Rectangle,
+              TectonicPlateLayer) {
 
         "use strict";
 
@@ -41,19 +43,16 @@ define(['./Circle',
 
         var layers = [
             {layer: new WorldWind.BMNGLayer(), enabled: true},
-            // {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
-            // {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
-            // {layer: new WorldWind.CompassLayer(), enabled: false},
+            {layer: new WorldWind.CompassLayer(), enabled: false},
             {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-            {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
+            {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true},
+            {layer: new TectonicPlateLayer, enabled: true}
         ];
 
         for (var l = 0; l < layers.length; l++) {
             layers[l].layer.enabled = layers[l].enabled;
             wwd.addLayer(layers[l].layer);
         }
-
-        tectonicplateLayer();
 
         // Layer Manager
         var layerManger = new LayerManager(wwd);
@@ -80,7 +79,6 @@ define(['./Circle',
         var maxMagnitudePlaceholder = document.getElementById('maxMagnitude');
         var earthquakeLayer;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         function redrawMe(minMagnitude, maxMagnitude, minDate, maxDate) {
             earthquakes.setMinDate(minDate);
             earthquakes.setMaxDate(maxDate);
@@ -93,29 +91,13 @@ define(['./Circle',
             });
         }
 
-
-// Tectonic Plates Layer
-        function tectonicplateLayer() {
-            var shapeConfigurationCallback = function (geometry, properties) {
-                var configuration = {};
-                configuration.attributes = new WorldWind.ShapeAttributes(null);
-                configuration.attributes.drawOutline = true;
-                configuration.attributes.outlineColor = new WorldWind.Color(
-                    0.6 * configuration.attributes.interiorColor.red,
-                    0.3 * configuration.attributes.interiorColor.green,
-                    0.3 * configuration.attributes.interiorColor.blue,
-                    1.0);
-                configuration.attributes.outlineWidth = 1.0;
-                return configuration;
-            };
-
-            var plateBoundariesLayer = new WorldWind.RenderableLayer("World Borders");
-            var plateBoundariesJSON = new WorldWind.GeoJSONParser("./new_eq_app_files/plate_boundaries.json");
-            plateBoundariesJSON.load(shapeConfigurationCallback, plateBoundariesLayer);
-            wwd.addLayer(plateBoundariesLayer);
-        }
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//         this.p1 = {};
+//         this.p2 = {};
+
+        var p1 = {};
+        var p2 = {};
+
         function placeMarkCreation(GeoJSON) {
             var minMagnitude = $("#magSlider").slider("values", 0);
             var maxMagnitude = $("#magSlider").slider("values", 1);
@@ -244,8 +226,6 @@ define(['./Circle',
             var drawLayer = new WorldWind.RenderableLayer("Drawing");
             wwd.addLayer(drawLayer);
             var drawingState = drawingStates.ON;
-            var p1 = {}, 
-                p2 = {};
 
             var handleClick = function (event) {
                 // drawCircle();
@@ -268,6 +248,7 @@ define(['./Circle',
                         p2.Long = long;
                         p2.Lati = lati;
                         drawFig(p1, p2);
+                        queriesRegion(p1, p2);
                         drawingState = drawingStates.OFF;
                     }
                     else if (drawingState == drawingStates.ON) {
@@ -280,6 +261,27 @@ define(['./Circle',
 
                 }
             };
+
+            function queriesRegion(p1, p2) {
+                var minLong = Math.min(p2.Long, p1.Long);
+                var maxLong = Math.max(p2.Long, p1.Long);
+
+                var minLati = Math.min(p2.Lati, p1.Lati);
+                var maxLati = Math.max(p2.Lati, p1.Lati);
+
+                earthquakes.setMinLatitude(minLati);
+                earthquakes.setMaxLatitude(maxLati);
+                earthquakes.setMinLongitude(minLong);
+                earthquakes.setMaxLongitude(maxLong);
+
+                var drawing = 1;
+
+                $.get(earthquakes.getUrl(drawing), function (EQ) {
+                    wwd.removeLayer(earthquakeLayer);
+                    placeMarkCreation(EQ);
+                });
+
+            }
 
             function drawFig(p1, p2) {
                 if ($("#flip-1").val() == "rectangle") {
@@ -374,7 +376,7 @@ define(['./Circle',
 
                 // Add the shape to the layer.
                 drawLayer.addRenderable(mesh);
-            };
+            }
 
             // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
             wwd.addEventListener("mousemove", handlePick);
