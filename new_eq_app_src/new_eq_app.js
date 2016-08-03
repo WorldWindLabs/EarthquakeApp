@@ -28,10 +28,10 @@ define(['./Cylinder',
             $.get(new_eq.getUrl(), function (EQ) {
                 console.log(EQ.features.length);
 
-                var layer = wwd.layers[6];
+                var layer = wwd.layers[3];
                 console.log(wwd.layers);
                 layer.removeAllRenderables();
-                wwd.layers = wwd.layers.slice(0, 6);
+                wwd.layers = wwd.layers.slice(0, 3);
                 tectonicplateLayer();
                 placeMarkCreation(EQ);
             });
@@ -54,9 +54,9 @@ define(['./Cylinder',
 
         var layers = [
             {layer: new WorldWind.BMNGLayer(), enabled: true},
-            {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
-            {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
-            {layer: new WorldWind.CompassLayer(), enabled: false},
+            // {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
+            // {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
+            // {layer: new WorldWind.CompassLayer(), enabled: false},
             {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
             {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
         ];
