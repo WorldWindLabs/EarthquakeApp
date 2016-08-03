@@ -14,32 +14,75 @@ define([''], function(ww) {
         this.DecadeURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2006-01-01&endtime=2016-01-01' +
             '&minmagnitude=6&maxmagnitude=7';
 
+
+        var currentTimeUTC = +new Date();
+        var minDateISO = new Date(currentTimeUTC + -30 * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+        var maxDateISO = new Date(currentTimeUTC + 0 * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+        minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
+        maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
+
+        
         // Khaled's Dynamic URL (automatically updates to last 10 days)
         this.minMagnitude = 2.5,
         this.maxMagnitude = 10,
-        this.minDate = -30,
-        this.maxDate = 0,
+        // this.minDate = -30,
+        // this.maxDate = 0,
+        this.FromDate = minDateISO.join('-'),
+        this.ToDate = maxDateISO.join('-'),
         this.limit = 500;
 
         /**
          * @return {string}
          */
 
+        // this.getUrl = function DynamicDT() {
+        //     var minMagnitude = this.minMagnitude,
+        //         maxMagnitude = this.maxMagnitude,
+        //         minDate = this.minDate,
+        //         maxDate = this.maxDate,
+        //         limit = this.limit;
+        //
+        //     var currentTimeUTC = +new Date();
+        //     var minDateISO = new Date(currentTimeUTC + minDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+        //     var maxDateISO = new Date(currentTimeUTC + maxDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
+        //     minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
+        //     maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
+        //
+        //     var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
+        //     var query = "starttime=" + minDateISO.join('-') + "&endtime=" + maxDateISO.join('-') + "&minmagnitude=" +
+        //         minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString(); //+ "&limit=" + limit.toString();
+        //     // + "&orderby=magnitude;
+        //
+        //     var url = resourcesUrl + '&' + query;
+        //     return url;
+        // };
+
+        //     this.setMinMagnitude = function(value) {
+        //         this.minMagnitude = value;
+        //     };
+        //
+        //     this.setMaxMagnitude = function(value) {
+        //         this.maxMagnitude = value;
+        //     };
+        //
+        //     this.setMinDate = function(value) {
+        //         this.minDate = value;
+        //     };
+        //
+        //     this.setMaxDate = function(value) {
+        //         this.maxDate = value;
+        //     };
+        // };
+
         this.getUrl = function DynamicDT() {
             var minMagnitude = this.minMagnitude,
                 maxMagnitude = this.maxMagnitude,
-                minDate = this.minDate,
-                maxDate = this.maxDate,
+                FromDate = this.FromDate,
+                ToDate = this.ToDate,
                 limit = this.limit;
 
-            var currentTimeUTC = +new Date();
-            var minDateISO = new Date(currentTimeUTC + minDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
-            var maxDateISO = new Date(currentTimeUTC + maxDate * 24 * 60 * 60 * 1000).toISOString().split(/[-]+/);
-            minDateISO[minDateISO.length - 1] = minDateISO[minDateISO.length - 1].split('.')[0];
-            maxDateISO[maxDateISO.length - 1] = maxDateISO[maxDateISO.length - 1].split('.')[0];
-
             var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
-            var query = "starttime=" + minDateISO.join('-') + "&endtime=" + maxDateISO.join('-') + "&minmagnitude=" +
+            var query = "starttime=" + FromDate + "&endtime=" + ToDate + "&minmagnitude=" +
                 minMagnitude.toString() + "&maxmagnitude=" + maxMagnitude.toString(); //+ "&limit=" + limit.toString();
             // + "&orderby=magnitude;
 
@@ -56,11 +99,11 @@ define([''], function(ww) {
         };
 
         this.setMinDate = function(value) {
-            this.minDate = value;
+            this.FromDate = value;
         };
 
         this.setMaxDate = function(value) {
-            this.maxDate = value;
+            this.ToDate = value;
         };
     };
 

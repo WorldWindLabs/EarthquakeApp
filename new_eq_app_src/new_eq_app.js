@@ -123,6 +123,11 @@ define(['./Circle',
             var maxDate = $("#dateSlider").slider("values", 1);
             var opacity = $("#opacitySlider").slider("value");
 
+            var FromDate = $("#fromdatepicker").datepicker("getDate");
+            var ToDate = $("#todatepicker").datepicker("getDate");
+            // console.log(MaxDatePicker);
+
+
             // window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer, wwd.surfaceOpacity, opacity);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

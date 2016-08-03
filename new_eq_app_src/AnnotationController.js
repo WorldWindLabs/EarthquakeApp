@@ -12,6 +12,44 @@ define(function () {
         this.dateSlider = $("#dateSlider");
         this.opacitySlider = $("#opacitySlider");
 
+        this.FromDate = $("#fromdatepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            onSelect: function(dateText, dateobj) {
+                var dateAsString = dateText;
+                console.log(dateAsString);
+                var minMagnitude = $("#magSlider").slider("values",0);
+                var maxMagnitude = $("#magSlider").slider("values",1);
+                var ToDate = $("#todatepicker").datepicker("getDate");
+                worldWindow.redrawMe(minMagnitude, maxMagnitude, dateAsString, ToDate);
+
+
+            }
+        });
+
+        this.ToDate = $("#todatepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "yy-mm-dd",
+            onSelect: function(dateText, dateobj) {
+                var dateAsString = dateText;
+                console.log(dateAsString);
+                var minMagnitude = $("#magSlider").slider("values",0);
+                var maxMagnitude = $("#magSlider").slider("values",1);
+                var FromDate = $("#fromdatepicker").datepicker("getDate");
+                worldWindow.redrawMe(minMagnitude, maxMagnitude, FromDate, dateAsString);
+
+
+            }
+        });
+
+        // console.log(this.MaxDate);
+        // this.MinDate = $("#minDatePicker");
+
+
+        console.log(this.MaxDate);
+
         this.magSlider.slider({
             range:   true,
             values:  [2.5, 10.0],
@@ -27,32 +65,33 @@ define(function () {
             },
             stop:    function(event, ui)
             {
-                var minDate = $("#dateSlider").slider("values",0);
-                var maxDate = $("#dateSlider").slider("values",1);
-                worldWindow.redrawMe(ui.values[0], ui.values[1], minDate, maxDate);
+                var ToDate = $("#todatepicker").datepicker("getDate");
+                var FromDate = $("#fromdatepicker").datepicker("getDate");
+                worldWindow.redrawMe(ui.values[0], ui.values[1], FromDate, ToDate);
             }
 
         });
 
-        this.dateSlider.slider({
-            range:   true,
-            values:  [-30, -0],
-            min:     -30,
-            max:     0,
-            step:    1,
-            animate: true,
-            slide:   function (event, ui)
-            {
-                $("#dateSliderValue").html(ui.values[0].toString() + " to " +
-                    ui.values[1].toString() + " days");
-            },
-            stop:    function (event, ui)
-            {
-                var minMagnitude = $("#magSlider").slider("values",0);
-                var maxMagnitude = $("#magSlider").slider("values",1);
-                worldWindow.redrawMe(minMagnitude, maxMagnitude, ui.values[0], ui.values[1]);
-            }
-        });
+
+        // this.dateSlider.slider({
+        //     range:   true,
+        //     values:  [-30, -0],
+        //     min:     -30,
+        //     max:     0,
+        //     step:    1,
+        //     animate: true,
+        //     slide:   function (event, ui)
+        //     {
+        //         $("#dateSliderValue").html(ui.values[0].toString() + " to " +
+        //             ui.values[1].toString() + " days");
+        //     },
+        //     stop:    function (event, ui)
+        //     {
+        //         var minMagnitude = $("#magSlider").slider("values",0);
+        //         var maxMagnitude = $("#magSlider").slider("values",1);
+        //         worldWindow.redrawMe(minMagnitude, maxMagnitude, ui.values[0], ui.values[1]);
+        //     }
+        // });
 
         this.opacitySlider.slider({
             value:  50,

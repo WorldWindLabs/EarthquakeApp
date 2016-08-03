@@ -9,28 +9,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>-->
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>-->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script data-main="new_eq_app" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
-    <!--<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>-->
-    <!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />-->
 
     <title>Quake Hunter</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="col-sm-8" id="globe" style="width: 100%; height: 100%; position: fixed; left: 0">
-            <canvas id="canvasOne" width="1920" height="1080" style="position: fixed; left: 0; width: 100%; height: 100%">
-                Your browser does not support HTML5 Canvas.
-            </canvas>
-        </div>
+<div class="container">
+    <div class="col-sm-8" id="globe" style="width: 100%; height: 100%; position: fixed; left: 0">
+        <canvas id="canvasOne" width="1920" height="1080" style="position: fixed; left: 0; width: 100%; height: 100%">
+            Your browser does not support HTML5 Canvas.
+        </canvas>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-3" style="
+<div class="row">
+    <div class="col-sm-3" style="
             display: inline;
             position: fixed;
             left: 0;
@@ -39,74 +40,92 @@
             width: 15%;
 
             ">
-            <br>
-            <br>
-            <div style="text-align: center;">
-                <img src="./new_eq_app_files/NASA_logo.svg.png" style="width: 75%;height: 75%;">
-            </div>
-            <h3 style="text-align:center;font-size: 100%;">NASA World Wind &amp; USGS <em>Quake Hunter App</em></h3>
-            <h6>Projection</h6>
-            <div class="dropdown" id="projectionDropdown">
-            </div>
-            <!-- <br>
-        <h6>Layers</h6>
-        <div class="list-group" id="layerList">
+        <br>
+        <br>
+        <div style="text-align: center;">
+            <img src="./new_eq_app_files/NASA_logo.svg.png" style="width: 75%;height: 75%;">
         </div>
-        <br> -->
-            <h6>Destination</h6>
-            <div class="input-group" id="searchBox">
-                <input type="text" class="form-control" placeholder="GoTo" id="searchText" />
-                <span class="input-group-btn">
+        <h3 style="text-align:center;font-size: 100%;">NASA World Wind &amp; USGS <em>Quake Hunter App</em></h3>
+        <h6>Projection</h6>
+        <div class="dropdown" id="projectionDropdown">
+        </div>
+
+        <h6>Destination</h6>
+        <div class="input-group" id="searchBox">
+            <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
+            <span class="input-group-btn">
                     <button id="searchButton" class="btn btn-primary" type="button">
                         <span class="glyphicon glyphicon-search"></span>
                 </button>
                 </span>
-            </div>
+        </div>
 
-            <div class="list-group" id="annotationList" style="width: 100%; text-align: center;">
-                <div class="input-group" id="annotationBox" style="width: 100%;text-align: center;align-content: center;">
+        <!-- <br>
+    <h6>Layers</h6>
+    <div class="list-group" id="layerList">
+    </div>
+    <br> -->
+        <br>
+        <div>
+            <p>From: </p>
+            <input type="text" id="fromdatepicker" style="color:#000000">
+            <br>
+            <p>To: </p>
+            <input type="text" id="todatepicker" style="color:#000000">
+        </div>
 
-                    <h4 style="font-size: 100%;">Date Range</h4>
-                    <div id="dateSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style="width: 80%;">
-                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 40%; width: 60%;"></div>
-                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 33.3333%;"></span>
-                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span>
-                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 66.6667%; left: 33.3333%;"></div>
+        <div class="list-group" id="annotationList" style="width: 100%; text-align: center;">
+            <div class="input-group" id="annotationBox" style="width: 100%;text-align: center;align-content: center;">
+
+                <!--<h4 style="font-size: 100%;">Date Range</h4>-->
+                <!--<div id="dateSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"-->
+                     <!--style="width: 80%;">-->
+                    <!--<div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 40%; width: 60%;"></div>-->
+                    <!--<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"-->
+                          <!--style="left: 33.3333%;"></span>-->
+                    <!--<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"-->
+                          <!--style="left: 100%;"></span>-->
+                    <!--<div class="ui-slider-range ui-widget-header ui-corner-all"-->
+                         <!--style="width: 66.6667%; left: 33.3333%;"></div>-->
+                <!--</div>-->
+
+                <!--<h5><span id="dateSliderValue">-20 to 0 days</span></h5>-->
+                <!--<br>-->
+
+                <br>
+
+                <h4 style="font-size: 100%;">Magnitude Range</h4>
+                <div id="magSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+                     style="width: 80%;">
+                    <div class="ui-slider-range ui-widget-header ui-corner-all"
+                         style="left: 61.4286%; width: 38.5714%;">
+
                     </div>
+                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 75.7143%;">
 
-                    <h5><span id="dateSliderValue">-20 to 0 days</span></h5>
-                    <br>
-
-                    <br>
-
-                    <h4 style="font-size: 100%;">Magnitude Range</h4>
-                    <div id="magSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style="width: 80%;">
-                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 61.4286%; width: 38.5714%;">
-
-                        </div>
-                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 75.7143%;">
-
-                    </span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;">
+                    </span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                                 style="left: 100%;">
 
                 </span>
-                        <div class="ui-slider-range ui-widget-header ui-corner-all" style="width: 24.2857%; left: 75.7143%;"></div>
-                    </div>
+                    <div class="ui-slider-range ui-widget-header ui-corner-all"
+                         style="width: 24.2857%; left: 75.7143%;"></div>
+                </div>
 
-                    <h5><span id="magSliderValue">5.3 to 7 Richter</span></h5>
-                    <br>
+                <h5><span id="magSliderValue">5.3 to 7 Richter</span></h5>
+                <br>
 
-                    <br>
+                <h4 style="font-size: 100%;">Surface Opacity</h4>
+                <div id="opacitySlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+                     style="width: 80%;">
+                    <!--<div class="ui-slider ui-widget-header ui-corner-all" style="left: 61.4286%; width: 38.5714%;"></div>-->
+                    <!--<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 75.7143%;"></span>-->
+                    <!--<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span>-->
+                    <!--<div class="ui-slider ui-widget-header ui-corner-all" style="width: 24.2857%; left: 75.7143%;"></div>-->
+                </div>
 
-                    <h4 style="font-size: 100%;">Surface Opacity</h4>
-                    <div id="opacitySlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" style="width: 80%;">
-                        <!--<div class="ui-slider ui-widget-header ui-corner-all" style="left: 61.4286%; width: 38.5714%;"></div>-->
-                        <!--<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 75.7143%;"></span>-->
-                        <!--<span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 100%;"></span>-->
-                        <!--<div class="ui-slider ui-widget-header ui-corner-all" style="width: 24.2857%; left: 75.7143%;"></div>-->
-                    </div>
+                <h5><span id="opacitySliderValue">% opacity</span></h5>
 
-                    <h5><span id="opacitySliderValue">% opacity</span></h5>
-                    <br>
+                <br>
 
                     <label for="flip-1">Flip switch:</label>
                     <select name="flip-1" id="flip-1" data-role="slider">
@@ -118,41 +137,51 @@
                     <br><br>
                     <button id="submit">Search</button>
 
-                </div>
+                <br>
 
             </div>
+
         </div>
-        <div class="col-sm-2" style="
+    </div>
+    <div class="col-sm-2" style="
         position: fixed;
         right: 0;
         background: rgba(0,0,0,0.5);
         color: #FFFFFF;
         width: 12%;
         ">
-            <br>
-            <br>
-            <h4><strong>USGS API Query Info</strong></h4>
-            <p>Number of Eathquakes: <span id="eq_count"></span></p>
-            <p>Start Date: <span id="minDate"></span></p>
-            <p>End Date: <span id="maxDate"></span></p>
-            <p>Min Magnitude: <span id="minMagnitude"></span></p>
-            <p>Max Magnitude: <span id="maxMagnitude"></span></p>
-            <br>
-            <br>
-            <h4><strong>Earthquake Info</strong></h4>
-            <p>Magnitude: <span id="magnitude"></span></p>
-            <p>Location: <span id="location"></span></p>
-            <p>Date: <span id="time"></span></p>
-            <p>Latitude: <span id="latitude"></span></p>
-            <p>Longitude: <span id="longitude"></span></p>
-            <p>Depth (KM): <span id="depth"></span></p>
-        </div>
+        <br>
+        <br>
+        <h4><strong>USGS API Query Info</strong></h4>
+        <p>Number of Eathquakes: <span id="eq_count"></span></p>
+        <p>Start Date: <span id="minDate"></span></p>
+        <p>End Date: <span id="maxDate"></span></p>
+        <p>Min Magnitude: <span id="minMagnitude"></span></p>
+        <p>Max Magnitude: <span id="maxMagnitude"></span></p>
+        <br>
+        <br>
+        <h4><strong>Earthquake Info</strong></h4>
+        <p>Magnitude: <span id="magnitude"></span></p>
+        <p>Location: <span id="location"></span></p>
+        <p>Date: <span id="time"></span></p>
+        <p>Latitude: <span id="latitude"></span></p>
+        <p>Longitude: <span id="longitude"></span></p>
+        <p>Depth (KM): <span id="depth"></span></p>
     </div>
-    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>-->
-    <!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
-    <!--<script src="worldwindlib.js"></script>-->
-    <!--<script src="LayerManager.js"></script>-->
-    <!--<script src="new_eq_app.js"></script>-->
+</div>
+<!--<script>-->
+    <!--$( function() {-->
+        <!--$( "#datepicker" ).datepicker({-->
+            <!--changeMonth: true,-->
+            <!--changeYear: true-->
+        <!--});-->
+    <!--} );-->
+<!--</script>-->
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>-->
+<!--<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+<!--<script src="worldwindlib.js"></script>-->
+<!--<script src="LayerManager.js"></script>-->
+<!--<script src="new_eq_app.js"></script>-->
 </body>
 
 </html>
