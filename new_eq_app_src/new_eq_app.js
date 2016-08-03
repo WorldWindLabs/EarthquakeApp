@@ -19,9 +19,9 @@ define(['./Cylinder',
 
         "use strict";
 
-        var redrawMe = function (minMagnitude, maxMagnitude, minDate, maxDate) {
-            new_eq.setMinDate(minDate);
-            new_eq.setMaxDate(maxDate);
+        var redrawMe = function (minMagnitude, maxMagnitude, FromDate, ToDate) {
+            new_eq.setMinDate(FromDate);
+            new_eq.setMaxDate(ToDate);
             new_eq.setMinMagnitude(minMagnitude);
             new_eq.setMaxMagnitude(maxMagnitude);
 
@@ -123,6 +123,11 @@ define(['./Cylinder',
             var minDate = $("#dateSlider").slider("values", 0);
             var maxDate = $("#dateSlider").slider("values", 1);
             var opacity = $("#opacitySlider").slider("value");
+
+            var FromDate = $("#fromdatepicker").datepicker("getDate");
+            var ToDate = $("#todatepicker").datepicker("getDate");
+            // console.log(MaxDatePicker);
+
 
             // window.redraw(minMagnitude,maxMagnitude,minDate,maxDate, window.limitQuery, window.polygonLayer, wwd.surfaceOpacity, opacity);
 
