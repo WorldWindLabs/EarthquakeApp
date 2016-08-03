@@ -114,7 +114,16 @@ define(['./Circle',
             plateBoundariesJSON.load(shapeConfigurationCallback, plateBoundariesLayer);
             wwd.addLayer(plateBoundariesLayer);
         }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Pre-populate dropdowns with initial dates
+        var initialFromDate = earthquakes.FromDate;
+        initialFromDate = initialFromDate.split("T")[0];
+        console.log(initialFromDate);
+        var initialToDate = earthquakes.ToDate;
+        initialToDate = initialToDate.split("T")[0];
+        console.log(initialToDate);
+        $("#fromdatepicker").datepicker("setDate", initialFromDate);
+        $("#todatepicker").datepicker("setDate", initialToDate);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function placeMarkCreation(GeoJSON) {
             var minMagnitude = $("#magSlider").slider("values", 0);

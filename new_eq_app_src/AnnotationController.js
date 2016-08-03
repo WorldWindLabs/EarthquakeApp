@@ -2,8 +2,10 @@
  * Copyright (C) 2014 United States Government as represented by the Administrator of the
  * National Aeronautics and Space Administration. All Rights Reserved.
  */
-define(function () {
+define(['./USGS'],function (USGS) {
     "use strict";
+
+    var dateholder = new USGS();
 
     var AnnotationController = function (worldWindow)   {
         this.worldWindow = worldWindow;
@@ -15,6 +17,8 @@ define(function () {
         this.FromDate = $("#fromdatepicker").datepicker({
             changeMonth: true,
             changeYear: true,
+            showButtonPanel: true,
+            yearRange: "1975:nn",
             dateFormat: "yy-mm-dd",
             onSelect: function(dateText, dateobj) {
                 var dateAsString = dateText;
@@ -24,13 +28,14 @@ define(function () {
                 var ToDate = $("#todatepicker").datepicker("getDate");
                 worldWindow.redrawMe(minMagnitude, maxMagnitude, dateAsString, ToDate);
 
-
             }
         });
 
         this.ToDate = $("#todatepicker").datepicker({
             changeMonth: true,
             changeYear: true,
+            showButtonPanel: true,
+            yearRange: "1975:nn",
             dateFormat: "yy-mm-dd",
             onSelect: function(dateText, dateobj) {
                 var dateAsString = dateText;
