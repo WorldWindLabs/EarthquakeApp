@@ -28,9 +28,11 @@ define(['./Cylinder',
             $.get(new_eq.getUrl(), function (EQ) {
                 console.log(EQ.features.length);
 
-                var layer = wwd.layers[5];
+                var layer = wwd.layers[6];
+                console.log(wwd.layers);
                 layer.removeAllRenderables();
-                wwd.layers = wwd.layers.slice(0, 5);
+                wwd.layers = wwd.layers.slice(0, 6);
+                tectonicplateLayer();
                 placeMarkCreation(EQ);
             });
         };
@@ -52,9 +54,9 @@ define(['./Cylinder',
 
         var layers = [
             {layer: new WorldWind.BMNGLayer(), enabled: true},
-            // {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
-            // {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
-            // {layer: new WorldWind.CompassLayer(), enabled: false},
+            {layer: new WorldWind.BMNGLandsatLayer(), enabled: false},
+            {layer: new WorldWind.BingAerialWithLabelsLayer(null), enabled: false},
+            {layer: new WorldWind.CompassLayer(), enabled: false},
             {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
             {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
         ];
@@ -64,24 +66,25 @@ define(['./Cylinder',
             wwd.addLayer(layers[l].layer);
         }
 
-        var shapeConfigurationCallback = function (geometry, properties) {
-            var configuration = {};
-            configuration.attributes =  new WorldWind.ShapeAttributes(null);
-            configuration.attributes.drawOutline = true;
-            configuration.attributes.outlineColor = new WorldWind.Color(
-                0.6 * configuration.attributes.interiorColor.red,
-                0.3 * configuration.attributes.interiorColor.green,
-                0.3 * configuration.attributes.interiorColor.blue,
-                1.0);
-            configuration.attributes.outlineWidth = 1.0;
-            return configuration;
-        };
+function tectonicplateLayer() {
+    var shapeConfigurationCallback = function (geometry, properties) {
+        var configuration = {};
+        configuration.attributes = new WorldWind.ShapeAttributes(null);
+        configuration.attributes.drawOutline = true;
+        configuration.attributes.outlineColor = new WorldWind.Color(
+            0.6 * configuration.attributes.interiorColor.red,
+            0.3 * configuration.attributes.interiorColor.green,
+            0.3 * configuration.attributes.interiorColor.blue,
+            1.0);
+        configuration.attributes.outlineWidth = 1.0;
+        return configuration;
+    };
 
-        var plateBoundariesLayer = new WorldWind.RenderableLayer("World Borders");
-        var plateBoundariesJSON = new WorldWind.GeoJSONParser("./new_eq_app_files/plate_boundaries.json");
-        plateBoundariesJSON.load(shapeConfigurationCallback, plateBoundariesLayer);
-        wwd.addLayer(plateBoundariesLayer);
-
+    var plateBoundariesLayer = new WorldWind.RenderableLayer("World Borders");
+    var plateBoundariesJSON = new WorldWind.GeoJSONParser("./new_eq_app_files/plate_boundaries.json");
+    plateBoundariesJSON.load(shapeConfigurationCallback, plateBoundariesLayer);
+    wwd.addLayer(plateBoundariesLayer);
+}
 
         // Layer Manager
         var layerManger = new LayerManager(wwd);
@@ -90,6 +93,7 @@ define(['./Cylinder',
 // JQuery API Calling
         $.get(new_eq.getUrl(), function (EQ) {
             console.log(EQ.features.length);
+            tectonicplateLayer();
             placeMarkCreation(EQ);
         });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
