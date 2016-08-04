@@ -2,15 +2,20 @@
  * Created by gagaus on 7/29/16.
  */
 
-define(['./worldwindlib'],
-    function(WorldWind) {
+define(['./Rectangle',
+    './worldwindlib',
+    './WorldPoint'],
+    function(Rectangle,
+             WorldWind,
+             WorldPoint) {
 
         "use strict";
 
-        function Circle(p1, p2) {
+        var Circle = function (p1, p2) {
+
+            var R = 6371; // Radius of the earth in km
 
             function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-                var R = 6371; // Radius of the earth in km
                 var dLat = deg2rad(lat2-lat1);  // deg2rad below
                 var dLon = deg2rad(lon2-lon1);
                 var a =
@@ -27,7 +32,13 @@ define(['./worldwindlib'],
                 return deg * (Math.PI/180)
             }
 
-            var radius = getDistanceFromLatLonInKm(p1.Lati, p1.Long, p2.Lati, p2.Long);
+            function rad2deg(rad) {
+                return rad * (180/Math.PI)
+            }
+
+            function distance2d(p1, p2) {
+                return Math.sqrt(Math.pow(p1.X-p2.X, 2) + Math.pow(p2.Y-p1.Y, 2));
+            }
 
             var minLong = Math.min(p2.Long, p1.Long);
             var maxLong = Math.max(p2.Long, p1.Long);
@@ -35,60 +46,53 @@ define(['./worldwindlib'],
             var minLati = Math.min(p2.Lati, p1.Lati);
             var maxLati = Math.max(p2.Lati, p1.Lati);
 
-            var canvas = document.createElement("canvas"),
-                ctx2d = canvas.getContext("2d"),
-                size = 64, c = size / 2  - 0.5, innerRadius = 5, outerRadius = 30;
+            var renderedCircle = function () {
+                var canvas = document.createElement("canvas"),
+                    ctx2d = canvas.getContext("2d"),
+                    radius = distance2d(p1,p2),
+                    size = 2*radius,
+                    c = radius;
 
-            canvas.width = size;
-            canvas.height = size;
+                canvas.width = size;
+                canvas.height = size;
 
-            var gradient = ctx2d.createRadialGradient(c, c, outerRadius-1, c, c, outerRadius);
-            gradient.addColorStop(0, 'rgb(255, 0, 0)');
-            gradient.addColorStop(0.5, 'rgb(0, 255, 0)');
-            gradient.addColorStop(1, 'rgb(255, 0, 0)');
+                ctx2d.arc(c, c, radius, 0, 2 * Math.PI, false);
+                ctx2d.fill();
 
-            // ctx2d.fillStyle = gradient;
-            ctx2d.arc(c, c, outerRadius, 0, 2 * Math.PI, false);
-            ctx2d.fill();
+                return canvas;
+            };
 
 
-            var mydownloadingImage = new Image();
-            mydownloadingImage.onload = function(){
+            var CircleImage = new Image();
+            CircleImage.onload = function(){
                 // imageCircle.src = this.src;
             };
-            mydownloadingImage.src = "./images/circle.png";
+            CircleImage.src = "./images/circle.png";
 
-            // Create the mesh's positions.
-            var meshPositions = [];
-            for (var lat = minLati; lat <= maxLati; lat += 0.5) {
-                var row = [];
-                for (var lon = minLong; lon <= maxLong; lon += 0.5) {
-                    row.push(new WorldWind.Position(lat, lon, 100e3));
-                }
+            this.origin = p1;
+            this.radius3D = getDistanceFromLatLonInKm(p1.Lati, p1.Long, p2.Lati, p2.Long);
 
-                meshPositions.push(row);
-            }
+            this.radius2D = distance2d(p1,p2);
 
-            // Create the mesh.
-            var mesh = new WorldWind.GeographicMesh(meshPositions, null);
+            var alpha = rad2deg(this.radius3D/R);
 
-            // Create and assign the mesh's attributes.
-            var meshAttributes = new WorldWind.ShapeAttributes(null);
-            // meshAttributes.outlineColor = WorldWind.Color.BLUE;
-            // meshAttributes.drawOutline = false;
-            meshAttributes.interiorColor = new WorldWind.Color(1, 1, 1, 0.7);
-            meshAttributes.imageSource = new WorldWind.ImageSource(mydownloadingImage);
-            meshAttributes.applyLighting = false;
-            mesh.attributes = meshAttributes;
+            var lowerVertex = new WorldPoint(p1.wwd);
+            lowerVertex.setLong(p1.Long - alpha);
+            lowerVertex.setLati(p1.Lati - alpha);
 
-            // Create and assign the mesh's highlight attributes.
-            var highlightAttributes = new WorldWind.ShapeAttributes(meshAttributes);
-            highlightAttributes.outlineColor = WorldWind.Color.WHITE;
-            mesh.highlightAttributes = highlightAttributes;
+            var upperVertex = new WorldPoint(p1.wwd);
+            upperVertex.setLong(p1.Long + alpha);
+            upperVertex.setLati(p1.Lati + alpha);
 
-            // Add the shape to the layer.
-            drawLayer.addRenderable(mesh);
-        }
+            var square = new Rectangle(lowerVertex, upperVertex);
+
+            square.origin = p1;
+            square.radius3D = this.radius3D;
+            square.attributes.imageSource = new WorldWind.ImageSource(CircleImage);
+            square.attributes.drawInterior = true;
+
+            return square;
+        };
 
         return Circle;
     });

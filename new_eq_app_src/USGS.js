@@ -40,7 +40,7 @@ define([''], function(ww) {
          * @return {string}
          */
 
-        this.getUrl = function (drawing) {
+        this.getUrl = function (drawingType, drawingState, figure) {
             var minMagnitude = this.minMagnitude,
                 maxMagnitude = this.maxMagnitude,
                 FromDate = this.FromDate,
@@ -49,7 +49,18 @@ define([''], function(ww) {
 
             var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
             var query;
-            if (drawing == 2) {
+            if (drawingType == 'circle' && drawingState == 2) {
+                console.log(FromDate);
+                console.log(FromDate.toString());
+                query = "starttime=" + FromDate +
+                    "&endtime=" + ToDate +
+                    "&minmagnitude=" + minMagnitude.toString() +
+                    "&maxmagnitude=" + maxMagnitude.toString() +
+                    "&longitude=" + figure.origin.Long.toString() +
+                    "&latitude=" + figure.origin.Lati.toString() +
+                    "&maxradiuskm=" + figure.radius3D.toString();
+            }
+            else if (drawingType == 'rectangle' && drawingState == 2) {
                 query = "starttime=" + FromDate +
                     "&endtime=" + ToDate +
                     "&minmagnitude=" + minMagnitude.toString() +

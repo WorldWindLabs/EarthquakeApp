@@ -2,7 +2,7 @@ define([''], function(ww) {
 
     "use strict";
 
-    function Rectangle(p1, p2) {
+    var Rectangle = function (p1, p2) {
         var minLong = Math.min(p2.Long, p1.Long);
         var maxLong = Math.max(p2.Long, p1.Long);
 
@@ -38,7 +38,7 @@ define([''], function(ww) {
         polygon.highlightAttributes = highlightAttributes;
 
         return polygon;
-    }
+    };
 
     return Rectangle;
 });

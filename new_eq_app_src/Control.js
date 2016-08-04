@@ -59,11 +59,17 @@ define(['./Circle',
         // Layer Manager
         var layerManger = new LayerManager(wwd);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// JQuery API Calling
-        $.get(earthquakes.getUrl(), function (EQ) {
-            placeMarkCreation(EQ);
-        });
+        earthquakes.draw();
+
+        var drawingStates = {
+            OFF : 0,
+            ONE_V : 1,
+            TWO_V : 2,
+            ON: 3
+        };
+        var drawingState = drawingStates.ON;
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Data Display
 // Individual Earthquakes
@@ -81,14 +87,6 @@ define(['./Circle',
         var maxMagnitudePlaceholder = document.getElementById('maxMagnitude');
         var earthquakeLayer;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        var drawingStates = {
-            OFF : 0,
-            ONE_V : 1,
-            TWO_V : 2,
-            ON: 3
-        };
-        var drawingState = drawingStates.ON;
 
         function redrawMe(drawFig) {
             var drawOpition = $("#flip-1").val();
