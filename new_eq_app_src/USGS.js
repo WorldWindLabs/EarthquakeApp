@@ -49,9 +49,11 @@ define([''], function(ww) {
 
             var resourcesUrl = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson";
             var query;
-            if (drawing) {
-                query = "starttime=" + this.FromDate + "&endtime=" + this.ToDate + "&minmagnitude=" +
-                    this.minMagnitude.toString() + "&maxmagnitude=" + this.maxMagnitude.toString() +
+            if (drawing == 2) {
+                query = "starttime=" + FromDate +
+                    "&endtime=" + ToDate +
+                    "&minmagnitude=" + minMagnitude.toString() +
+                    "&maxmagnitude=" + maxMagnitude.toString() +
                     "&minlongitude=" + this.MinLongitude.toString() +
                     "&maxlongitude=" + this.MaxLongitude.toString() +
                     "&minlatitude=" + this.MinLatitude.toString() +

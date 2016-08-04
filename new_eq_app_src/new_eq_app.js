@@ -79,30 +79,63 @@ define(['./Circle',
         var maxMagnitudePlaceholder = document.getElementById('maxMagnitude');
         var earthquakeLayer;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var drawingStates = {
+            OFF : 0,
+            ONE_V : 1,
+            TWO_V : 2,
+            ON: 3
+        };
+        var drawingState = drawingStates.ON;
+
         function redrawMe(minMagnitude, maxMagnitude, minDate, maxDate) {
-            earthquakes.setMinDate(minDate);
-            earthquakes.setMaxDate(maxDate);
+            var minMagnitude = $("#magSlider").slider("values", 0);
+            var maxMagnitude = $("#magSlider").slider("values", 1);
+
+            var FromDate = $("#fromdatepicker").datepicker("getDate");
+            var ToDate = $("#todatepicker").datepicker("getDate");
+
+            earthquakes.setMinDate(FromDate);
+            earthquakes.setMaxDate(ToDate);
             earthquakes.setMinMagnitude(minMagnitude);
             earthquakes.setMaxMagnitude(maxMagnitude);
 
-            $.get(earthquakes.getUrl(), function (EQ) {
+            var minLong = Math.min(p2.Long, p1.Long);
+            var maxLong = Math.max(p2.Long, p1.Long);
+
+            var minLati = Math.min(p2.Lati, p1.Lati);
+            var maxLati = Math.max(p2.Lati, p1.Lati);
+
+            earthquakes.setMinLatitude(minLati);
+            earthquakes.setMaxLatitude(maxLati);
+            earthquakes.setMinLongitude(minLong);
+            earthquakes.setMaxLongitude(maxLong);
+
+            console.log(drawingState);
+            $.get(earthquakes.getUrl(drawingState), function (EQ) {
                 wwd.removeLayer(earthquakeLayer);
                 placeMarkCreation(EQ);
             });
         }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//         this.p1 = {};
-//         this.p2 = {};
-
         var p1 = {};
         var p2 = {};
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Pre-populate dropdowns with initial dates
+        var initialFromDate = earthquakes.FromDate;
+        initialFromDate = initialFromDate.split("T")[0];
+        console.log(initialFromDate);
+        var initialToDate = earthquakes.ToDate;
+        initialToDate = initialToDate.split("T")[0];
+        console.log(initialToDate);
+        $("#fromdatepicker").datepicker("setDate", initialFromDate);
+        $("#todatepicker").datepicker("setDate", initialToDate);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function placeMarkCreation(GeoJSON) {
             var minMagnitude = $("#magSlider").slider("values", 0);
             var maxMagnitude = $("#magSlider").slider("values", 1);
-            var minDate = $("#dateSlider").slider("values", 0);
-            var maxDate = $("#dateSlider").slider("values", 1);
+
             var opacity = $("#opacitySlider").slider("value");
 
             var FromDate = $("#fromdatepicker").datepicker("getDate");
@@ -216,16 +249,9 @@ define(['./Circle',
                 }
             };
 
-            var drawingStates = {
-                OFF : 0,
-                ONE_V : 1,
-                TWO_V : 2,
-                ON: 3
-            };
-
             var drawLayer = new WorldWind.RenderableLayer("Drawing");
             wwd.addLayer(drawLayer);
-            var drawingState = drawingStates.ON;
+
 
             var handleClick = function (event) {
                 // drawCircle();
@@ -241,15 +267,18 @@ define(['./Circle',
 
                     var earthCoordinates = [long, lati, 0];
                     var placeMark = new Point(earthCoordinates);
-                    drawLayer.addRenderable(placeMark.placemark);
+                    if (drawingState != drawingStates.TWO_V) {
+                        drawLayer.addRenderable(placeMark.placemark);
+                    }
                     if (drawingState == drawingStates.ONE_V) {
                         p2.X = x;
                         p2.Y = y;
                         p2.Long = long;
                         p2.Lati = lati;
                         drawFig(p1, p2);
-                        queriesRegion(p1, p2);
-                        drawingState = drawingStates.OFF;
+                        drawingState = drawingStates.TWO_V;
+                        redrawMe();
+                        // drawingState = drawingStates.OFF;
                     }
                     else if (drawingState == drawingStates.ON) {
                         drawingState = drawingStates.ONE_V;
@@ -261,27 +290,6 @@ define(['./Circle',
 
                 }
             };
-
-            function queriesRegion(p1, p2) {
-                var minLong = Math.min(p2.Long, p1.Long);
-                var maxLong = Math.max(p2.Long, p1.Long);
-
-                var minLati = Math.min(p2.Lati, p1.Lati);
-                var maxLati = Math.max(p2.Lati, p1.Lati);
-
-                earthquakes.setMinLatitude(minLati);
-                earthquakes.setMaxLatitude(maxLati);
-                earthquakes.setMinLongitude(minLong);
-                earthquakes.setMaxLongitude(maxLong);
-
-                var drawing = 1;
-
-                $.get(earthquakes.getUrl(drawing), function (EQ) {
-                    wwd.removeLayer(earthquakeLayer);
-                    placeMarkCreation(EQ);
-                });
-
-            }
 
             function drawFig(p1, p2) {
                 if ($("#flip-1").val() == "rectangle") {
