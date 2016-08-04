@@ -136,8 +136,8 @@ define(['./Circle',
         var initialToDate = earthquakes.ToDate;
         initialToDate = initialToDate.split("T")[0];
         console.log(initialToDate);
-        $("#fromdatepicker").datepicker("setDate", initialFromDate);
-        $("#todatepicker").datepicker("setDate", initialToDate);
+        $("#fromdatepicker").datepicker("setDate", earthquakes.initialQuery.fromDate.split("T")[0]);
+        $("#todatepicker").datepicker("setDate", earthquakes.initialQuery.toDate.split("T")[0]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function placeMarkCreation(GeoJSON) {
             var minMagnitude = $("#magSlider").slider("values", 0);

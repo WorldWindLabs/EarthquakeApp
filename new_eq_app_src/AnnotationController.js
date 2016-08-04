@@ -138,16 +138,42 @@ define(['./USGS'], function (USGS) {
             alert($("#flip-1").val());
         });
 
+
+        this.limiter = $("#limitSet").selectmenu({
+            select: function (event, ui) {
+
+                if ($("#limitSet").val() == '1000') {
+                    var minMagnitude = $("#magSlider").slider("values", 0);
+                    var maxMagnitude = $("#magSlider").slider("values", 1);
+                    var FromDate = $("#fromdatepicker").datepicker("getDate");
+                    var ToDate = $("#todatepicker").datepicker("getDate");
+                    var limitSet = $("#limitSet").val();
+
+                    worldWindow.redrawMe(minMagnitude, maxMagnitude, FromDate, ToDate, limitSet)
+                }
+                else if ($("#limitSet").val() == "balls to the wall") {
+                    var minMagnitude = $("#magSlider").slider("values", 0);
+                    var maxMagnitude = $("#magSlider").slider("values", 1);
+                    var FromDate = $("#fromdatepicker").datepicker("getDate");
+                    var ToDate = $("#todatepicker").datepicker("getDate");
+
+                    worldWindow.redrawMe(minMagnitude, maxMagnitude, FromDate, ToDate);
+                }
+            }
+        });
+
+
         this.reset = $("#reset").on("click", function () {
             $("#magSlider").slider("option", "values", [2.5, 10]);
             $("#magSliderValue").html($("#magSlider").slider("values", 0).toString() + " to " +
                 $("#magSlider").slider("values", 1).toString() + " Richter");
+            $("#fromdatepicker").datepicker("setDate", usgs.initialQuery.fromDate.split("T")[0]);
+            $("#todatepicker").datepicker("setDate", usgs.initialQuery.toDate.split("T")[0]);
 
             worldWindow.redrawMe(usgs.initialQuery.minMag,
                 usgs.initialQuery.maxMag,
                 usgs.initialQuery.fromDate,
                 usgs.initialQuery.toDate, true);
-            console.log(usgs.initialQuery);
         });
 
         $("#magSliderValue").html(this.magSlider.slider("values", 0).toString() + " to " +

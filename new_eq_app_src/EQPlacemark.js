@@ -49,8 +49,8 @@ define(['./worldwindlib'],
             placemarkAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
 
             // Wrap the canvas created above in an ImageSource object to specify it as the placemark image source.
-            // placemarkAttributes.imageSource = './images/dot-red.png';
-            placemarkAttributes.imageSource = new WorldWind.ImageSource(canvas);
+            placemarkAttributes.imageSource = './images/dot-red.png';
+            // placemarkAttributes.imageSource = new WorldWind.ImageSource(canvas);
 
             placemarkAttributes.imageScale = magnitude / 1e1;
             // placemarkAttributes.imageColor = new WorldWind.Color(1, 1, 1, 0.55);
@@ -62,8 +62,8 @@ define(['./worldwindlib'],
             // instead vary the color, image, or other property to control the highlight representation.
             highlightAttributes = new WorldWind.PlacemarkAttributes(placemarkAttributes);
             highlightAttributes.imageScale = 1.2;
-            // highlightAttributes.imageSource = './images/dot-red.png';
-            highlightAttributes.imageSource = new WorldWind.ImageSource(canvas);
+            highlightAttributes.imageSource = './images/dot-red.png';
+            // highlightAttributes.imageSource = new WorldWind.ImageSource(canvas);
 
             placemark.highlightAttributes = highlightAttributes;
             this.placemark = placemark;
