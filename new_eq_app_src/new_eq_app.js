@@ -88,29 +88,36 @@ define(['./Circle',
         };
         var drawingState = drawingStates.ON;
 
-        function redrawMe(minMagnitude, maxMagnitude, minDate, maxDate) {
-            var minMagnitude = $("#magSlider").slider("values", 0);
-            var maxMagnitude = $("#magSlider").slider("values", 1);
+        function redrawMe(minMagnitude, maxMagnitude, minDate, maxDate, reset) {
+            if (reset === true) {
+                earthquakes.setMinDate(earthquakes.initialQuery.fromDate);
+                earthquakes.setMaxDate(earthquakes.initialQuery.toDate);
+                earthquakes.setMinMagnitude(earthquakes.initialQuery.minMag);
+                earthquakes.setMaxMagnitude(earthquakes.initialQuery.maxMag);
+            }
+            else {
+                var minMagnitude = $("#magSlider").slider("values", 0);
+                var maxMagnitude = $("#magSlider").slider("values", 1);
 
-            var FromDate = $("#fromdatepicker").datepicker("getDate");
-            var ToDate = $("#todatepicker").datepicker("getDate");
+                var FromDate = $("#fromdatepicker").datepicker("getDate");
+                var ToDate = $("#todatepicker").datepicker("getDate");
 
-            earthquakes.setMinDate(FromDate);
-            earthquakes.setMaxDate(ToDate);
-            earthquakes.setMinMagnitude(minMagnitude);
-            earthquakes.setMaxMagnitude(maxMagnitude);
+                earthquakes.setMinDate(FromDate);
+                earthquakes.setMaxDate(ToDate);
+                earthquakes.setMinMagnitude(minMagnitude);
+                earthquakes.setMaxMagnitude(maxMagnitude);
 
-            var minLong = Math.min(p2.Long, p1.Long);
-            var maxLong = Math.max(p2.Long, p1.Long);
+                var minLong = Math.min(p2.Long, p1.Long);
+                var maxLong = Math.max(p2.Long, p1.Long);
 
-            var minLati = Math.min(p2.Lati, p1.Lati);
-            var maxLati = Math.max(p2.Lati, p1.Lati);
+                var minLati = Math.min(p2.Lati, p1.Lati);
+                var maxLati = Math.max(p2.Lati, p1.Lati);
 
-            earthquakes.setMinLatitude(minLati);
-            earthquakes.setMaxLatitude(maxLati);
-            earthquakes.setMinLongitude(minLong);
-            earthquakes.setMaxLongitude(maxLong);
-
+                earthquakes.setMinLatitude(minLati);
+                earthquakes.setMaxLatitude(maxLati);
+                earthquakes.setMinLongitude(minLong);
+                earthquakes.setMaxLongitude(maxLong);
+            }
             console.log(drawingState);
             $.get(earthquakes.getUrl(drawingState), function (EQ) {
                 wwd.removeLayer(earthquakeLayer);

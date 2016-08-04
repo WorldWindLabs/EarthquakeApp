@@ -27,5 +27,22 @@ define(['./worldwindlib'],
         return plateBoundariesLayer;
     }
 
+
     return TectonicPlateLayer;
+
+    // var TectonicPlateLayer = function () {
+    //     WorldWind.RenderableLayer.call(this, "Blue Marble Image");
+    //
+    //     var surfaceImage = new WorldWind.SurfaceImage(WorldWind.Sector.FULL_SPHERE,
+    //        './images/wms_plate_boundaries.png');
+    //
+    //     this.addRenderable(surfaceImage);
+    //
+    //     this.pickEnabled = false;
+    //     this.minActiveAltitude = 3e6;
+    // };
+    //
+    // TectonicPlateLayer.prototype = Object.create(WorldWind.RenderableLayer.prototype);
+    //
+    // return TectonicPlateLayer;
 });

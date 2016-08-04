@@ -23,6 +23,7 @@ define([''], function(ww) {
 
         
         // Khaled's Dynamic URL (automatically updates to last 10 days)
+
         this.minMagnitude = 2.5,
         this.maxMagnitude = 10,
 
@@ -34,6 +35,11 @@ define([''], function(ww) {
         this.MaxLongitude = 360;
         this.MinLatitude = -90;
         this.MaxLatitude = 90;
+
+        this.initialQuery = {minMag: 2.5,
+                            maxMag: 10,
+                            fromDate: minDateISO.join('-'),
+                            toDate: maxDateISO.join('-')};
 
 
         /**
