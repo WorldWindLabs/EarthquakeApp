@@ -30,19 +30,19 @@ define([''], function(ww) {
     Metadata.prototype.setlocation = function (value) {
         this.locPlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.settime = function (value) {
         this.eventdatePlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setlatitude = function (value) {
         this.latitudePlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setlongitude = function (value) {
         this.longitudePlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setdepth = function (value) {
         this.depthPlaceholder.textContent = value;
     };
@@ -50,44 +50,23 @@ define([''], function(ww) {
     Metadata.prototype.seteq_count = function (value) {
         this.earthquakecountPlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setminDate = function (value) {
         this.min_datePlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setmaxDate = function (value) {
         this.max_datePlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setminMagnitude = function (value) {
         this.minMagnitudePlaceholder.textContent = value;
     };
-    
+
     Metadata.prototype.setmaxMagnitude = function (value) {
         this.maxMagnitudePlaceholder.textContent = value;
-    }
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return Metadata;
 
 });

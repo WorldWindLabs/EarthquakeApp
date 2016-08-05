@@ -14,7 +14,8 @@ define(['./Circle',
         './Rectangle',
         './TectonicPlateLayer',
         './WorldPoint',
-        './Draw'],
+        './Draw',
+        './MetadataDisplay'],
     function (Circle,
               Cylinder,
               LayerManager,
@@ -27,7 +28,8 @@ define(['./Circle',
               Rectangle,
               TectonicPlateLayer,
               WorldPoint,
-              Draw) {
+              Draw,
+              Metadata) {
 
         "use strict";
 
@@ -42,8 +44,38 @@ define(['./Circle',
         // Make the surface semi-transparent in order to see the sub-surface shapes.
         wwd.surfaceOpacity = 0.5;
 
-        var earthquakes = new USGS(wwd);
-        var annotationController = new AnnotationController(wwd, earthquakes);
+        var Control = function () {
+            var earthquakes =  new USGS(wwd, this);
+            var metadata = new Metadata();
+            this.handler = new Draw(wwd, metadata);
+            var Opacity = 0.5;
+            var UIController = new AnnotationController(wwd, earthquakes.parameters, this);
+
+            this.redraw = function () {
+                earthquakes.redraw(this.handler);
+            };
+
+            this.getOpacity = function () {
+                return this.Opacity;
+            };
+
+            this.setOpacity = function (value) {
+                this.Opacity = value;
+                wwd.surfaceOpacity = this.Opacity;
+            };
+
+            this.initializeHandlers = function () {
+                // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
+                wwd.addEventListener("mousemove", myControl.handler.Pick);
+
+                // Listen for taps on mobile devices and highlight the placemarks that the user taps.
+                var tapRecognizer = new WorldWind.TapRecognizer(wwd, myControl.handler.Pick);
+
+                // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
+                wwd.addEventListener("mousedown", myControl.handler.Click);
+            };
+
+        };
 
         var layers = [
             {layer: new WorldWind.BMNGLayer(), enabled: true},
@@ -61,21 +93,7 @@ define(['./Circle',
         // Layer Manager
         var layerManger = new LayerManager(wwd);
 
-        earthquakes.draw();
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  Pre-populate dropdowns with initial dates
-        $("#fromdatepicker").datepicker("setDate", initialFromDate);
-        $("#todatepicker").datepicker("setDate", initialToDate);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
-        wwd.addEventListener("mousemove", Draw.handlePick);
-
-        // Listen for taps on mobile devices and highlight the placemarks that the user taps.
-        var tapRecognizer = new WorldWind.TapRecognizer(wwd, Draw.handlePick);
-
-        // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
-        wwd.addEventListener("mousedown", Draw.handleClick);
+        var myControl  = new Control();
+        myControl.redraw();
 
     });

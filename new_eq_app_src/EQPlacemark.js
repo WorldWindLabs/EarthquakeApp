@@ -22,6 +22,8 @@ define(['./worldwindlib'],
                 c = size / 2 - 0.5,
                 outerRadius = size / 2.2;
             canvas.width = size;
+
+
             canvas.height = size;
 
             if (0 < magnitude && magnitude <= 2.5) {
