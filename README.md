@@ -19,29 +19,29 @@ NASA WorldWind Earthquake Data Analysis Sandbox
 1. Introduction
 ---
 
-This project aims to apply Dr. Friedemann Freund’s theory of earthquake precursor science. Dr. Freund's theory states that as stresses in the Earth’s crust increase during the time 
-leading up to a major earthquake, atomic-scale defects in the mineral grains and along the boundaries between mineral grains become activated. 
-These are peroxy defects, typically O3Si-OO-SiO3, and when they break up they generate electron-hole pairs. While the electrons remain trapped in the broken 
+This project aims to apply Dr. Friedemann Freund’s theory of earthquake precursor science. Dr. Freund's theory states that as stresses in the Earth’s crust increase during the time
+leading up to a major earthquake, atomic-scale defects in the mineral grains and along the boundaries between mineral grains become activated.
+These are peroxy defects, typically O3Si-OO-SiO3, and when they break up they generate electron-hole pairs. While the electrons remain trapped in the broken
 peroxy bonds, the holes have the remarkable ability to flow out of the stressed rock volume and into the adjacent less-stressed or unstressed rocks, probably following
- the stress gradient.  The observations reported in this study indicate that these electronic charge carriers, which are called positive-holes or p-holes for short, can propagate over 
- long distances, potentially hundreds of kilometers. As they propagate through the Earth’s crust, they produce an electric current which, in turn produces a magnetic 
- field. Such p-hole currents are seldom steady. They fluctuate, emitting electromagnetic (EM) waves. EM waves in the frequency range above 20 Hz are quickly 
- attenuated in the rocks, but EM waves below 10 Hz can propagate over long distances, and therefore can be detected at the surface. 
+ the stress gradient.  The observations reported in this study indicate that these electronic charge carriers, which are called positive-holes or p-holes for short, can propagate over
+ long distances, potentially hundreds of kilometers. As they propagate through the Earth’s crust, they produce an electric current which, in turn produces a magnetic
+ field. Such p-hole currents are seldom steady. They fluctuate, emitting electromagnetic (EM) waves. EM waves in the frequency range above 20 Hz are quickly
+ attenuated in the rocks, but EM waves below 10 Hz can propagate over long distances, and therefore can be detected at the surface.
 
-The ultimate goal of this project is to observe live anomalous EM field fluctuations and accurately forecast an earthquake within a specified geographical range. 
-To accomplish this, magnetic field data is collected in Alaska, the most seismically active region in the world. First, common magnetic signals are filtered through 
+The ultimate goal of this project is to observe live anomalous EM field fluctuations and accurately forecast an earthquake within a specified geographical range.
+To accomplish this, magnetic field data is collected in Alaska, the most seismically active region in the world. First, common magnetic signals are filtered through
 multiple signal analysis tools to enable observation of the baseline magnetic signal. Second, an anomaly detection algorithm is applied to the data, identifying abnormal
- points in the data that may be indicative of a pending earthquake. Then, an algorithm clusters the anomalous points, and then generates features statistically. 
+ points in the data that may be indicative of a pending earthquake. Then, an algorithm clusters the anomalous points, and then generates features statistically.
  Machine learning algorithms are fed the anomalous features extracted from historical data to build “Earthquake Sensory Precursors” that can be then used to forecast,
-  in real time, future earthquakes. 
+  in real time, future earthquakes.
 
-A noteworthy feature observed so far is that the EM waves recorded on Kodiak Island exhibit a distinct diurnal pattern with intensity variations from 
+A noteworthy feature observed so far is that the EM waves recorded on Kodiak Island exhibit a distinct diurnal pattern with intensity variations from
 day to day.  The analysis presented here indicates that, while some of these intensity variations are clearly repetitive and diurnal, there are anomalies in the
  intensity variations of the EM waves, which seem to correlate with the build-up of tectonic stresses at the origin point of a seismic event that in a few days’ time
   could initiate an earthquake.
 
-Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak Alaska School District, a small team of NASA interns are working to analyze and 
-understand magnetic field data being recorded in Alaska to determine whether or not earthquake forecasting can be accomplished through interpretation of magnetic 
+Working with NASA Ames Research Center (PX), Trillium Learning, and the Kodiak Alaska School District, a small team of NASA interns are working to analyze and
+understand magnetic field data being recorded in Alaska to determine whether or not earthquake forecasting can be accomplished through interpretation of magnetic
 field fluctuations.
 
 2. Required Packages
@@ -108,7 +108,9 @@ You can generate features using the `learning.preprocess()` function. These gene
 ----------------------------------------
 This application is a visualization of earthquake events as accessed through the USGS API.
 The app can map earthquakes on a 3D globe to display epicenters, hypocenters, and relevant information of recorded earthquakes.
-![screencap of app](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/newapp_screencap.png)
+![screencap of app overview](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/new_eq_app1.png)
+Geographically constrained queries can allow for fast visualization of decades worth of earthquake hypocenters. With a high enough density of markers present, the visualization of the subduction zone of the tectonic plates is possible.
+![screencap of app geo-constrained](https://github.com/NASAWorldWindResearch/EarthquakeApp/blob/master/documentation_pix/new_eq_app2.png)
 
 ###How to use:
 1. To run the app, download the repository and run *new_eq_app.html* (EarthquakeApp/new_eq_app_src/new_eq_app.html) in a web server (WebStorm has a built in web server).
@@ -139,9 +141,9 @@ The app can map earthquakes on a 3D globe to display epicenters, hypocenters, an
      that are the “sources” of the outflow currents.
 
 While this study is focusing on the anomalous deviations from the diurnal pattern, it would be interesting to research the diurnal EM
- patterns themselves. What makes the currents in the Earth’s crust wax and wane regularly over 24 hours and what is the underlying physics? 
- An extended study could involve the recording several parameters influencing the EM field, foremost being solar activity, its UV output, and the arrival bursts 
+ patterns themselves. What makes the currents in the Earth’s crust wax and wane regularly over 24 hours and what is the underlying physics?
+ An extended study could involve the recording several parameters influencing the EM field, foremost being solar activity, its UV output, and the arrival bursts
  of solar wind plasma impacting the Earth known as geomagnetic storms. These high energy bursts cause very short-lived fluctuations to the local magnetic field, as well as a variety of atmospheric and ionosphere phenomena.
- 
+
 ***
 Updated as of 02/08/2016 (August 2nd, 2016)
