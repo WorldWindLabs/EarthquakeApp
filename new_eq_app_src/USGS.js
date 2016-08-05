@@ -2,11 +2,11 @@
  * Created by gagaus on 7/29/16.
  */
 
-define([''], function(ww) {
+define(['./Draw'], function(Draw) {
     "use strict";
 
     // USGS API
-    var USGS = function () {
+    var USGS = function (wwd) {
         // Test URL
         this.TestURL = 'http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-04-10&endtime=2016-04-20&limit=5' +
             '&minmagnitude=2.5';
@@ -23,6 +23,7 @@ define([''], function(ww) {
 
         
         // Khaled's Dynamic URL (automatically updates to last 10 days)
+
         this.minMagnitude = 2.5,
         this.maxMagnitude = 10,
 
@@ -34,6 +35,11 @@ define([''], function(ww) {
         this.MaxLongitude = 360;
         this.MinLatitude = -90;
         this.MaxLatitude = 90;
+
+        this.initialQuery = {minMag: 2.5,
+                            maxMag: 10,
+                            fromDate: minDateISO.join('-'),
+                            toDate: maxDateISO.join('-')};
 
 
         /**
@@ -82,6 +88,39 @@ define([''], function(ww) {
             var url = resourcesUrl + '&' + query;
             console.log(url);
             return url;
+        };
+
+        var earthquakes = this;
+
+        this.draw = function(drawFig) {
+            var drawOpition = $("#flip-1").val();
+
+            var minMagnitude = $("#magSlider").slider("values", 0);
+            var maxMagnitude = $("#magSlider").slider("values", 1);
+
+            var FromDate = $("#fromdatepicker").datepicker("getDate");
+            var ToDate = $("#todatepicker").datepicker("getDate");
+
+            earthquakes.setMinDate(FromDate);
+            earthquakes.setMaxDate(ToDate);
+            earthquakes.setMinMagnitude(minMagnitude);
+            earthquakes.setMaxMagnitude(maxMagnitude);
+
+            var minLong = Math.min(p2.Long, p1.Long);
+            var maxLong = Math.max(p2.Long, p1.Long);
+
+            var minLati = Math.min(p2.Lati, p1.Lati);
+            var maxLati = Math.max(p2.Lati, p1.Lati);
+
+            earthquakes.setMinLatitude(minLati);
+            earthquakes.setMaxLatitude(maxLati);
+            earthquakes.setMinLongitude(minLong);
+            earthquakes.setMaxLongitude(maxLong);
+
+            $.get(earthquakes.getUrl(drawOpition, drawingState, drawFig), function (EQ) {
+                wwd.removeLayer(earthquakeLayer);
+                Draw.placeMarkCreation(wwd, EQ);
+            });
         };
 
         this.setMinMagnitude = function(value) {

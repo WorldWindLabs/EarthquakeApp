@@ -90,31 +90,33 @@ define(['./Circle',
         };
         var drawingState = drawingStates.ON;
 
-        function redrawMe(drawFig) {
-            var drawOpition = $("#flip-1").val();
+        function redrawMe(minMagnitude, maxMagnitude, minDate, maxDate, reset) {
+            if (reset === true) {
+                earthquakes.setMinDate(earthquakes.initialQuery.fromDate);
+                earthquakes.setMaxDate(earthquakes.initialQuery.toDate);
+                earthquakes.setMinMagnitude(earthquakes.initialQuery.minMag);
+                earthquakes.setMaxMagnitude(earthquakes.initialQuery.maxMag);
+            }
+            else {
+                var minMagnitude = $("#magSlider").slider("values", 0);
+                var maxMagnitude = $("#magSlider").slider("values", 1);
 
-            var minMagnitude = $("#magSlider").slider("values", 0);
-            var maxMagnitude = $("#magSlider").slider("values", 1);
+                var FromDate = $("#fromdatepicker").datepicker("getDate");
+                var ToDate = $("#todatepicker").datepicker("getDate");
 
-            var FromDate = $("#fromdatepicker").datepicker("getDate");
-            var ToDate = $("#todatepicker").datepicker("getDate");
+                earthquakes.setMinDate(FromDate);
+                earthquakes.setMaxDate(ToDate);
+                earthquakes.setMinMagnitude(minMagnitude);
+                earthquakes.setMaxMagnitude(maxMagnitude);
 
-            earthquakes.setMinDate(FromDate);
-            earthquakes.setMaxDate(ToDate);
-            earthquakes.setMinMagnitude(minMagnitude);
-            earthquakes.setMaxMagnitude(maxMagnitude);
+                var minLong = Math.min(p2.Long, p1.Long);
+                var maxLong = Math.max(p2.Long, p1.Long);
 
-            var minLong = Math.min(p2.Long, p1.Long);
-            var maxLong = Math.max(p2.Long, p1.Long);
-
-            var minLati = Math.min(p2.Lati, p1.Lati);
-            var maxLati = Math.max(p2.Lati, p1.Lati);
-
-            earthquakes.setMinLatitude(minLati);
-            earthquakes.setMaxLatitude(maxLati);
-            earthquakes.setMinLongitude(minLong);
-            earthquakes.setMaxLongitude(maxLong);
-
+                var minLati = Math.min(p2.Lati, p1.Lati);
+                var maxLati = Math.max(p2.Lati, p1.Lati);
+            }
+            var drawOpition = 0;
+            var drawFig = 0;
             $.get(earthquakes.getUrl(drawOpition, drawingState, drawFig), function (EQ) {
                 wwd.removeLayer(earthquakeLayer);
                 placeMarkCreation(EQ);
@@ -126,14 +128,8 @@ define(['./Circle',
         var p2 = new WorldPoint(wwd);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  Pre-populate dropdowns with initial dates
-        var initialFromDate = earthquakes.FromDate;
-        initialFromDate = initialFromDate.split("T")[0];
-        console.log(initialFromDate);
-        var initialToDate = earthquakes.ToDate;
-        initialToDate = initialToDate.split("T")[0];
-        console.log(initialToDate);
-        $("#fromdatepicker").datepicker("setDate", initialFromDate);
-        $("#todatepicker").datepicker("setDate", initialToDate);
+        $("#fromdatepicker").datepicker("setDate", earthquakes.initialQuery.fromDate.split("T")[0]);
+        $("#todatepicker").datepicker("setDate", earthquakes.initialQuery.toDate.split("T")[0]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         function placeMarkCreation(GeoJSON) {
             var minMagnitude = $("#magSlider").slider("values", 0);
