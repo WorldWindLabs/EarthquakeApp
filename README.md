@@ -1,4 +1,4 @@
-Earthquake Data Analysis Sandbox
+Magnetic Field Data Anomaly Detection Analysis Sandbox
 =======================================================================
 **Organization:** NASA Ames Research Center (PX)  
 **Partners:** Trillium Learning, Kodiak School District  
